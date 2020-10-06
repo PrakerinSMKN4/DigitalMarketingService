@@ -1,0 +1,33 @@
+.side-text {
+    text-align: center;
+    display: none;
+    opacity: 0;
+    transition: opacity .50s ease-in-out;
+    -moz-transition: opacity .50s ease-in-out;
+    -webkit-transition: opacity .50s ease-in-out;
+}
+
+.sidebar-link {
+    color : #7c7c7c;
+    position: sticky; /* Kalo Kepake :v */
+}
+.active, .sidebar-link:hover {
+    color : #3dcb60;
+}
+
+#sideBar {
+    width: 5em;
+    background: #21222A;
+    transition: width 0.5s ease-in-out;
+    overflow: hidden;
+}
+
+#toggle-button {
+    background: #3f3f44;
+    width: 1em;
+    height: 5em;
+    cursor: pointer;
+    position: sticky; /* Kalo Kepake :v */
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+}
