@@ -1,11 +1,18 @@
+<?php
+    isLogin();
+?>
 <head>
     <title>Login</title>
+
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     {{-- Plugin --}} 
     <link rel="stylesheet" href="{{asset('/plugin/Bootstrap 4.4.1/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('/plugin/Font Awesome 4.7.0/css/font-awesome.min.css')}}">
     <script src="{{asset('/plugin/jquery-3.4.1.min.js')}}"></script>
     <script src="{{asset('/plugin/Bootstrap 4.4.1/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('/js/ajax.js')}}"> </script>
 </head>
 
 {{--@if(session('error'))
@@ -40,6 +47,12 @@
                     <h4>WELCOME!</h4>
                     <h4>Let's do your change</h4>
                 </div>
+
+                 {{-- Error Validation --}}
+                 @if(session('error'))
+                    <i style="color: red;" class="text-danger ml-3 mb-3"> {{ session('error') }} </i>
+                @endif 
+
                 <div class="mt-4">
                     {{-- <form action="/postlogin" method="POST"> --}}
                     <form action="{{ route ('login')}}" method="POST"> 
@@ -92,16 +105,19 @@
                             </div>
                             <div class="modal-body">
                             {{-- Email --}}
+                            <div class="alert-success mb-4"><center><b id="messageEmail"></b></center></div>
                         <div class="form-row mb-4">
+                            
                             <div class="col-2 align-self-center">
                                 <i class="fa fa-user fa-2x" aria-hidden="true"></i>
                             </div>
                             <div class="col">
-                                <input type="text" class="form-control" name="Email" placeholder="Email">
+                                <input type="text" class="form-control" name="Email" id="emailForgot" placeholder="Email">
                             </div>
+                            <button type="button" class="btn btn-primary" id="sendOTP">Send OTP</button> 
                         </div>
 
-                        {{-- Password--}}
+                        {{-- OTP --}}
                         <div class="form-row mb-4">
                             <div class="col-2 align-self-center">
                                 <i class="fa fa-lock fa-2x" aria-hidden="true"></i>
@@ -109,18 +125,134 @@
                             <div class="col">
                                 <input type="password" class="form-control" id="OTP" name="OTP" placeholder="OTP">
                             </div>
-                            <button type="button" class="btn btn-primary">Send OTP</button> 
+                            
                         </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Forgot Password</button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" id="confirmOTP">Confirm</button>
                             </div>
                             </div>
                         </div>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+                    {{-- Insert New Password--}}
+                    <div class="modal fade" id="newPass" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Insert New Password</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                            {{-- New Password --}}
+                            <div class="mb-4" id="divMessage"><center><b id="message"></b></center></div>
+                        <div class="form-row mb-4">
+                            <div class="col-2 align-self-center">
+                            <i class="fa fa-lock fa-2x" aria-hidden="true"></i>
+                            </div>
+                            <div class="col">
+                                <input type="password" class="form-control" id="npass" name="New Password" placeholder="New Password">
+                            </div>
+                        </div>
+
+                        {{-- Password Confirmation --}}
+                        <div class="form-row mb-4">
+                            <div class="col-2 align-self-center">
+                                <i class="fa fa-lock fa-2x" aria-hidden="true"></i>
+                            </div>
+                            <div class="col">
+                                <input type="password" class="form-control" id="cpass" name="Cpass" placeholder="Confirm Password">
+                            </div> 
+                        </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" id="submitChange" class="btn btn-primary" data-toggle="modal" data-target="#">Change</button>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+   
+    
+    $(document).ready(function(){
+        var targetEmail;
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $("#sendOTP").click(function(){
+            targetEmail = $("#emailForgot").val();
+           
+            $.ajax({
+                url: "/sendOTP",
+                type: 'POST',
+                data: {email:targetEmail},
+                success: function(response) {
+                   if(response.status){
+                       $("#messageEmail").text("Kode Berhasil Dikirim!");
+                   }
+                },
+            });
+
+        });
+
+        $("#confirmOTP").click(function(){
+            var code = $("#OTP").val();
+            $.ajax({
+                url: "/confirmOTP",
+                type: 'POST',
+                data: {otp:code},
+                success: function(response) {
+                   if(response.status == true){
+                       $("#exampleModal").modal("hide");
+                       $("#newPass").modal("show");
+                       $("#submitChange").click(function(){
+                            validateInput();
+                       });
+                       
+                   }
+                },
+            });
+        });
+
+        function validateInput(){
+            var newPass = $("#npass").val();
+            var confirmPass = $("#cpass").val();
+            if(newPass == confirmPass){
+                $.ajax({
+                    url: "/changePass",
+                    type: 'POST',
+                    data: {email:targetEmail,password:newPass},
+                    success: function(response) {
+                        if(response.status){
+                            $("#divMessage").addClass("alert-success");
+                            $("#message").text(response.message + ", silakan login");
+                            $("#npass").prop('disabled', true);
+                            $("#cpass").prop('disabled', true);
+                        }else{
+                            $("#divMessage").addClass("alert-danger");
+                            $("#message").text(response.message);
+                        }
+                    },
+                });
+            }
+        }
+    });
+    
+   
+
+</script>

@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ResetPassController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,12 +23,17 @@ Route::get('/', function () {
 Route::get('/register', function(){
     return view('register');
 })->middleware('guest');
+
+Route::post('/sendOTP',[ResetPassController::class,'sendOTP']);
+Route::post('/confirmOTP',[ResetPassController::class,'validateOTP']);
+Route::post('/changePass',[ResetPassController::class,'changePassword']);
+
 Route::post('/register', [AuthController::class, 'postRegister'])->name('register')->middleware('guest');
 Route::get('/login', function () {
     return view('login');
-})->middleware('guest');
+})->name('login')->middleware('guest');
 Route::post('/login', [AuthController::class, 'postLogin'])->name('login')->middleware('guest');
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('redirect/{driver}',[AuthController::class,'redirectToProvider'])->name('login.provider');
 Route::get('{provider}/callback',[AuthController::class, 'handleProviderCallback']);
 

@@ -49,7 +49,7 @@ class AuthController extends Controller
             // Authentication passed...
             return redirect()->intended('about');
         }
-        return redirect('/register');
+        return redirect('/login')->with('error','Username / Password salah!');
 
       
     }
