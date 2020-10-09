@@ -32,3 +32,8 @@ function closeNav() {
     }, 400);
     
 }
+
+function logout() {
+    event.preventDefault(); 
+    document.getElementById('logout').submit();
+}

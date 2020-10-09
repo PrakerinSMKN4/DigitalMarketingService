@@ -1,5 +1,5 @@
 <head>
-    <title>Profile</title>
+    <title>Monitoring</title>
 
     {{-- Plugin --}}
     <link rel="stylesheet" href="{{asset('/plugin/Bootstrap 4.4.1/css/bootstrap.min.css')}}">
@@ -20,7 +20,7 @@
             <div class="row align-items-center mt-3">
                 {{-- Header --}}
                 <div class="col-3 offset-1" style="text-align: center;">
-                    <h4 class="m-0" style="font-size: 20pt; color: #7c7c7c;"><i class="fa fa-id-card mr-2" aria-hidden="true"></i>&nbsp;Company Profile</h4>
+                    <h4 class="m-0" style="font-size: 20pt; color: #7c7c7c;"><i class="fa fa-pie-chart mr-2" aria-hidden="true"></i>&nbsp;Monitoring</h4>
                 </div>
                 
                 {{-- Search --}}
@@ -35,64 +35,6 @@
             </div>
 
             <div class="row mt-3 p-3">
-
-                {{-- Left Section --}}
-                <div class="col offset-1 mr-3" style="background: white;">
-                    {{-- Icon --}}
-                    <div class="row justify-content-center m-3">
-                        <div class="col-auto">
-                            <i class="fa fa-id-card fa-2x" aria-hidden="true"></i>
-                        </div>
-                    </div>
-                    {{-- Company Name --}}
-                    <div class="row m-3">
-                        <div class="form-group">
-                            <label>Company Name</label>
-                            <input type="text" class="form-control">
-                        </div>
-                    </div>
-                    {{-- Company Adress --}}
-                    <div class="row m-3">
-                        <div class="form-group">
-                            <label>Company Address</label>
-                            <input type="text" class="form-control">
-                        </div>
-                    </div>
-                    {{-- Operational Time --}}
-                    <div class="row m-3">
-                        <div class="form-group">
-                            <label>Operational Time</label>
-                            <input type="text" class="form-control">
-                        </div>
-                    </div>
-                    {{-- Email --}}
-                    <div class="row m-3">
-                        <div class="form-group">
-                            <label>Operational Time</label>
-                            <input type="text" class="form-control">
-                        </div>
-                    </div>
-                    {{-- Social Media --}}
-                    <div class="row m-3">
-                        <div class="form-group">
-                            <label>Social</label>
-                            <input type="text" class="form-control">
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Right Section --}}
-                <div class="col">
-                    <div class="row p-3" style="background: white;">Description</div>
-                    <div class="row mt-3 p-3" style="background: white;">
-                        <div class="col">Vision</div>
-                        <div class="col">Mission</div>
-                    </div>
-                    <div class="row mt-3 p-3" style="background: white;">
-                        <div class="col">Type of Business</div>
-                    </div>
-                </div>
-
                 <div class="col-1">{{-- Offset --}}</div>
             </div>
         </div>
@@ -115,7 +57,7 @@
                 </a>
                 
                 {{-- Social Media Monitoring --}}
-                <a href="{{route('monitoring')}}" class="sidebar-link">
+                <a href="{{route('monitoring')}}" class="sidebar-link active">
                     <div class="row">
                         <div class="col-1 m-3"><i class="fa fa-pie-chart fa-2x" aria-hidden="true"></i></div>
                         <div class="col align-self-center side-text">Social Media Monitoring</div>
@@ -139,7 +81,7 @@
                 </a>
 
                 {{-- Connected Social Media --}}
-                <a href="{{route('connection')}}" class="sidebar-link active">
+                <a href="{{route('connection')}}" class="sidebar-link">
                     <div class="row">
                         <div class="col-1 m-3"><i class="fa fa-user fa-2x" aria-hidden="true"></i></div>
                         <div class="col align-self-center side-text">Connected Social Media</div>

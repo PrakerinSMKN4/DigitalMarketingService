@@ -38,13 +38,24 @@ Route::get('redirect/{driver}',[AuthController::class,'redirectToProvider'])->na
 Route::get('{provider}/callback',[AuthController::class, 'handleProviderCallback']);
 
 Route::group(['middleware' => 'auth'], function(){
-   Route::get('/profile', function(){
+    
+    Route::get('/monitoring', function () {
+        return view('monitoring');
+    })->name('monitoring');
+    
+    Route::get('/profile', function () {
         return view('profile');
-    }); 
-    Route::get('/home', function(){
-        return view('home');
-    });     
-    Route::get('/about', function () {
-        return view('about');
-    });
+    })->name('profile');
+
+    Route::get('/setting', function () {
+        return view('setting');
+    })->name('setting');
+
+    Route::get('/connection', function () {
+        return view('connection');
+    })->name('connection');
+
+    Route::get('/schedule', function () {
+        return view('schedule');
+    })->name('schedule');
 });
