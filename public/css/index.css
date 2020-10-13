@@ -9,7 +9,6 @@
 
 .sidebar-link {
     color : #7c7c7c;
-    position: sticky; /* Kalo Kepake :v */
 }
 .active, .sidebar-link:hover {
     color : #3dcb60;

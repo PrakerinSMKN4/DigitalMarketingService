@@ -47,7 +47,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             // Authentication passed...
-            return redirect()->intended('about');
+            return redirect()->intended('/');
         }
         return redirect('/login')->with('error','Username / Password salah!');
 

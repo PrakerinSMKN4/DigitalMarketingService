@@ -40,7 +40,7 @@
         </div>
 
         {{-- Side Bar --}}
-        <div class="row h-100" style="position: absolute;">
+        <div class="row h-100" style="position: fixed;">
             <div id="sideBar" class="col-auto">
                 {{-- Logo Perusahaan --}}
                 <div class="row mb-5">

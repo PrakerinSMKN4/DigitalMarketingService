@@ -98,7 +98,7 @@
         </div>
 
         {{-- Side Bar --}}
-        <div class="row h-100" style="position: absolute;">
+        <div class="row h-100" style="position: fixed;">
             <div id="sideBar" class="col-auto">
                 {{-- Logo Perusahaan --}}
                 <div class="row mb-5">
@@ -123,7 +123,7 @@
                 </a>
                 
                 {{-- Company Profile --}}
-                <a href="{{route('profile')}}" class="sidebar-link">
+                <a href="{{route('profile')}}" class="sidebar-link active">
                     <div class="row">
                         <div class="col-1 m-3"><i class="fa fa-id-card fa-2x" aria-hidden="true"></i></div>
                         <div class="col align-self-center side-text">Company Profile</div>
@@ -139,7 +139,7 @@
                 </a>
 
                 {{-- Connected Social Media --}}
-                <a href="{{route('connection')}}" class="sidebar-link active">
+                <a href="{{route('connection')}}" class="sidebar-link">
                     <div class="row">
                         <div class="col-1 m-3"><i class="fa fa-user fa-2x" aria-hidden="true"></i></div>
                         <div class="col align-self-center side-text">Connected Social Media</div>
