@@ -43,11 +43,13 @@
                     <div class="form-row justify-content-end">
                         <div class="col-auto align-self-center"><label class="text-muted m-0">Filter :</label></div>
                         <div class="col-auto">
-                            <select class="form-control-sm" name="timesort">
-                                <option value="day">Daily</option>
-                                <option value="week">Weekly</option>
-                                <option value="month">Monthly</option>
-                            </select>
+                            <form action="#" method="POST" class="m-0">
+                                <select class="form-control-sm" name="timesort">
+                                    <option value="day">Daily</option>
+                                    <option value="week">Weekly</option>
+                                    <option value="month">Monthly</option>
+                                </select>
+                            </form>
                         </div>
                     </div>
                 </div>

@@ -46,8 +46,13 @@ Route::group(['middleware' => 'auth'], function(){
     })->name('profile');
 
     Route::get('/setting', function () {
-        return view('setting');
+        return view('setting_index');
     })->name('setting');
+    
+    // Ntar diganti jadi id masing" menu
+    Route::get('/setting/id', function () {
+        return view('setting_div');
+    })->name('settingDiv');
 
     Route::get('/connection', function () {
         return view('connection');

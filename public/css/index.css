@@ -26,7 +26,14 @@
     width: 1em;
     height: 5em;
     cursor: pointer;
-    position: sticky; /* Kalo Kepake :v */
     border-top-right-radius: 1rem;
     border-bottom-right-radius: 1rem;
+}
+
+.centered {
+    text-align: center;
+}
+
+td {
+    padding: 0.5em;
 }

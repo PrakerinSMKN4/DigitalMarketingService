@@ -15,14 +15,15 @@
 
         {{-- Content --}}
         <div class="col" style="background: #DFD9D9;">
-            
+
             {{-- Search and Header --}}
             <div class="row align-items-center mt-3">
                 {{-- Header --}}
                 <div class="col-3 offset-1" style="text-align: center;">
-                    <h4 class="m-0" style="font-size: 20pt; color: #7c7c7c;"><i class="fa fa-clipboard mr-2" aria-hidden="true"></i>&nbsp;Menu Setting</h4>
+                    <h4 class="m-0" style="font-size: 20pt; color: #7c7c7c;"><i class="fa fa-clipboard mr-2"
+                            aria-hidden="true"></i>&nbsp;Menu Setting</h4>
                 </div>
-                
+
                 {{-- Search --}}
                 <form action="#" method="POST" class="col-7 m-0">
                     <div class="input-group">
@@ -34,7 +35,41 @@
                 </form>
             </div>
 
-            <div class="row mt-3 p-3">
+            {{-- Add Menu --}}
+            <div class="row mt-4">
+                <div class="col offset-1" style="font-size: 18pt;">Menu : Home</div>
+                <div class="col-2">
+                    <div class="form-row justify-content-end">
+                        <div class="col-auto align-self-center"><a href="#" class="m-0"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Content</a></div>
+                    </div>
+                </div>
+                <div class="col-1">{{-- Offset --}}</div>
+            </div>
+
+            <div class="row mt-1 p-3">
+                <div class="col offset-1">
+                    <form action="#" method="POST">
+                        <table border="1" class="col centered">
+                            <tr>
+                                <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                                <td>No</td>
+                                <td>Content</td>
+                                <td>Filling</td>
+                                <td>Control</td>
+                                <td colspan="2">Action</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" name="" id=""></td>
+                                <td>1</td>
+                                <td>Carousel</td>
+                                <td><a href="#"><i class="fa fa-plus" aria-hidden="true"></i></a></td>
+                                <td><input type="checkbox" class="" name="" id=""></td>
+                                <td><button>Test</button></td>
+                                <td><button>Test</button></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
                 <div class="col-1">{{-- Offset --}}</div>
             </div>
         </div>
@@ -55,7 +90,7 @@
                         <div class="col align-self-center side-text">Dashboard</div>
                     </div>
                 </a>
-                
+
                 {{-- Social Media Monitoring --}}
                 <a href="{{route('monitoring')}}" class="sidebar-link">
                     <div class="row">
@@ -63,7 +98,7 @@
                         <div class="col align-self-center side-text">Social Media Monitoring</div>
                     </div>
                 </a>
-                
+
                 {{-- Company Profile --}}
                 <a href="{{route('profile')}}" class="sidebar-link">
                     <div class="row">
@@ -105,7 +140,7 @@
                     </div>
                 </a>
             </div>
-            <div id="toggle-button" class="col p-0 align-self-center" onclick="openNav()"></div>            
+            <div id="toggle-button" class="col p-0 align-self-center" onclick="openNav()"></div>
         </div>
     </div>
 </body>
