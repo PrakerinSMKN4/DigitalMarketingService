@@ -7,6 +7,19 @@
     <script src="{{asset('/plugin/jquery-3.4.1.min.js')}}"></script>
     <script src="{{asset('/plugin/Bootstrap 4.4.1/js/bootstrap.min.js')}}"></script>
 
+    <link rel="stylesheet" href="{{asset('/plugin/fullcalendar/main.css')}}">
+    <script src="{{asset('/plugin/fullCalendar/main.js')}}"></script>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+          var calendarEl = document.getElementById('calendar');
+          var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth'
+          });
+          calendar.render();
+        });
+  
+      </script>
     <link rel="stylesheet" href="{{asset('/css/index.css')}}">
 </head>
 
@@ -35,6 +48,9 @@
             </div>
 
             <div class="row mt-3 p-3">
+                <div class="col offset-1">
+                    <div id="calendar"></div>
+                </div>
                 <div class="col-1">{{-- Offset --}}</div>
             </div>
         </div>
