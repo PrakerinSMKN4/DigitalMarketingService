@@ -14,7 +14,8 @@
         document.addEventListener('DOMContentLoaded', function() {
           var calendarEl = document.getElementById('calendar');
           var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth'
+            initialView: 'dayGridMonth',
+            fixedWeekCount: false
           });
           calendar.render();
         });
@@ -48,9 +49,7 @@
             </div>
 
             <div class="row mt-3 p-3">
-                <div class="col offset-1">
-                    <div id="calendar"></div>
-                </div>
+                <div id="calendar" class="col offset-1" style="z-index: 0;"></div>
                 <div class="col-1">{{-- Offset --}}</div>
             </div>
         </div>
