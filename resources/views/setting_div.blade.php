@@ -40,7 +40,7 @@
                 <div class="col offset-1" style="font-size: 18pt;">Menu : Home</div>
                 <div class="col-2">
                     <div class="form-row justify-content-end">
-                        <div class="col-auto align-self-center"><a href="#" class="m-0"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Content</a></div>
+                        <div class="col-auto align-self-center"><button type="button" class="btn btn-primary"><i class="fa fa-plus-circle" data-toggle="modal" data-target="#addcontent"></i>&nbsp;Add Content</button></div>
                     </div>
                 </div>
                 <div class="col-1">{{-- Offset --}}</div>
@@ -63,9 +63,9 @@
                                 <td>1</td>
                                 <td>Carousel</td>
                                 <td><a href="#"><i class="fa fa-plus" aria-hidden="true"></i></a></td>
-                                <td><input type="checkbox" class="" name="" id=""></td>
-                                <td><button>Test</button></td>
-                                <td><button>Test</button></td>
+                                <td><label class="switch"><input type="checkbox"><span class="slider round"></span></label></td>
+                                <td><button class="btn btn-success">Edit</button></td>
+                                <td><button class="btn btn-danger">Delete</button></td>
                             </tr>
                         </table>
                     </form>
