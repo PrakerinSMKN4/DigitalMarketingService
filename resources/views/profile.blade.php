@@ -48,49 +48,83 @@
                     <div class="row m-3">
                         <div class="form-group">
                             <label>Company Name</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" style="width:300px">
                         </div>
                     </div>
                     {{-- Company Adress --}}
                     <div class="row m-3">
                         <div class="form-group">
-                            <label>Company Address</label>
-                            <input type="text" class="form-control">
+                            <label>Company Address</label><br>
+                            <textarea cols="40" rows="3" style="resize:none"></textarea>
                         </div>
                     </div>
-                    {{-- Operational Time --}}
+                    {{-- Operational Time (OPEN) --}}
                     <div class="row m-3">
                         <div class="form-group">
-                            <label>Operational Time</label>
-                            <input type="text" class="form-control">
+                            <label>Operational Time (OPEN) :</label>
+                            <input type="time" class="form-control" style="width:300px;text-align:center">
                         </div>
                     </div>
-                    {{-- Email --}}
+                    {{-- Operational Time (Closed)--}}
                     <div class="row m-3">
                         <div class="form-group">
-                            <label>Operational Time</label>
-                            <input type="text" class="form-control">
+                            <label>Operational Time (CLOSED) :</label>
+                            <input type="time" class="form-control" style="width:300px;text-align:center">
                         </div>
                     </div>
                     {{-- Social Media --}}
                     <div class="row m-3">
                         <div class="form-group">
-                            <label>Social</label>
-                            <input type="text" class="form-control">
+                            <label>Social Media/Contact</label>
+                                <div class="col">
+                                    <div class="row-md-2">
+                                        <div class="col 1">
+                                            <i class="fa fa-facebook-square" aria-hidden="true"> </i>
+                                        </div>
+                                        <div class="col 1">
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
                         </div>
                     </div>
                 </div>
 
                 {{-- Right Section --}}
                 <div class="col">
-                    <div class="row p-3" style="background: white;">Description</div>
-                    <div class="row mt-3 p-3" style="background: white;">
-                        <div class="col">Vision</div>
-                        <div class="col">Mission</div>
-                    </div>
-                    <div class="row mt-3 p-3" style="background: white;">
-                        <div class="col">Type of Business</div>
-                    </div>
+                <div class="card" style="width: 35rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Description :</h5>
+                    <textarea cols="70" rows="8" style="resize:none"></textarea>
+                </div>
+                </div>
+                <div class="row">
+                <div class="col-md-6">
+                <div class="card mt-2" style="width:17rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Vision :</h5>
+                    <textarea cols="30" rows="8" style="resize:none"></textarea>
+                </div>
+                </div>
+                </div>
+                <div class="col-md-6">
+                <div class="card mt-2" style="width:16.5rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Mission :</h5>
+                    <textarea cols="30" rows="8" style="resize:none"></textarea>
+                </div>
+                </div>
+                </div>
+                </div>
+                <div class="card mt-2" style="width:35rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Type Of Business : <select id="business">
+                        <option value="food">Food</option>
+                        <option value="technology">Technology</option>
+                        <option value="tranportation">Transportation</option>
+                    </select> </h5>
+                </div>
+                </div>
                 </div>
 
                 <div class="col-1">{{-- Offset --}}</div>
