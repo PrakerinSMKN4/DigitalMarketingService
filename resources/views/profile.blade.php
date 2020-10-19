@@ -78,12 +78,28 @@
                             <label>Social Media/Contact</label>
                                 <div class="col">
                                     <div class="row-md-2">
-                                        <div class="col 1">
-                                            <i class="fa fa-facebook-square" aria-hidden="true"> </i>
-                                        </div>
-                                        <div class="col 1">
-                                            <input type="text" class="form-control">
-                                        </div>
+                                        <div class="name-f">
+                                        <h5><i class="fa fa-facebook-square mr-2" aria-hidden="true"></i>Facebook :</h5>
+                                    </div>
+                                    <div class="input">
+                                    <input type="text" class="form-control">
+                                    </div>
+                                    </div>
+                                    <div class="row-md-2 mt-2">
+                                        <div class="name-ig">
+                                        <h5><i class="fa fa-instagram mr-2" aria-hidden="true"></i>Instagram :</h5>
+                                    </div>
+                                    <div class="input">
+                                    <input type="text" class="form-control">
+                                    </div>
+                                    </div>
+                                    <div class="row-md-2 mt-2">
+                                        <div class="name-wa">
+                                        <h5><i class="fa fa-whatsapp mr-2" aria-hidden="true"></i></i>Whatsapp :</h5>
+                                    </div>
+                                    <div class="input">
+                                    <input type="text" class="form-control">
+                                    </div>
                                     </div>
                                 </div>
                         </div>
@@ -95,7 +111,7 @@
                 <div class="card" style="width: 35rem;">
                 <div class="card-body">
                     <h5 class="card-title">Description :</h5>
-                    <textarea cols="70" rows="8" style="resize:none"></textarea>
+                    <textarea cols="70" rows="11" style="resize:none"></textarea>
                 </div>
                 </div>
                 <div class="row">
@@ -103,7 +119,7 @@
                 <div class="card mt-2" style="width:17rem;">
                 <div class="card-body">
                     <h5 class="card-title">Vision :</h5>
-                    <textarea cols="30" rows="8" style="resize:none"></textarea>
+                    <textarea cols="30" rows="12" style="resize:none"></textarea>
                 </div>
                 </div>
                 </div>
@@ -111,7 +127,7 @@
                 <div class="card mt-2" style="width:16.5rem;">
                 <div class="card-body">
                     <h5 class="card-title">Mission :</h5>
-                    <textarea cols="30" rows="8" style="resize:none"></textarea>
+                    <textarea cols="30" rows="12" style="resize:none"></textarea>
                 </div>
                 </div>
                 </div>
