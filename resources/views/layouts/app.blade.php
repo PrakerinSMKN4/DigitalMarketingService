@@ -1,80 +1,112 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@yield('title')</title>
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    {{-- Plugin --}}
+    <link rel="stylesheet" href="{{asset('/plugin/Bootstrap 4.4.1/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('/plugin/Font Awesome 4.7.0/css/font-awesome.min.css')}}">
+    <script src="{{asset('/plugin/jquery-3.4.1.min.js')}}"></script>
+    <script src="{{asset('/plugin/Bootstrap 4.4.1/js/bootstrap.min.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('/css/index.css')}}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {{-- Optional Plugin --}}
+    @yield('plugin')
 </head>
+
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+    <div class="row h-100 w-100 m-0">
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+        {{-- Content --}}
+        <div class="col" style="background: #DFD9D9;">
 
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
+            {{-- Search and Header --}}
+            <div class="row align-items-center mt-3">
+                {{-- Header --}}
+                <div class="col-3 offset-1" style="text-align: center;">
+                    <h4 class="m-0" style="font-size: 20pt; color: #7c7c7c;">@yield('header')</h4>
                 </div>
-            </div>
-        </nav>
 
-        <main class="py-4">
+                {{-- Search --}}
+                <form action="#" method="POST" class="col-7 m-0">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></div>
+                        </div>
+                        <input type="text" class="form-control" name="#" placeholder="Search">
+                    </div>
+                </form>
+            </div>
+
             @yield('content')
-        </main>
+        </div>
+        
+        {{-- Side Bar --}}
+        <div class="row h-100" style="position: fixed;">
+            <div id="sideBar" class="col-auto">
+                {{-- Logo Perusahaan --}}
+                <div class="row mb-5">
+                    <div class="col m-3"><img src="" alt="" sizes="" srcset=""></div>
+                </div>
+
+                {{-- Menu Menu --}}
+                {{-- Dashboard --}}
+                <a href="{{route('dashboard')}}" class="sidebar-link @yield('dashboard')">
+                    <div class="row">
+                        <div class="col-1 m-3"><i class="fa fa-home fa-2x" aria-hidden="true"></i></div>
+                        <div class="col align-self-center side-text">Dashboard</div>
+                    </div>
+                </a>
+
+                {{-- Social Media Monitoring --}}
+                <a href="{{route('monitoring')}}" class="sidebar-link @yield('monitoring')">
+                    <div class="row">
+                        <div class="col-1 m-3"><i class="fa fa-pie-chart fa-2x" aria-hidden="true"></i></div>
+                        <div class="col align-self-center side-text">Social Media Monitoring</div>
+                    </div>
+                </a>
+
+                {{-- Company Profile --}}
+                <a href="{{route('profile')}}" class="sidebar-link @yield('profile')">
+                    <div class="row">
+                        <div class="col-1 m-3"><i class="fa fa-id-card fa-2x" aria-hidden="true"></i></div>
+                        <div class="col align-self-center side-text">Company Profile</div>
+                    </div>
+                </a>
+
+                {{-- Menu Setting --}}
+                <a href="{{route('setting')}}" class="sidebar-link @yield('setting')">
+                    <div class="row">
+                        <div class="col-1 m-3"><i class="fa fa-clipboard fa-2x" aria-hidden="true"></i></div>
+                        <div class="col align-self-center side-text">Menu Setting</div>
+                    </div>
+                </a>
+
+                {{-- Connected Social Media --}}
+                <a href="{{route('connection')}}" class="sidebar-link @yield('connection')">
+                    <div class="row">
+                        <div class="col-1 m-3"><i class="fa fa-user fa-2x" aria-hidden="true"></i></div>
+                        <div class="col align-self-center side-text">Connected Social Media</div>
+                    </div>
+                </a>
+
+                {{-- Schedule --}}
+                <a href="{{route('schedule')}}" class="sidebar-link @yield('schedule')">
+                    <div class="row">
+                        <div class="col-1 m-3"><i class="fa fa-calendar fa-2x" aria-hidden="true"></i></div>
+                        <div class="col align-self-center side-text">Schedule</div>
+                    </div>
+                </a>
+
+                {{-- Sign Out --}}
+                <form id="logout" method="POST" action="{{route('logout')}}" class="m-0">@csrf</form>
+                <a onclick="logout()" href="{{route('logout')}}" class="sidebar-link">
+                    <div class="row">
+                        <div class="col-1 m-3"><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i></div>
+                        <div class="col align-self-center side-text">Sign Out</div>
+                    </div>
+                </a>
+            </div>
+            <div id="toggle-button" class="col p-0 align-self-center" onclick="openNav()"></div>
+        </div>
     </div>
 </body>
-</html>
+<script src="{{asset('/js/index.js')}}"></script>
