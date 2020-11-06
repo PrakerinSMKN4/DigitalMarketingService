@@ -10,4 +10,6 @@ class ItemPage extends Model
 {
     use HasFactory, Notifiable;
     
+    protected $table = 'item_pages';
+    protected $fillable =  [ 'id_pages', 'judul', 'keterangan', 'multimedia'];
 }

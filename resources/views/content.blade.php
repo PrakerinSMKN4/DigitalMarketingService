@@ -1,5 +1,5 @@
 <head>
-    <title>Setting</title>
+    <title>Profile</title>
 
     {{-- Plugin --}}
     <link rel="stylesheet" href="{{asset('/plugin/Bootstrap 4.4.1/css/bootstrap.min.css')}}">
@@ -11,21 +11,25 @@
 </head>
 
 <body>
+
+    
     <div class="row h-100 w-100 m-0">
 
         {{-- Content --}}
         <div class="col" style="background: #DFD9D9;">
-
+            
             {{-- Search and Header --}}
             <div class="row align-items-center mt-3">
                 {{-- Header --}}
                 <div class="col-3 offset-1" style="text-align: center;">
-                    <h4 class="m-0" style="font-size: 20pt; color: #7c7c7c;"><i class="fa fa-clipboard mr-2"
-                            aria-hidden="true"></i>&nbsp;Menu Setting</h4>
+                    <h4 class="m-0" style="font-size: 20pt; color: #7c7c7c;"><i class="fa fa-id-card mr-2" aria-hidden="true"></i>&nbsp;Company Profile</h4>
                 </div>
-
+                
                 {{-- Search --}}
                 <form action="#" method="POST" class="col-7 m-0">
+                    @csrf
+
+                  
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></div>
@@ -35,60 +39,55 @@
                 </form>
             </div>
 
-            {{-- Add Menu --}}
-            <div class="row mt-4">
-                <div class="col offset-1" style="font-size: 18pt;">Menu : Home</div>
-                <div class="col-2">
-                    <div class="form-row justify-content-end">
-                        <div class="col-auto align-self-center">
-                            <a href="{{route('content')}}"><button type="button" class="btn btn-primary"><i class="fa fa-plus-circle" data-toggle="modal" data-target="#addcontent"></i>&nbsp;Add Content</button></a>
-                            
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        
+            <form action="{{ route('content_store', ) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+
+                <div class="row mt-3 p-3">
+                    <div class="col offset-1 mr-3" style="background: white;">
+                        <div class="row justify-content-center m-3">
+                            <div class="col-auto">
+                                <i class="fa fa-id-card fa-2x" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="row m-3">
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" style="width:300px" name="id_pages" value="{{ 1}}">
+                            </div>
+                        </div>
+                        {{-- Judul --}}
+                        <div class="row m-3">
+                            <div class="form-group">
+                                <label>Judul</label>
+                                <input type="text" class="form-control" style="width:300px" name="judul">
+                            </div>
+                        </div>
+                        {{-- Deskripsi --}}
+                        <div class="row m-3">
+                            <div class="form-group">
+                                <label>Keterangan</label><br>
+                                <textarea cols="40" rows="3" style="resize:none" name="keterangan"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="file" name="multimedia" class="form-control">
+                        </div>
+                        <div class="row m-4">
+                            <button class="btn btn-dark mt-4" type="submit" style="width: 30%; height:60%;">SUBMIT</button>
                         </div>
                     </div>
-                </div>
-                <div class="col-1">{{-- Offset --}}</div>
-            </div>
-
-            <div class="row mt-1 p-3">
-                <div class="col offset-1">
-                    <form action="#" method="POST">
-                        <table border="1" class="col centered">
-                            <tr>
-                                <td><i class="fa fa-check" aria-hidden="true"></i></td>
-                                <td>No</td>
-                                <td>Content</td>
-                                <td>Filling</td>
-                                <td>Control</td>
-                                <td colspan="2">Action</td>
-                            </tr>
-                            @php
-                            $i = 0;
-                            @endphp
-                        @foreach ($itempages as $itempage)
-                            <tr>
-                                <td><input type="checkbox" name="" id=""></td>
-                                <td>{{ ++$i }}</td>
-                                <td>{{ $itempage->judul }}</td>
-                                <td>{{ $itempage->keterangan }}</td>
-                                <td><label class="switch"><input type="checkbox"><span class="slider round"></span></label></td>
-                                <td>
-                                    <a href="{{ url('setting/edit',$itempage->id) }}" class="btn btn-success">Edit</a>
-                                </td>
-                            <form action="{{ url('setting/destroy', $itempage->id) }} " method="POST">
-                                @csrf
-                                @method('delete')
-                                <td>
-                                    <button class="btn btn-danger" type="submit"> Delete</button>
-                                </td>
-                            </form>
-                            </tr>
-                        @endforeach
-                        </table>
-                    </form>
-                </div>
-                <div class="col-1">{{-- Offset --}}</div>
-            </div>
-        </div>
+            </form>
+            
 
         {{-- Side Bar --}}
         <div class="row h-100" style="position: fixed;">
@@ -106,7 +105,7 @@
                         <div class="col align-self-center side-text">Dashboard</div>
                     </div>
                 </a>
-
+                
                 {{-- Social Media Monitoring --}}
                 <a href="{{route('monitoring')}}" class="sidebar-link">
                     <div class="row">
@@ -114,9 +113,9 @@
                         <div class="col align-self-center side-text">Social Media Monitoring</div>
                     </div>
                 </a>
-
+                
                 {{-- Company Profile --}}
-                <a href="{{route('profile')}}" class="sidebar-link">
+                <a href="{{route('profile')}}" class="sidebar-link active">
                     <div class="row">
                         <div class="col-1 m-3"><i class="fa fa-id-card fa-2x" aria-hidden="true"></i></div>
                         <div class="col align-self-center side-text">Company Profile</div>
@@ -124,7 +123,7 @@
                 </a>
 
                 {{-- Menu Setting --}}
-                <a href="{{route('setting')}}" class="sidebar-link active">
+                <a href="{{route('setting')}}" class="sidebar-link">
                     <div class="row">
                         <div class="col-1 m-3"><i class="fa fa-clipboard fa-2x" aria-hidden="true"></i></div>
                         <div class="col align-self-center side-text">Menu Setting</div>
@@ -156,7 +155,7 @@
                     </div>
                 </a>
             </div>
-            <div id="toggle-button" class="col p-0 align-self-center" onclick="openNav()"></div>
+            <div id="toggle-button" class="col p-0 align-self-center" onclick="openNav()"></div>            
         </div>
     </div>
 </body>
