@@ -50,9 +50,9 @@
             </div>
         @endif
         
-            <form  method="POST" enctype="multipart/form-data">
+            <form  method="POST" action="{{ route('setting_edit', $itempage->id) }}">
                 @csrf
-
+                @method('PATCH')
                 <div class="row mt-3 p-3">
                     <div class="col offset-1 mr-3" style="background: white;">
                         <div class="row justify-content-center m-3">
@@ -64,24 +64,24 @@
                         <div class="row m-3">
                             <div class="form-group">
                                 <label>Judul</label>
-                                <input type="text" class="form-control" style="width:300px" name="judul" value="{{ $itempages->judul }}">
+                                <input type="text" class="form-control" style="width:300px" name="judul" value="{{ $itempage->judul }}">
                             </div>
-                        </div>
+                        </div>                        
                         {{-- Deskripsi --}}
                             <div class="row m-3">
                                 <div class="form-group">
                                     <label>Keterangan</label><br>
-                                    <textarea cols="40" rows="3" style="resize:none" name="keterangan" value=" {{ $itempages->keterangan }}"></textarea>
+                                    <textarea cols="40" rows="3" style="resize:none" name="keterangan"> {{$itempage->keterangan }}</textarea>
                                 </div>
                             </div>
-                            {{--Upload Images --}}
-                            <div class="col-md-6">
-                                <input type="file" name="multimedia" class="form-control">
-                            </div>
+                            {{-- <div class="col-md-6">
+                                <input type="file" name="multimedia" class="form-control" value=" {{$itempage->multimedia }}">
+                            </div> --}}
                             
                         <div class="row m-4">
                             <button class="btn btn-dark mt-4" type="submit" style="width: 30%; height:60%;">SUBMIT</button>
                         </div>
+                        
                     </div>
             </form>
             

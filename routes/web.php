@@ -59,10 +59,11 @@ Route::group(['middleware' => 'auth'], function(){
         return view('setting_index');
     })->name('setting');
 
-    Route::get('/profile', [CompanyController::class, 'create'])->name('profile');
+    Route::get('/profile', [CompanyController::class, 'create'])->name('profile_index');
     Route::get('/profile', [CompanyController::class, 'index'])->name('profile');
     Route::post('/profile/store', [CompanyController::class, 'store']);
-    
+    Route::get('/profile/edit', [CompanyController::class, 'edit'])->name('profile_edit');
+    Route::patch('/profile/edit/{Company:id}', [CompanyController::class, 'update'])->name('profile_update');
 
     //Route::resource('Itempages', ItemController::class);
     Route::get('/setting/id',[ItemController::class, 'index'])->name('settingDiv');
@@ -70,10 +71,10 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/content/store', [ItemController::class, 'store'])->name('content_store');
 
 
-   Route::get('/setting/edit/{id}', [ItemController::class, 'edit']);
+   
+    Route::patch('/setting/edit/{itempage:id}',[ItemController::class, 'update'])->name('setting_edit');
+    Route::get('/setting/edit/{itempage:id}', [ItemController::class, 'edit']);
     Route::delete('/setting/destroy/{id}', [ItemController::class, 'destroy']);
-    //Route::patch('/setting/edit/{$id}',[ItemController::class, 'update']);
-
 
     // Ntar diganti jadi id masing" menu
    /* Route::get('/setting/id', function () {

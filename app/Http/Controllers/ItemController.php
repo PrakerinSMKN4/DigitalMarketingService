@@ -44,8 +44,9 @@ class ItemController extends Controller
             'keterangan'=> 'required|string'
         ]; */
 
+       // dd($request);
         $request->validate([
-            'multimedia' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10048',
+            'multimedia' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:10048',
             'judul'=> 'required|string|',
             'keterangan'=> 'required|string'
         ]);
@@ -88,8 +89,8 @@ class ItemController extends Controller
     public function edit(ItemPage $itempage)
     {
         //
-        dd($itempage);
-       // return view('content_edit', compact('itempages'));
+       // dd($itempage);
+       return view('content_edit', compact('itempage'));
     }
 
     /**
@@ -102,16 +103,39 @@ class ItemController extends Controller
     public function update(Request $request, ItemPage $itempages)
     {
         //
+
+        //dd($request);
+        $data = ItemPage::find($request,);
+
         $request->validate([
             'judul' => 'required',
-            'keterangan' => 'required',
+            'keterangan' => 'required'        
+            ]);
+
+    
+     
+     //ItemPage::where('id', $itempages)->update($request->all());
+       
+        ItemPage::where('id', $itempages)->update([
+            'judul'=> $request->judul,
+            'keterangan'=> $request->keterangan
         ]);
 
-        $itempages->update($request->all());
+        return redirect()->route('settingDiv')
+                    ->with('success','Product updated successfully');
+        
+        
+        /* 
+       $imageName = time().'.'.$request->multimedia->extension();  
+     
+        $request->multimedia->move(public_path('images'), $imageName);
+
+         $itempages->update($request->all());
 
         return redirect()->route('settingDiv')
-                        ->with('success','Product updated successfully');
-    }
+                    ->with('success','Product updated successfully'); */ 
+
+    } 
 
    /**
      * Remove the specified resource from storage.
