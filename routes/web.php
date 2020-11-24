@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ResetPassController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\MenuController;
 
 use function Ramsey\Uuid\v1;
 
@@ -55,9 +56,8 @@ Route::group(['middleware' => 'auth'], function(){
         return view('schedule');
     })->name('schedule');   
    
-    Route::get('/setting', function () {
-        return view('setting_index');
-    })->name('setting');
+    Route::get('/setting',[MenuController::class, 'create'])->name('setting');
+    Route::post('/setting/store', [MenuController::class, 'store']);
 
     Route::get('/profile', [CompanyController::class, 'create'])->name('profile_index');
     Route::get('/profile', [CompanyController::class, 'index'])->name('profile');
@@ -70,8 +70,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/content', [ItemController::class, 'create'])->name('content');
     Route::post('/content/store', [ItemController::class, 'store'])->name('content_store');
 
-
-   
     Route::patch('/setting/edit/{itempage:id}',[ItemController::class, 'update'])->name('setting_edit');
     Route::get('/setting/edit/{itempage:id}', [ItemController::class, 'edit']);
     Route::delete('/setting/destroy/{id}', [ItemController::class, 'destroy']);

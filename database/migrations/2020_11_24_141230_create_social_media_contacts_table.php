@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSocialMediaAccountsTable extends Migration
+class CreateSocialMediaContactsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateSocialMediaAccountsTable extends Migration
      */
     public function up()
     {
-        Schema::create('social_media_accounts', function (Blueprint $table) {
+        Schema::create('social_media_contacts', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('id_company')->unsigned();
             $table->string('username')->unique();
             $table->string('password');
-            $table->enum('social_media',['Instagram','Facebook']);
+            $table->enum('social_media',['Instagram','Facebook', 'Whatsapp']);
             $table->enum('kategori_akun',['Makanan','Clean','Corporate','Fashion','Non Profit','Residence','Fun']);
             $table->string('website');
             $table->timestamps();
@@ -34,6 +34,6 @@ class CreateSocialMediaAccountsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('social_media_accounts');
+        Schema::dropIfExists('social_media_contacts');
     }
 }

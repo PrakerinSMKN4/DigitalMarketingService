@@ -17,8 +17,9 @@ class CreateMenuPagesTable extends Migration
             $table->id();
             $table->bigInteger('id_company')->unsigned();
             $table->string('keterangan');
-            $table->string('deskripsi');
-            $table->binary('multimedia');
+            $table->string('deskripsi')->nullable();
+            $table->enum('jenis_halaman',['profile','products','services','about']);
+            $table->string('multimedia')->nullable();
             $table->timestamps();
 
             $table->foreign('id_company')->references('id')->on('companies');

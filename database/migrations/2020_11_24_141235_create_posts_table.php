@@ -22,7 +22,7 @@ class CreatePostsTable extends Migration
             $table->string('tema');
             $table->timestamps();
 
-            $table->foreign('id_account')->references('id')->on('social_media_accounts');
+            $table->foreign('id_account')->references('id')->on('social_media_contacts');
         });
     }
 

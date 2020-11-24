@@ -18,7 +18,7 @@ class CreateItemPagesTable extends Migration
             $table->bigInteger('id_pages')->unsigned();
             $table->string('judul');
             $table->string('keterangan');
-            $table->binary('multimedia');
+            $table->string('multimedia');
             $table->timestamps();
 
             $table->foreign('id_pages')->references('id')->on('menu_pages');

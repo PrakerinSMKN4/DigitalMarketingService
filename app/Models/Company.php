@@ -15,6 +15,5 @@ class Company extends Model
     
     function SosmedAccount(){
         return $this->hasMany('SocialMediaAccount');
-
     }
 }

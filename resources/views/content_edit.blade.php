@@ -74,6 +74,15 @@
                                     <textarea cols="40" rows="3" style="resize:none" name="keterangan"> {{$itempage->keterangan }}</textarea>
                                 </div>
                             </div>
+                            <div class="row m-3">
+                                <div class="form-group">
+                                    <label>Keterangan</label><br>
+                                   <img src="/storage/multimedia/{{$itempage->multimedia}}" alt="" style="width: 70%"> 
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="file" name="multimedia" class="form-control" >
+                            </div>
                             {{-- <div class="col-md-6">
                                 <input type="file" name="multimedia" class="form-control" value=" {{$itempage->multimedia }}">
                             </div> --}}

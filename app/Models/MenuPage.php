@@ -9,5 +9,7 @@ use Illuminate\Notifications\Notifiable;
 class MenuPage extends Model
 {
     use HasFactory, Notifiable;
-    
+ 
+    protected $table = 'menu_pages';
+    protected $fillable =  ['id_company', 'keterangan','jenis_halaman', 'multimedia'];
 }

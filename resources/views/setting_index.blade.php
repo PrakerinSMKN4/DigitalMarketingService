@@ -51,19 +51,37 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+        <form action="{{ url('/setting/store')}}" method="POST">
+            @csrf
             <div class="modal-body">
                 <div class="form-row mb-4">
                     <div class="col-3 align-self-center">
                         Nama Menu
                     </div>
                     <div class="col">
-                        <input type="text" class="form-control" name="menuName" id="menuName" placeholder="Name">
+                        <input type="text" class="form-control" name="keterangan" id="menuName" placeholder="Name">
                     </div>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="inputGroupSelect01">Jenis Halaman</label>
+                    </div>
+                    <select class="custom-select" id="inputGroupSelect01" name="jenis_halaman">
+                      <option selected>Pilih...</option>
+                      <option value="profile">Profile</option>
+                      <option value="products">Products</option>
+                      <option value="services">Services</option>
+                      <option value="about">About</option>
+                    </select>
+                  </div>
+                  <div class="col">
+                    <input type="hidden"  name="id_company" value="{{1 }}">
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-toggle="modal" id="addMenu">Add Menu</button>
+                <button class="btn btn-primary" data-toggle="modal" id="addMenu" type="submit">Add Menu</button>
             </div>
+        </form>
         </div>
     </div>
 </div>

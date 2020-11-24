@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Company;
-use App\Models\SocialMediaAccount;
+use App\Models\SocialMediaContacts;
 use Illuminate\Support\Facades\DB;
 
 class CompanyController extends Controller
@@ -19,9 +19,9 @@ class CompanyController extends Controller
     {
         $company = DB::table('companies')->where('id_pemilik', Auth::id())->first();
         @$company = Company::find($company->id);
-        @$sosmedAccount['instagram'] = SocialMediaAccount::where([['id_company',$company->id],['social_media',"Instagram"]])->first();
-        @$sosmedAccount['facebook']  = SocialMediaAccount::where([['id_company',$company->id],['social_media',"Facebook"]])->first();
-        @$sosmedAccount['whatsapp']  = SocialMediaAccount::where([['id_company',$company->id],['social_media',"WhatsApp"]])->first();
+        @$sosmedAccount['instagram'] = SocialMediaContacts::where([['id_company',$company->id],['social_media',"Instagram"]])->first();
+        @$sosmedAccount['facebook']  = SocialMediaContacts::where([['id_company',$company->id],['social_media',"Facebook"]])->first();
+        @$sosmedAccount['whatsapp']  = SocialMediaContacts::where([['id_company',$company->id],['social_media',"WhatsApp"]])->first();
         @$action = $company == null ? '/profile/store' : '/profile/update';
         @$method = $company == null ? 'POST' : 'PATCH';
         @$btnText = $company == null ? 'SUBMIT' : 'EDIT';
@@ -61,15 +61,6 @@ class CompanyController extends Controller
 
         $status = Company::create($request->all());
 
-       /* company::updateOrCreate(['id' => $this->Id], 
-        ['nama_company' => $this->nama_company, 
-        'alamat' => $this->alamat, 
-        'operational_time' => $this->operational_time, 
-        'operational_time_close' => $this->operational_time_close,
-        'description' => $this->description,
-        'vision' => $this->vision,
-        'mission' => $this->mission ]); */
-
         if($status){
             return redirect()->back()->with('status','Tambah data berhasil');
         }else {
@@ -99,9 +90,9 @@ class CompanyController extends Controller
     {
         $company = DB::table('companies')->where('id_pemilik', Auth::id())->first();
         @$company = Company::find($company->id);
-        @$sosmedAccount['instagram'] = SocialMediaAccount::where([['id_company',$company->id],['social_media',"Instagram"]])->first();
-        @$sosmedAccount['facebook']  = SocialMediaAccount::where([['id_company',$company->id],['social_media',"Facebook"]])->first();
-        @$sosmedAccount['whatsapp']  = SocialMediaAccount::where([['id_company',$company->id],['social_media',"WhatsApp"]])->first();
+        @$sosmedAccount['instagram'] = SocialMediaContacts::where([['id_company',$company->id],['social_media',"Instagram"]])->first();
+        @$sosmedAccount['facebook']  = SocialMediaContacts::where([['id_company',$company->id],['social_media',"Facebook"]])->first();
+        @$sosmedAccount['whatsapp']  = SocialMediaContacts::where([['id_company',$company->id],['social_media',"WhatsApp"]])->first();
         @$action = $company == null ? '/profile/store' : '/profile/update';
         @$method = $company == null ? 'POST' : 'PATCH';
         @$btnText = $company == null ? 'SUBMIT' : 'EDIT';
@@ -133,12 +124,7 @@ class CompanyController extends Controller
 
         $data->update($request->all());
 
-        if($data){
-            return redirect('profile')->with('status','Edit data berhasil');
-        }else {
-            return redirect()->back()->with('status error', ' Tambah data gagal');
-        }
-
+       return redirect('profile')->with('success','Edit data berhasil');
         //
     }
 

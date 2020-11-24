@@ -67,7 +67,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-            <form action="{{ route('content_store', ) }}" method="POST" enctype="multipart/form-data">   
+            <form action="{{ route('content_store' ) }}" method="POST" enctype="multipart/form-data">   
                     @csrf
                 <div class="modal-body">
                     <div class="form-row mb-4">
@@ -78,9 +78,20 @@
                             <input type="text" class="form-control" name="judul" id="menuName" placeholder="Name">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <input type="hidden" class="form-control" style="width:300px" name="id_pages" value="{{ 1}}">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">Pilih Halaman</label>
+                        </div>
+                        <select class="custom-select" id="inputGroupSelect01" name="id_pages">
+                            @foreach($data as $pilihan)
+                            <option selected>Pilih...</option>
+                            <option value="{{$pilihan->id}}">{{$pilihan->keterangan}}</option>
+                            @endforeach
+                        </select>
                     </div>
+                    {{-- <div class="form-group">
+                        <input type="hidden" class="form-control" style="width:300px" name="id_pages" value="{{ }}">
+                    </div> --}}
                     <div class="form-row mb-4">
                         <div class="col-3 align-self-center">
                             Content Filling
@@ -94,14 +105,15 @@
                             Filling
                         </div>
                         <div class="col custom-file">
-                            <input type="file" class="custom-file-input" id="customFile" name="multimedia">
-                            <label class="custom-file-label" for="customFile">Choose file</label>
+                            <input type="file" class="form-control" id="customFile" name="multimedia">
+                            {{-- <input type="file" name="multimedia" class="form-control" > --}}
+                            {{-- <label class="custom-file-label" for="customFile"></label> --}}
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" data-toggle="modal" id="addMenu" >Add Content</button>
-                </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" data-toggle="modal" id="addMenu" >Add Content</button>
+                    </div>
             </form>
         </div>
     </div>
