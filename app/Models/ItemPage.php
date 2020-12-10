@@ -12,4 +12,8 @@ class ItemPage extends Model
     
     protected $table = 'item_pages';
     protected $fillable =  [ 'id_pages', 'judul', 'keterangan', 'multimedia'];
+
+    public function menupages(){
+        return $this->belongsTo(MenuPage::class);
+    }
 }

@@ -15,30 +15,30 @@
                 <div class="card-body" style="background: #FFFFFF;">
                     <h5 class="row card-title m-0">
                         <div class="col-1 align-self-center">
-                            <a href="{{route('settingDiv')}}"><i class="fa fa-instagram text-muted" aria-hidden="true"></i></a>
+                            <a href="{{route('menu')}}"><i class="fa fa-instagram text-muted" aria-hidden="true"></i></a>
                         </div>
                         <div class="col offset-1">
                             Instagram
                         </div>
-                    </h5>
+                    </div>
                 </div>
-            </div>
-            <div class="card col p-2 ml-2">
-                <div class="card-body" style="background: #FFFFFF;">
-                    <h5 class="row card-title m-0">
-                        <div class="col-1 align-self-center">
-                            <a href="{{route('settingDiv')}}"><i class="fa fa-facebook-official text-muted" aria-hidden="true"></i></a>
-                        </div>
-                        <div class="col offset-1">
-                            Facebook
-                        </div>
-                    </h5>
+                <div class="card col p-2 ml-2">
+                    <div class="card-body" style="background: #FFFFFF;">
+                        <h5 class="row card-title m-0">
+                            <div class="col-1 align-self-center">
+                                <a href="{{route('menu')}}"><i class="fa fa-facebook-official text-muted" aria-hidden="true"></i></a>
+                            </div>
+                            <div class="col offset-1">
+                                Facebook
+                            </div>
+                        </h5>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="col-1">{{-- Offset --}}</div>
     </div>
-    <div class="col-1">{{-- Offset --}}</div>
-</div>
-@endsection
-
-@section('connection', 'active')
+    @endsection
+    
+    @section('connection', 'active')
+</h5>

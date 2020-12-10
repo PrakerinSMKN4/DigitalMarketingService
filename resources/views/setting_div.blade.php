@@ -1,3 +1,4 @@
+@section('setting', 'active')
 @extends('layouts.main')
 
 @section('title', 'Setting - NamaMenu')
@@ -7,6 +8,13 @@
 @endsection
 
 @section('content')
+
+@if (session('success'))
+<div class="alert alert-success" role="alert">
+ {{ Session('success')}}
+</div>
+@endif
+
 {{-- Add Menu --}}
 <div class="row mt-4">
     <div class="col offset-1" style="font-size: 18pt;">Menu : Home</div>
@@ -43,7 +51,7 @@
                     <td>
                         <a href="{{ url('setting/edit',$itempage->id) }}" class="btn btn-success">Edit</a>
                     </td>
-                    <form action="{{ url('setting/destroy', $itempage->id) }} " method="POST">
+                    <form action="{{ url('setting/destroy', $itempage->id) }}" method="POST">
                         @csrf
                         @method('delete')
                         <td>
@@ -79,19 +87,9 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="inputGroupSelect01">Pilih Halaman</label>
-                        </div>
-                        <select class="custom-select" id="inputGroupSelect01" name="id_pages">
-                            @foreach($data as $pilihan)
-                            <option selected>Pilih...</option>
-                            <option value="{{$pilihan->id}}">{{$pilihan->keterangan}}</option>
-                            @endforeach
-                        </select>
+                        <input type="hidden" class="form-control" style="width:300px" name="id_pages"
+                        value="{{$data}}">
                     </div>
-                    {{-- <div class="form-group">
-                        <input type="hidden" class="form-control" style="width:300px" name="id_pages" value="{{ }}">
-                    </div> --}}
                     <div class="form-row mb-4">
                         <div class="col-3 align-self-center">
                             Content Filling
@@ -119,5 +117,3 @@
     </div>
 </div>
 @endsection
-
-@section('setting', 'active')

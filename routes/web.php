@@ -55,10 +55,23 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/schedule', function () {
         return view('schedule');
     })->name('schedule');   
-   
-    Route::get('/setting',[MenuController::class, 'create'])->name('setting');
-    Route::post('/setting/store', [MenuController::class, 'store']);
 
+
+   //Route untuk Menu pages 
+    Route::get('/setting', [MenuController::class, 'index'])->name('menu');
+    Route::get('/setting/create',[MenuController::class, 'create'])->name('menu_store');
+    Route::post('/setting/store', [MenuController::class, 'store']);
+  
+    //Route untuk Item pages
+    Route::get('/setting/id/{menupage:id}',[ItemController::class, 'index'])->name('item_pages');
+    Route::get('/content', [ItemController::class, 'create'])->name('content');
+    Route::post('/content/store', [ItemController::class, 'store'])->name('content_store');
+    Route::patch('/setting/edit/{itempage:id}',[ItemController::class, 'update'])->name('item_pages_edit');
+    Route::get('/setting/edit/{itempage:id}', [ItemController::class, 'edit']);
+    Route::delete('/setting/destroy/{id}', [ItemController::class, 'destroy']);
+
+
+    //Route untuk company profile
     Route::get('/profile', [CompanyController::class, 'create'])->name('profile_index');
     Route::get('/profile', [CompanyController::class, 'index'])->name('profile');
     Route::post('/profile/store', [CompanyController::class, 'store']);
@@ -66,14 +79,10 @@ Route::group(['middleware' => 'auth'], function(){
     Route::patch('/profile/edit/{Company:id}', [CompanyController::class, 'update'])->name('profile_update');
 
     //Route::resource('Itempages', ItemController::class);
-    Route::get('/setting/id',[ItemController::class, 'index'])->name('settingDiv');
-    Route::get('/content', [ItemController::class, 'create'])->name('content');
-    Route::post('/content/store', [ItemController::class, 'store'])->name('content_store');
+  
+    
 
-    Route::patch('/setting/edit/{itempage:id}',[ItemController::class, 'update'])->name('setting_edit');
-    Route::get('/setting/edit/{itempage:id}', [ItemController::class, 'edit']);
-    Route::delete('/setting/destroy/{id}', [ItemController::class, 'destroy']);
-
+   
     // Ntar diganti jadi id masing" menu
    /* Route::get('/setting/id', function () {
         return view('setting_div');

@@ -14,14 +14,18 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
         //
-        $itempages = ItemPage::all();
 
-        $data = MenuPage::all();
+       $itempages = ItemPage::where('id_pages', $id)->get();
+       // $itempages = ItemPage::all();
 
-        return view('/setting_div', compact('itempages', 'data'));
+        $menupages = MenuPage::all();
+
+        $data = $id;
+
+        return view('/setting_div', compact('itempages', 'menupages', 'data'));
     }
 
     /**
@@ -49,8 +53,17 @@ class ItemController extends Controller
             'keterangan'=> 'required|string',
             'id_pages'=> 'required'
         ]);
-
-        //handle FIle upload
+        // $item =  ItemPage::create($request->all());
+        // if($request->hasFile('multimedia'))
+        // {
+        //     $request->file('multimedia')->move('images/item_pages_images/', $request->file('multimedia')->getClientOriginalName());
+        //     $item->multimedia = $request->file('multimedia')->getClientOriginalName();
+        //     $item->save();
+        // }  
+        // else{
+        //     $fileNameToStore = 'noimage.jpg';
+        // }    
+       // handle FIle upload
         if($request->hasFile('multimedia')){
             //get Filename with the extension
             $filenameWithExt = $request->file('multimedia')->getClientOriginalName();
@@ -65,10 +78,7 @@ class ItemController extends Controller
         }
         else{
             $fileNameToStore = 'noimage.jpg';
-        }
-        
-        //ItemPage::create($request->all());
-
+        }  
         $data = new ItemPage;
         $data->judul = $request->input('judul');
         $data->keterangan = $request->input('keterangan');
@@ -76,7 +86,7 @@ class ItemController extends Controller
         $data->multimedia = $fileNameToStore;
         $data->save();
 
-         return redirect('/setting/id')->with('success', 'Item Pages berhasil diubah');
+         return redirect()->back()->with('success', 'Item Pages berhasil ditambah');
     }
 
     /**
@@ -118,7 +128,6 @@ class ItemController extends Controller
             'judul' => 'required',
             'keterangan' => 'required'        
             ]);
-
         //handle FIle upload
      if($request->hasFile('multimedia')){
         //get Filename with the extension
@@ -147,8 +156,7 @@ class ItemController extends Controller
         'multimedia'=> $request->multimedia
          ]);  */
          //ItemPage::where('id', $itempages)->update($request->all());
-        return redirect()->route('settingDiv')
-                    ->with('success','Product updated successfully'); 
+        return redirect()->back()->with('success','Product updated successfully'); 
 
     } 
 
@@ -161,7 +169,7 @@ class ItemController extends Controller
     public function destroy($id)
     {
         $status = ItemPage::destroy($id);
-        return redirect('/setting/id')->with("status",$status);
+        return redirect()->back()->with("status",$status);
         
     }
 }

@@ -12,4 +12,8 @@ class MenuPage extends Model
  
     protected $table = 'menu_pages';
     protected $fillable =  ['id_company', 'keterangan','jenis_halaman', 'multimedia'];
+
+    public function itempages(){
+        return $this->hasMany(MenuPage::class);
+    }
 }

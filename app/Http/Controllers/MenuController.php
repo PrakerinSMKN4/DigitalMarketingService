@@ -14,6 +14,9 @@ class MenuController extends Controller
      */
     public function index()
     {
+        $menupages = MenuPage::all();
+
+        return view('setting_index', compact('menupages'));
         //
     }
 
@@ -22,10 +25,10 @@ class MenuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create() 
     {
         //
-        return view('setting_index');
+       // return view('menu_store');
     }
 
     /**
