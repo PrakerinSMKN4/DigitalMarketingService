@@ -1,6 +1,5 @@
 <head>
     <title>@yield('title')</title>
-
     {{-- Plugin --}}
     <link rel="stylesheet" href="{{asset('/plugin/Bootstrap 4.4.1/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('/plugin/Font Awesome 4.7.0/css/font-awesome.min.css')}}">
@@ -57,14 +56,6 @@
                     </div>
                 </a>
 
-                {{-- Social Media Monitoring --}}
-                <a href="{{route('monitoring')}}" class="sidebar-link @yield('monitoring')">
-                    <div class="row">
-                        <div class="col-1 m-3"><i class="fa fa-pie-chart fa-2x" aria-hidden="true"></i></div>
-                        <div class="col align-self-center side-text">Social Media Monitoring</div>
-                    </div>
-                </a>
-
                 {{-- Company Profile --}}
                 <a href="{{route('profile')}}" class="sidebar-link @yield('profile')">
                     <div class="row">
@@ -78,22 +69,6 @@
                     <div class="row">
                         <div class="col-1 m-3"><i class="fa fa-clipboard fa-2x" aria-hidden="true"></i></div>
                         <div class="col align-self-center side-text">Menu Setting</div>
-                    </div>
-                </a>
-
-                {{-- Connected Social Media --}}
-                <a href="{{route('connection')}}" class="sidebar-link @yield('connection')">
-                    <div class="row">
-                        <div class="col-1 m-3"><i class="fa fa-user fa-2x" aria-hidden="true"></i></div>
-                        <div class="col align-self-center side-text">Connected Social Media</div>
-                    </div>
-                </a>
-
-                {{-- Schedule --}}
-                <a href="{{route('schedule')}}" class="sidebar-link @yield('schedule')">
-                    <div class="row">
-                        <div class="col-1 m-3"><i class="fa fa-calendar fa-2x" aria-hidden="true"></i></div>
-                        <div class="col align-self-center side-text">Schedule</div>
                     </div>
                 </a>
 
