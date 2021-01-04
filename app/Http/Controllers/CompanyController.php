@@ -15,10 +15,10 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        $company = DB::table('companies')->where('id_pemilik', Auth::id())->first();
-        @$company = Company::find($company->id);
+        $company = Company::where('id_pemilik', $id)->first();
+        //@$company = Company::find($company->id);
         //@$sosmedAccount['instagram'] = SocialMediaContacts::where([['id_company',$company->id],['social_media',"Instagram"]])->first();
        // @$sosmedAccount['facebook']  = SocialMediaContacts::where([['id_company',$company->id],['social_media',"Facebook"]])->first();
        // @$sosmedAccount['whatsapp']  = SocialMediaContacts::where([['id_company',$company->id],['social_media',"WhatsApp"]])->first();

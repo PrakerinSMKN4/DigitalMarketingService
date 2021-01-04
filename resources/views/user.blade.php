@@ -36,7 +36,7 @@
                     <td>Name</td>
                     <td>Role</td>
                     <td>username</td>
-                    <td colspan="2">Action</td>
+                    <td colspan="3">Action</td>
                 </tr>
                 @php
                 $i = 0;
@@ -53,6 +53,9 @@
                     </td>
                     <td>
                         <a href="{{ url('/schedule',$user->id) }}" class="btn btn-success">Show Schedule</a>
+                    </td>
+                    <td>
+                        <a href="{{ url('/profile',$user->id) }}" class="btn btn-success">Show Company Profile</a>
                     </td>
                 </tr>
                 @endforeach

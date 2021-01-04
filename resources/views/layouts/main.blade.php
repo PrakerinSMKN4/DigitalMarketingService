@@ -56,19 +56,19 @@
                     </div>
                 </a>
 
-                {{-- Company Profile --}}
+                {{-- Company Profile
                 <a href="{{route('profile')}}" class="sidebar-link @yield('profile')">
                     <div class="row">
                         <div class="col-1 m-3"><i class="fa fa-id-card fa-2x" aria-hidden="true"></i></div>
                         <div class="col align-self-center side-text">Company Profile</div>
                     </div>
-                </a>
+                </a>  --}}
 
                 {{-- Menu Setting --}}
                 <a href="{{route('user')}}" class="sidebar-link @yield('setting')">
                     <div class="row">
                         <div class="col-1 m-3"><i class="fa fa-clipboard fa-2x" aria-hidden="true"></i></div>
-                        <div class="col align-self-center side-text">Menu Setting</div>
+                        <div class="col align-self-center side-text">Menu User</div>
                     </div>
                 </a>
 

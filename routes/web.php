@@ -90,7 +90,7 @@ Route::group(['middleware' => 'auth'], function(){
 
     //Route untuk company profile
     Route::get('/profile', [CompanyController::class, 'create'])->name('profile_index');
-    Route::get('/profile', [CompanyController::class, 'index'])->name('profile');
+    Route::get('/profile/{user:id}', [CompanyController::class, 'index'])->name('profile');
     Route::post('/profile/store', [CompanyController::class, 'store']);
     Route::get('/profile/edit', [CompanyController::class, 'edit'])->name('profile_edit');
     Route::patch('/profile/edit/{Company:id}', [CompanyController::class, 'update'])->name('profile_update');
