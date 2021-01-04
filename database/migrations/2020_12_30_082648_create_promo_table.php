@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateItemPagesTable extends Migration
+class CreatePromoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreateItemPagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('item_pages', function (Blueprint $table) {
+        Schema::create('promo', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('id_pages')->unsigned();
+            $table->string('image');
             $table->string('judul');
-            $table->string('keterangan');
-            $table->string('multimedia');
+            $table->string('deskripsi');        
             $table->timestamps();
-
-            $table->foreign('id_pages')->references('id')->on('menu_pages');
         });
     }
 
@@ -32,6 +29,6 @@ class CreateItemPagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('item_pages');
+        Schema::dropIfExists('promo');
     }
 }

@@ -2,14 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MenuPage;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\Company;
-use App\Models\Product;
 
-class MenuController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,15 +13,11 @@ class MenuController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
-        $menupages = Product::all();
-
-        //$id_perusahaan =  DB::table('companies')->where('id_pemilik', Auth::id())->first();
-       // @$id_perusahaan = Company::find($id_perusahaan->id);
-
-
-        return view('setting_index', compact('menupages',));
+    {
         //
+        $users = User::get();
+
+        return view('user', compact('users'));
     }
 
     /**
@@ -33,10 +25,9 @@ class MenuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() 
+    public function create()
     {
         //
-       // return view('menu_store');
     }
 
     /**
@@ -47,17 +38,7 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-
-        $rule = [
-            'keterangan'=> 'required|string',
-            'jenis_halaman'=> 'required'
-          ];
-
-        $this->validate($request, $rule);
-
-        $status = MenuPage::create($request->all());
-
-        return redirect('/setting')->with('success', 'Halaman sudah ditambah');
+        //
     }
 
     /**

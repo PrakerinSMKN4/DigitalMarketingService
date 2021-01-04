@@ -33,30 +33,27 @@
                 <tr>
                     <td><i class="fa fa-check" aria-hidden="true"></i></td>
                     <td>No</td>
-                    <td >Title</td>
-                    <td colspan="2">Start & End</td>
+                    <td>Name</td>
+                    <td>Role</td>
+                    <td>username</td>
                     <td colspan="2">Action</td>
                 </tr>
                 @php
                 $i = 0;
                 @endphp
-                @foreach ($schedules as $schedule)
+                @foreach ($users as $user)
                 <tr>
                     <td><input type="checkbox" name="" id=""></td>
                     <td>{{ ++$i }}</td>
-                    <td>{{ $schedule->title }}</td>
-                    <td>{{ $schedule->start }}</td>
-                    <td>{{ $schedule->end }}</td>
+                    <td>{{ $user->name }}</td>
+                    <td>{{ $user->role }}</td>
+                    <td>{{ $user->username}}</td>
                     <td>
-                        <a href="#" class="btn btn-success">Edit</a>
+                        <a href="{{ url('/product',$user->id) }}" class="btn btn-success">Show Product</a>
                     </td>
-                    <form action="#" method="POST">
-                        @csrf
-                        @method('delete')
-                        <td>
-                            <button class="btn btn-danger" type="submit"> Delete</button>
-                        </td>
-                    </form>
+                    <td>
+                        <a href="{{ url('/schedule',$user->id) }}" class="btn btn-success">Show Schedule</a>
+                    </td>
                 </tr>
                 @endforeach
             </table>
@@ -69,65 +66,43 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Add Product</h5>
+                    <h5 class="modal-title">Add Content</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ route('product_store' ) }}" method="POST" enctype="multipart/form-data">   
+            <form action="{{ route('content_store' ) }}" method="POST" enctype="multipart/form-data">   
                     @csrf
                 <div class="modal-body">
                     <div class="form-row mb-4">
                         <div class="col-3 align-self-center">
-                            Product Name
+                            Content Name
                         </div>
                         <div class="col">
-                            <input type="text" class="form-control" name="name"  placeholder="Name">
+                            <input type="text" class="form-control" name="judul" id="menuName" placeholder="Name">
                         </div>
                     </div>
                     <div class="form-row mb-4">
                         <div class="col-3 align-self-center">
-                            Product Detail
+                            Content Filling
                         </div>
                         <div class="col">
-                            <input type="text" class="form-control" name="detail" placeholder="Detail">
+                            <input type="text" class="form-control" name="keterangan" id="menuName" placeholder="Name">
                         </div>
                     </div>
                     <div class="form-row mb-4">
                         <div class="col-3 align-self-center">
-                            Product Type
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" name="type"  placeholder="Type">
-                        </div>
-                    </div>
-                    <div class="form-row mb-4">
-                        <div class="col-3 align-self-center">
-                            Price
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" name="price"  placeholder="Price">
-                        </div>
-                    </div>
-                    <div class="form-row mb-4">
-                        <div class="col-3 align-self-center">
-                            Description
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" name="description"  placeholder="description">
-                        </div>
-                    </div>
-                    <div class="form-row mb-4">
-                        <div class="col-3 align-self-center">
-                            Image
+                            Filling
                         </div>
                         <div class="col custom-file">
-                            <input type="file" class="form-control"  name="image">
+                            <input type="file" class="form-control" id="customFile" name="multimedia">
+                            {{-- <input type="file" name="multimedia" class="form-control" > --}}
+                            {{-- <label class="custom-file-label" for="customFile"></label> --}}
                         </div>
-                    </div> 
+                    </div>
                 </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" data-toggle="modal" id="addMenu" >Add Product</button>
+                        <button type="submit" class="btn btn-primary" data-toggle="modal" id="addMenu" >Add Content</button>
                     </div>
             </form>
         </div>

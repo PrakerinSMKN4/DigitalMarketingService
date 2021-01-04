@@ -49,7 +49,7 @@
                     <td>{{ $itempage->keterangan }}</td>
                     <td><label class="switch"><input type="checkbox"><span class="slider round"></span></label></td>
                     <td>
-                        <a href="{{ url('setting/edit',$itempage->id) }}" class="btn btn-success">Edit</a>
+                        <a href="{{ url('product_edit',$itempage->id) }}" class="btn btn-success">Edit</a>
                     </td>
                     <form action="{{ url('setting/destroy', $itempage->id) }}" method="POST">
                         @csrf

@@ -2,29 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MenuPage;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Models\Company;
-use App\Models\Product;
+use App\Models\Schedule;
 
-class MenuController extends Controller
+class ScheduleController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {   
-        $menupages = Product::all();
+    public function index($id)
+    {
+        $schedules = Schedule::where('id_pemilik', $id)->get();
 
-        //$id_perusahaan =  DB::table('companies')->where('id_pemilik', Auth::id())->first();
-       // @$id_perusahaan = Company::find($id_perusahaan->id);
-
-
-        return view('setting_index', compact('menupages',));
+        return view('schedule', compact('schedules'));
+        
         //
     }
 
@@ -33,10 +26,9 @@ class MenuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() 
+    public function create()
     {
         //
-       // return view('menu_store');
     }
 
     /**
@@ -47,17 +39,7 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-
-        $rule = [
-            'keterangan'=> 'required|string',
-            'jenis_halaman'=> 'required'
-          ];
-
-        $this->validate($request, $rule);
-
-        $status = MenuPage::create($request->all());
-
-        return redirect('/setting')->with('success', 'Halaman sudah ditambah');
+        //
     }
 
     /**

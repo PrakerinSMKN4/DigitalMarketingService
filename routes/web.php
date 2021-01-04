@@ -7,6 +7,9 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ResetPassController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\UserController;
 
 use function Ramsey\Uuid\v1;
 
@@ -52,16 +55,31 @@ Route::group(['middleware' => 'auth'], function(){
         return view('connection');
     })->name('connection');
 
-    Route::get('/schedule', function () {
+  /*  Route::get('/schedule', function () {
         return view('schedule');
-    })->name('schedule');   
-
+    })->name('schedule');   */
 
    //Route untuk Menu pages 
-    Route::get('/setting', [MenuController::class, 'index'])->name('menu');
-    Route::get('/setting/create',[MenuController::class, 'create'])->name('menu_store');
-    Route::post('/setting/store', [MenuController::class, 'store']);
-  
+//    Route::get('/setting', function() {
+//        return  view('setting_index'. )
+//    })
+//    Route::get('/setting', [MenuController::class, 'index'])->name('menu');
+    //Route::get('/setting/create',[MenuController::class, 'create'])->name('menu_store');
+    //Route::post('/setting/store', [MenuController::class, 'store']);
+
+    //Route untuk List User
+    Route::get('/user', [UserController::class, 'index'])->name('user');
+
+    //Route untuk produk
+    Route::get('/product/{user:id}', [ProdukController::class, 'index'])->name('product');
+    Route::post('/product',[ProdukController::class, 'store'])->name('product_store');
+    Route::get('/product/edit/{product:id}',[ProdukController::class, 'edit'])->name('product_edit');
+    Route::patch('/product/edit/{product:id}', [ProdukController::class, 'update'])->name('product_update');
+    Route::delete('product/destroy/{id}', [ProdukController::class, 'destroy'])->name('product_destroy');
+
+    //Route untuk Schedule
+    Route::get('/schedule/{user:id}', [ScheduleController::class, 'index'])->name('schedule');
+
     //Route untuk Item pages
     Route::get('/setting/id/{menupage:id}',[ItemController::class, 'index'])->name('item_pages');
     Route::get('/content', [ItemController::class, 'create'])->name('content');
@@ -70,23 +88,11 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/setting/edit/{itempage:id}', [ItemController::class, 'edit']);
     Route::delete('/setting/destroy/{id}', [ItemController::class, 'destroy']);
 
-
     //Route untuk company profile
     Route::get('/profile', [CompanyController::class, 'create'])->name('profile_index');
     Route::get('/profile', [CompanyController::class, 'index'])->name('profile');
     Route::post('/profile/store', [CompanyController::class, 'store']);
     Route::get('/profile/edit', [CompanyController::class, 'edit'])->name('profile_edit');
     Route::patch('/profile/edit/{Company:id}', [CompanyController::class, 'update'])->name('profile_update');
-
-    //Route::resource('Itempages', ItemController::class);
-  
-    
-
    
-    // Ntar diganti jadi id masing" menu
-   /* Route::get('/setting/id', function () {
-        return view('setting_div');
-    })->name('settingDiv'); */
-
-    
 });

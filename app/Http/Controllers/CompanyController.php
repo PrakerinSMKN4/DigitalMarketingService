@@ -19,14 +19,14 @@ class CompanyController extends Controller
     {
         $company = DB::table('companies')->where('id_pemilik', Auth::id())->first();
         @$company = Company::find($company->id);
-        @$sosmedAccount['instagram'] = SocialMediaContacts::where([['id_company',$company->id],['social_media',"Instagram"]])->first();
-        @$sosmedAccount['facebook']  = SocialMediaContacts::where([['id_company',$company->id],['social_media',"Facebook"]])->first();
-        @$sosmedAccount['whatsapp']  = SocialMediaContacts::where([['id_company',$company->id],['social_media',"WhatsApp"]])->first();
+        //@$sosmedAccount['instagram'] = SocialMediaContacts::where([['id_company',$company->id],['social_media',"Instagram"]])->first();
+       // @$sosmedAccount['facebook']  = SocialMediaContacts::where([['id_company',$company->id],['social_media',"Facebook"]])->first();
+       // @$sosmedAccount['whatsapp']  = SocialMediaContacts::where([['id_company',$company->id],['social_media',"WhatsApp"]])->first();
         @$action = $company == null ? '/profile/store' : '/profile/update';
         @$method = $company == null ? 'POST' : 'PATCH';
         @$btnText = $company == null ? 'SUBMIT' : 'EDIT';
 
-        return view('/profile', compact('company', 'sosmedAccount', 'action', 'method', 'btnText'));
+        return view('/profile', compact('company','action', 'method', 'btnText'));
     }
 
     /**
@@ -48,6 +48,7 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request);
         $rule = [
             'nama_company'=> 'required|string|',
             'alamat'=> 'required',
