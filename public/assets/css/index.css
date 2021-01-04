@@ -1,0 +1,12 @@
+.navbar{
+  background-color: #aeebf3;
+  font-size: large;
+}
+
+.page-footer{
+  background-color: #aeebf3;
+}
+
+.nav-item:hover {
+  background-color: #a4dbe2;
+}

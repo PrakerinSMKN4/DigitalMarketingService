@@ -1,10 +1,10 @@
-@section('setting', 'active')
 @extends('layouts.main')
 
-@section('title', 'Setting - NamaMenu')
+@section('setting', 'active')
+@section('title', 'Digital Marketing Service')
 
 @section('header')
-<i class="fa fa-clipboard mr-2" aria-hidden="true"></i>&nbsp;Menu Setting
+<i class="fa fa-clipboard mr-2" aria-hidden="true"></i>&nbsp;Users
 @endsection
 
 @section('content')
@@ -15,50 +15,47 @@
 </div>
 @endif
 
+
 {{-- Add Menu --}}
 <div class="row mt-4">
-    <div class="col offset-1" style="font-size: 18pt;">Menu : Home</div>
-    <div class="col-2">
-        <div class="form-row justify-content-end">
-            <div class="col-auto align-self-center"><a href="#" data-toggle="modal" data-target="#exampleModal"><button type="button" class="btn btn-primary"><i class="fa fa-plus-circle"></i>&nbsp;Add Content</button></a></div>
-        </div>
-    </div>
     <div class="col-1">{{-- Offset --}}</div>
 </div>
 
 <div class="row mt-1 p-3">
     <div class="col offset-1">
         <form action="#" method="POST">
-            <table border="1" class="col centered">
-                <tr>
-                    <td><i class="fa fa-check" aria-hidden="true"></i></td>
-                    <td>No</td>
-                    <td>Name</td>
-                    <td>Role</td>
-                    <td>username</td>
-                    <td colspan="3">Action</td>
-                </tr>
-                @php
-                $i = 0;
-                @endphp
+            <table border="2" class=" centered table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <td>No</td>
+                        <td>Name</td>
+                        <td>Role</td>
+                        <td>username</td>
+                        <td colspan="3">Action</td>
+                    </tr>
+                </thead>
+                <tbody>
                 @foreach ($users as $user)
                 <tr>
-                    <td><input type="checkbox" name="" id=""></td>
-                    <td>{{ ++$i }}</td>
+                    <td>{{ $loop->iteration }}</td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->role }}</td>
                     <td>{{ $user->username}}</td>
                     <td>
-                        <a href="{{ url('/product',$user->id) }}" class="btn btn-success">Show Product</a>
+                        
+                        <a href="{{ url('/product',$user->id) }}" class="btn btn-primary"> <i class="fa fa-shopping-bag" aria-hidden="true"></i> Show Product</a>
                     </td>
                     <td>
-                        <a href="{{ url('/schedule',$user->id) }}" class="btn btn-success">Show Schedule</a>
+                        
+                        <a href="{{ url('/schedule',$user->id) }}" class="btn btn-primary"> <i class="fa fa-calendar" aria-hidden="true"></i> Show Schedule</a>
                     </td>
                     <td>
-                        <a href="{{ url('/profile',$user->id) }}" class="btn btn-success">Show Company Profile</a>
+                        
+                        <a href="{{ url('/profile',$user->id) }}" class="btn btn-primary"> <i class="fa fa-building" aria-hidden="true"></i> Show Company Profile</a>
                     </td>
                 </tr>
                 @endforeach
+            </tbody>
             </table>
         </form>
     </div>
@@ -104,9 +101,6 @@
                         </div>
                     </div>
                 </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" data-toggle="modal" id="addMenu" >Add Content</button>
-                    </div>
             </form>
         </div>
     </div>

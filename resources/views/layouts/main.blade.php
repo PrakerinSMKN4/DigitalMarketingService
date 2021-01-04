@@ -68,7 +68,7 @@
                 <a href="{{route('user')}}" class="sidebar-link @yield('setting')">
                     <div class="row">
                         <div class="col-1 m-3"><i class="fa fa-clipboard fa-2x" aria-hidden="true"></i></div>
-                        <div class="col align-self-center side-text">Menu User</div>
+                        <div class="col align-self-center side-text">Data User</div>
                     </div>
                 </a>
 

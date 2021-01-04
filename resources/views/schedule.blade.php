@@ -1,135 +1,233 @@
-@section('setting', 'active')
-@extends('layouts.main')
+@extends('layouts.admin')
 
-@section('title', 'Setting - NamaMenu')
+@section('title', 'Schedule')
 
-@section('header')
-<i class="fa fa-clipboard mr-2" aria-hidden="true"></i>&nbsp;Menu Setting
+@section('plugin')
+<script src='https://fullcalendar.io/js/fullcalendar-2.1.1/lib/jquery.min.js'></script>
+<script src="https://fullcalendar.io/js/fullcalendar-2.1.1/lib/jquery-ui.custom.min.js"></script>
+<script src='https://fullcalendar.io/js/fullcalendar-2.1.1/lib/moment.min.js'></script>
+<script src='https://fullcalendar.io/js/fullcalendar-2.1.1/fullcalendar.min.js'></script>
+<link rel="stylesheet" href="{{asset('/assets/fullcalendar/main.css')}}">
+<script src="{{asset('/assets/fullCalendar/main.js')}}"></script>
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var idPemilik = window.location.pathname.split('/');
+        idPemilik = idPemilik[idPemilik.length - 1];
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+                type:'get',
+                url:'/getCalendarData/' + idPemilik,
+                success:function(data){
+                console.log(data);
+            
+                var tanggalAwal, tanggalAkhir, id = 0, selId;
+                var calendarEl = document.getElementById('calendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    themeSystem: 'bootstrap',
+                    // Custom Button
+                    customButtons: {
+                        add: {
+                            click: function () {
+                                if (tanggalAwal != '' && tanggalAkhir != '') {
+                                    var eventName = prompt('Masukan Nama Event');
+                                    if(eventName!=null){
+                                        calendar.addEvent({
+                                            id: id,
+                                            title: eventName,
+                                            start: tanggalAwal,
+                                            end: tanggalAkhir,
+                                            allday: true
+                                        });
+                                        $.ajax({
+                                            url:'/schedule/create',
+                                            type:'post',
+                                            data:{
+                                                title: eventName,
+                                                start: tanggalAwal,
+                                                end: tanggalAkhir,
+                                                pemilik: idPemilik,
+                                                allDay: 1
+                                            },
+                                            dataType:'json',
+                                            success:function(data){
+                                                console.log(data.message);
+                                            }
+                                        });
+                                    }
+                                    tanggalAwal = '';
+                                    tanggalAkhir = '';
+                                    id++;
+                                } else {
+                                    alert('Tidak ada tanggal yang dipilih');
+                                }
+                            },
+                        },
+                        remove: {
+                            click: function () {
+                                if (selId != '') {
+                                    var selectedEvent = calendar.getEventById(selId);
+                                    var result = confirm('Yakin ingin menghapus Event "' + selectedEvent.title + '" ?');
+                                        if(result){
+                                            $.ajax({
+                                                url:'/schedule/delete/',
+                                                type:'delete',
+                                                data:{
+                                                    'id':selectedEvent.id
+                                                },
+                                                dataType:'json',
+                                                success:function(data){
+                                                    console.log(data.message);
+                                                }
+                                            });
+                                            selectedEvent.remove();
+                                        }
+                                    selId = '';
+                                    calendarEl.getElementsByClassName('fc-remove-button')[0].setAttribute(
+                                        'disabled', '');
+                                    calendarEl.getElementsByClassName('fc-edit-button')[0].setAttribute(
+                                        'disabled', '');
+                                } else {
+                                    alert('Tidak ada event yang dipilih');
+                                }
+                            }
+                        },
+                        edit: {
+                            click: function () {
+                                if (selId != '') {
+                                    var id = "/" + "id"; //Id Event
+                                    document.location.assign('/schedule/edit/' + selId);
+                                } else {
+                                    alert('Tidak ada event yang dipilih');
+                                }
+                            }
+                        }
+                    },
+                    bootstrapFontAwesome: {
+                        remove: 'fa-trash',
+                        add: 'fa-plus',
+                        edit: 'fa-pencil'
+                    },
+                    // Header & Layout Setting
+                    headerToolbar: {
+                        start: 'prev,next',
+                        center: 'title',
+                        end: 'add edit remove'
+                    },
+                    initialView: 'dayGridMonth',
+                    fixedWeekCount: false,
+
+                    // Select Behaviour
+                    selectable: true,
+                    select: function (info) {
+                        tanggalAkhir = info.endStr;
+                        tanggalAwal = info.startStr;
+                        calendarEl.getElementsByClassName('fc-add-button')[0].removeAttribute('disabled');
+                    },
+                    unselect: function () {
+                        setTimeout(() => {
+                            calendarEl.getElementsByClassName('fc-add-button')[0].setAttribute(
+                                'disabled', '');
+                        }, 50);
+                    },
+
+                    eventClick: function (info) {
+                        selId = info.event.id;
+                        calendarEl.getElementsByClassName('fc-remove-button')[0].removeAttribute(
+                            'disabled');
+                        calendarEl.getElementsByClassName('fc-edit-button')[0].removeAttribute('disabled');
+                    },
+
+                    // Drag & Drop Behaviour
+                    editable: true,
+
+                    eventDrop: function (info) {
+                        if (!confirm('Konfirmasi perubahan?')) {
+                                info.revert();
+                            } else {
+                                    var start = info.event.start.toISOString().split("T")[0];
+                                    console.log("Start : "+start);
+                                    var end = info.event.end.toISOString().split("T")[0];
+                                    start = end;
+                                    end = "".concat(end.split("-")[0],"-",end.split("-")[1],"-",(parseInt(end.split("-")[2])+1).toString());
+                                    console.log("End : "+end);
+                                    $.ajax({
+                                        url:"/schedule/edit",
+                                        type:"PATCH",
+                                        data:{
+                                            'id':info.event.id,
+                                            'title':info.event.title,
+                                            'start':start,
+                                            'end':end
+                                        },
+                                        dataType:'json',
+                                        success : function(data){
+                                            console.log(data.message);
+                                        }
+                                    });
+                            }
+                    },
+
+                    eventResize: function (info) {
+                        if (!confirm('Konfirmasi perubahan?')) {
+                                info.revert();
+                            } else {
+                                    var start = info.event.start.toISOString().split("T")[0];
+                                    start = "".concat(start.split("-")[0],"-",start.split("-")[1],"-",(parseInt(start.split("-")[2])+1).toString());
+                                    var end = info.event.end.toISOString().split("T")[0];
+                                    end = "".concat(end.split("-")[0],"-",end.split("-")[1],"-",(parseInt(end.split("-")[2])+1).toString());
+                                    $.ajax({
+                                        url:"/schedule/edit",
+                                        type:"PATCH",
+                                        data:{
+                                            'id':info.event.id,
+                                            'title':info.event.title,
+                                            'start':start,
+                                            'end':end
+                                        },
+                                        dataType:'json',
+                                        success : function(data){
+                                            console.log(data.message);
+                                        }
+                                    });
+                            }
+                    },
+                    
+                    events: data
+                });
+                calendar.render();
+                calendarEl.getElementsByClassName('fc-add-button')[0].setAttribute('disabled', '');
+                calendarEl.getElementsByClassName('fc-remove-button')[0].setAttribute('disabled', '');
+                calendarEl.getElementsByClassName('fc-edit-button')[0].setAttribute('disabled', '');
+            }
+        });
+        
+    });
+
+</script>
 @endsection
 
-@section('content')
+@section('mainContent')
 
-@if (session('success'))
-<div class="alert alert-success" role="alert">
- {{ Session('success')}}
-</div>
-@endif
-
-{{-- Add Menu --}}
-<div class="row mt-4">
-    <div class="col offset-1" style="font-size: 18pt;">Menu : Home</div>
-    <div class="col-2">
-        <div class="form-row justify-content-end">
-            <div class="col-auto align-self-center"><a href="#" data-toggle="modal" data-target="#exampleModal"><button type="button" class="btn btn-primary"><i class="fa fa-plus-circle"></i>&nbsp;Add Content</button></a></div>
+<div class="row h-auto">
+    
+    <div class="col">
+        <div class="row">
+            <div class="col m-3">
+                <a href="/user" >
+                    <h1>
+                        <i class="fas fa-arrow-left"></i>
+                    </h1>
+                </a>
+            </div>
         </div>
-    </div>
-    <div class="col-1">{{-- Offset --}}</div>
-</div>
-
-<div class="row mt-1 p-3">
-    <div class="col offset-1">
-        <form action="#" method="POST">
-            <table border="1" class="col centered">
-                <tr>
-                    <td><i class="fa fa-check" aria-hidden="true"></i></td>
-                    <td>No</td>
-                    <td >Title</td>
-                    <td colspan="2">Start & End</td>
-                    <td colspan="2">Action</td>
-                </tr>
-                @php
-                $i = 0;
-                @endphp
-                @foreach ($schedules as $schedule)
-                <tr>
-                    <td><input type="checkbox" name="" id=""></td>
-                    <td>{{ ++$i }}</td>
-                    <td>{{ $schedule->title }}</td>
-                    <td>{{ $schedule->start }}</td>
-                    <td>{{ $schedule->end }}</td>
-                    <td>
-                        <a href="#" class="btn btn-success">Edit</a>
-                    </td>
-                    <form action="#" method="POST">
-                        @csrf
-                        @method('delete')
-                        <td>
-                            <button class="btn btn-danger" type="submit"> Delete</button>
-                        </td>
-                    </form>
-                </tr>
-                @endforeach
-            </table>
-        </form>
-    </div>
-    <div class="col-1">{{-- Offset --}}</div>
-</div>
-
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Add Product</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="{{ route('product_store' ) }}" method="POST" enctype="multipart/form-data">   
-                    @csrf
-                <div class="modal-body">
-                    <div class="form-row mb-4">
-                        <div class="col-3 align-self-center">
-                            Product Name
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" name="name"  placeholder="Name">
-                        </div>
-                    </div>
-                    <div class="form-row mb-4">
-                        <div class="col-3 align-self-center">
-                            Product Detail
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" name="detail" placeholder="Detail">
-                        </div>
-                    </div>
-                    <div class="form-row mb-4">
-                        <div class="col-3 align-self-center">
-                            Product Type
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" name="type"  placeholder="Type">
-                        </div>
-                    </div>
-                    <div class="form-row mb-4">
-                        <div class="col-3 align-self-center">
-                            Price
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" name="price"  placeholder="Price">
-                        </div>
-                    </div>
-                    <div class="form-row mb-4">
-                        <div class="col-3 align-self-center">
-                            Description
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" name="description"  placeholder="description">
-                        </div>
-                    </div>
-                    <div class="form-row mb-4">
-                        <div class="col-3 align-self-center">
-                            Image
-                        </div>
-                        <div class="col custom-file">
-                            <input type="file" class="form-control"  name="image">
-                        </div>
-                    </div> 
-                </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" data-toggle="modal" id="addMenu" >Add Product</button>
-                    </div>
-            </form>
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col p-5"><div id="calendar" class="bg-light p-4 rounded"></div></div>
+            <div class="col-1"></div>
         </div>
     </div>
 </div>

@@ -36,9 +36,9 @@
             <div class="row m-3">
                 <div class="form-group">
                     <input type="hidden" class="form-control" style="width:300px" name="id_pemilik"
-                        value="{{ Auth::user()->id }}">
+                        value="{{ $user->id }}">
                     <input type="hidden" class="form-control" style="width:300px" name="email"
-                        value="{{ Auth::user()->email }}">
+                        value="{{ $user->email }}">
                 </div>
             </div>
             {{-- Operational Time (OPEN) --}}
@@ -130,9 +130,6 @@
                         <div class="row-md-1">
                             <div class="col p-0">
                                 <button class="btn btn-dark mt-4" type="submit">SUBMIT</button>
-                            </div>
-                            <div class="col p-0" style="float: left">
-                                <a href="{{route('profile_edit') }}" class="btn btn-success">EDIT</a>
                             </div>
                         </div>
                 </div>

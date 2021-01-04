@@ -4,7 +4,7 @@
 @section('title', 'Setting - NamaMenu')
 
 @section('header')
-<i class="fa fa-clipboard mr-2" aria-hidden="true"></i>&nbsp;Menu Setting
+<i class="fa fa-clipboard mr-2" aria-hidden="true"></i>&nbsp;Product
 @endsection
 
 @section('content')
@@ -17,12 +17,7 @@
 
 {{-- Add Menu --}}
 <div class="row mt-4">
-    <div class="col offset-1" style="font-size: 18pt;">Menu : Home</div>
-    <div class="col-2">
-        <div class="form-row justify-content-end">
-            <div class="col-auto align-self-center"><a href="#" data-toggle="modal" data-target="#exampleModal"><button type="button" class="btn btn-primary"><i class="fa fa-plus-circle"></i>&nbsp;Add Product</button></a></div>
-        </div>
-    </div>
+
     <div class="col-1">{{-- Offset --}}</div>
 </div>
 
@@ -33,22 +28,21 @@
          {{ Session('success')}}
         </div>
         @endif  
-            <table border="1" class="col centered">
-                <tr>
-                    <td><i class="fa fa-check" aria-hidden="true"></i></td>
-                    <td>No</td>
-                    <td>Content</td>
-                    <td>Filling</td>
-                    <td>Control</td>
-                    <td colspan="2">Action</td>
-                </tr>
-                @php
-                $i = 0;
-                @endphp
+            <table border="2" class="col centered table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <td>No</td>
+                        <td>Foto</td>
+                        <td>Nama Produk</td>
+                        <td>Keterangan</td>
+                        <td>Harga</td>
+                        <td colspan="2">Action</td>
+                    </tr>
+                </thead>
                 @foreach ($products as $product)
                 <tr>
-                    <td><input type="checkbox" name="" id=""></td>
-                    <td>{{ ++$i }}</td>
+                    <td>{{ $loop->iteration }}</td>
+                    <td><img src="{{ Storage::url($product->gambar) }}" alt=""></td>
                     <td>{{ $product->nama }}</td>
                     <td>{{ $product->detail }}</td>
                     <td>{{ $product->harga }}</td>
@@ -56,7 +50,7 @@
                         <a href="{{ url('product/edit',$product->id) }}" class="btn btn-success">Edit</a>
                     </td>
                     <form action="{{ url('product/destroy', $product->id) }}" method="POST">
-                        @csrf
+                    @csrf
                     @method('delete')
                     <td>
                         <button class="btn btn-danger" type="submit" style="width: 30%; height:60%;">DELETE</button>

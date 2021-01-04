@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('socmed')->nullable();
             $table->string('no_handphone');
             $table->string('password');
+            $table->string('website')->nullable();
             $table->string('role')->nullable();
             $table->rememberToken();
             $table->timestamps();

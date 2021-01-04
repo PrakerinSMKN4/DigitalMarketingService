@@ -66,6 +66,7 @@ class AuthController extends Controller
             'username'=> 'required|string',
             'email'=> 'required|email|unique:users',
             'no_hp'=> 'required|numeric',
+            'role'=>'1',
             'password'=> 'required|min:6|same:confirmPassword'
         ]); 
 

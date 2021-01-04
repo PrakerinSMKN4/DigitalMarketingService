@@ -1,0 +1,17 @@
+.navbar{
+    background-color: #aeebf3;
+    font-size: large;
+  }
+  
+  .page-footer{
+    background-color: #aeebf3;
+  }
+  
+  .sidebar-link {
+    color : #a8a8a8;
+  }
+  
+  .active, .sidebar-link:hover {
+    color : #6b6b6b;
+    background-color: #f5f5f5;
+  }

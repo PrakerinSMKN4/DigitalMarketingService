@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Company;
 use App\Models\SocialMediaContacts;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class CompanyController extends Controller
@@ -18,6 +19,7 @@ class CompanyController extends Controller
     public function index($id)
     {
         $company = Company::where('id_pemilik', $id)->first();
+        $user = User::find($id);
         //@$company = Company::find($company->id);
         //@$sosmedAccount['instagram'] = SocialMediaContacts::where([['id_company',$company->id],['social_media',"Instagram"]])->first();
        // @$sosmedAccount['facebook']  = SocialMediaContacts::where([['id_company',$company->id],['social_media',"Facebook"]])->first();
@@ -26,7 +28,7 @@ class CompanyController extends Controller
         @$method = $company == null ? 'POST' : 'PATCH';
         @$btnText = $company == null ? 'SUBMIT' : 'EDIT';
 
-        return view('/profile', compact('company','action', 'method', 'btnText'));
+        return view('/profile', compact('company','action', 'method', 'btnText','user'));
     }
 
     /**
@@ -48,7 +50,7 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request);
+
         $rule = [
             'nama_company'=> 'required|string|',
             'alamat'=> 'required',
@@ -56,14 +58,16 @@ class CompanyController extends Controller
             'operational_time_close'=> 'required',
             'description'=> 'required',
             'vision'=> 'required',
-            'mission'=> 'required'];
+            'mission'=> 'required'
+        ];
+        unset($request->_token);
 
         $this->validate($request, $rule);
 
         $status = Company::create($request->all());
 
         if($status){
-            return redirect()->back()->with('status','Tambah data berhasil');
+            return redirect('/profile/'.$request->id_pemilik)->with('status','Tambah data berhasil');
         }else {
             return redirect()->back()->with('status error', ' Tambah data gagal');
         }

@@ -94,5 +94,11 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/profile/store', [CompanyController::class, 'store']);
     Route::get('/profile/edit', [CompanyController::class, 'edit'])->name('profile_edit');
     Route::patch('/profile/edit/{Company:id}', [CompanyController::class, 'update'])->name('profile_update');
+    
+    Route::post('/schedule/create', [ScheduleController::class, 'store']);
+    Route::get('/schedule/edit/{id}', [ScheduleController::class, 'edit'])->name('/admin/schedule/edit');
+    Route::patch('/schedule/edit', [ScheduleController::class, 'update']);
+    Route::delete('/schedule/delete', [ScheduleController::class, 'destroy']);
    
 });
+Route::get('/getCalendarData/{id}',[ScheduleController::class,'getData']);
