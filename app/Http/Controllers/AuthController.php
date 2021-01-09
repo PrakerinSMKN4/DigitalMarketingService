@@ -9,33 +9,6 @@ use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
-    public function redirectToProvider($driver)
-    {
-        return Socialite::driver($driver)->redirect();
-    }
-
-    public function handleProviderCallback($driver)
-    {
-        try {
-            $user = Socialite::driver($driver)->user();
-
-    
-            $create = User::firstOrCreate([
-                'email' => $user->email
-            ], [
-                'socialite_name' => $driver,
-                'socialite_id' => $user->id,
-                'name' => $user->getName(),
-                'email_verified_at' => now(),
-            ]);
-    
-            Auth::login($create, true);
-            return redirect()->route('dashboard');
-        } catch (\Exception $e) {
-            return redirect()->route('login');
-        }
-    }
-
     public function getLogin()
     {
         return view('login');
@@ -47,11 +20,12 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             // Authentication passed...
-            return redirect()->intended('/');
+            if(!Auth::user()->role == User::SUPER_ADMIN){
+                return redirect('/admin/login')->with('error','Username / Password salah!');
+            }
+            return redirect()->intended('/admin/dashboard');
         }
-        return redirect('/login')->with('error','Username / Password salah!');
-
-      
+        return redirect('/admin/login')->with('error','Username / Password salah!');
     }
 
     public function getRegister()
@@ -59,14 +33,13 @@ class AuthController extends Controller
         return view('register');
     }
 
-    public function postRegister(Request $request)
+    public function postRegisterAdmin(Request $request)
     {
         $this->validate($request, [
             'name'=> 'required|string|min:4',
             'username'=> 'required|string',
             'email'=> 'required|email|unique:users',
             'no_hp'=> 'required|numeric',
-            'role'=>'1',
             'password'=> 'required|min:6|same:confirmPassword'
         ]); 
 
@@ -74,21 +47,22 @@ class AuthController extends Controller
             'name'=> $request->name,
             'username'=> $request->username,
             'email'=> $request->email,
+            'role'=>'1',
             'no_handphone'=> $request->no_hp,
             'password'=> bcrypt($request->password)
         ]);
 
         //return redirect('login');
         if($request){
-            return redirect('login')->with('success', 'Register Berhasil, silakan Login ');
+            return redirect('/admin/login')->with('success', 'Register Berhasil, silakan Login ');
          }else{
-             return redirect('login')->with('error', 'Register Gagal');
+             return redirect('/admin/login')->with('error', 'Register Gagal');
          } 
     }
 
     public function logout()
     {
         Auth::logout();
-        return redirect('/login');
+        return redirect('/admin/login');
     }
 }

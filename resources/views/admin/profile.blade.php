@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('admin.layouts.main')
 
 @section('title', 'Profile')
 
@@ -7,6 +7,22 @@
 @endsection
 
 @section('content')
+
+@if (session('success'))
+<center>
+    <div class="alert alert-success col-md-11 mt-5" style="margin-left: 120px; font-weight: bold; font-size: 20px; ">
+        {{ session('success') }}
+    </div>
+</center>
+@elseif(session('error'))
+<center>
+    <div class="alert alert-danger col-md-11 mt-5" style="margin-left: 120px; font-weight: bold; font-size: 20px; ">
+        {{ session('error') }}
+    </div>
+</center>
+@endif
+
+
 <form action="{{ url('/profile/store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="row mt-3 p-3">
@@ -21,7 +37,7 @@
             {{-- Company Name --}}
             <div class="row m-3">
                 <div class="form-group">
-                    <label>Company Name</label>
+                    <label>Nama Perusahaan</label>
                     <input type="text" class="form-control" style="width:300px" name="nama_company"
                         value="{{ @$company->nama_company }}">
                 </div>
@@ -29,8 +45,8 @@
             {{-- Company Adress --}}
             <div class="row m-3">
                 <div class="form-group">
-                    <label>Company Address</label><br>
-                    <textarea cols="40" rows="3" style="resize:none" name="alamat">{{ @$company->alamat }}</textarea>
+                    <label>Alamat Perusahaan</label><br>
+                    <textarea cols="40" rows="3" style="resize:vertical" name="alamat">{{ @$company->alamat }}</textarea>
                 </div>
             </div>
             <div class="row m-3">
@@ -44,7 +60,7 @@
             {{-- Operational Time (OPEN) --}}
             <div class="row m-3">
                 <div class="form-group">
-                    <label>Operational Time (OPEN) :</label>
+                    <label>Jam Operasional (Buka) :</label>
                     <input type="time" class="form-control" style="width:300px;text-align:center"
                         name="operational_time" value="{{ @$company->operational_time }}">
                 </div>
@@ -52,7 +68,7 @@
             {{-- Operational Time (Closed)--}}
             <div class="row m-3">
                 <div class="form-group">
-                    <label>Operational Time (CLOSED) :</label>
+                    <label>Jam Operasional (Tutup) :</label>
                     <input type="time" class="form-control" style="width:300px;text-align:center"
                         name="operational_time_close" value="{{ @$company->operational_time_close }}">
                 </div>
@@ -98,24 +114,24 @@
         <div class="col">
             <div class="card" style="height: 40%">
                 <div class="card-body" style="height: 40%">
-                    <h5 class="card-title">Description :</h5>
-                    <textarea class="col" style="resize:none" name="description">{{ @$company->description }}</textarea>
+                    <h5 class="card-title">Deskripsi :</h5>
+                <textarea class="col" style="resize:vertical; max-height: 250px; height: 120px;" name="description">{{ @$company->description }}</textarea>
                 </div>
             </div>
             <div class="row" style="height: 40%">
                 <div class="col pr-1">
                     <div class="card mt-2" style="height: 95%">
                         <div class="card-body">
-                            <h5 class="card-title">Vision :</h5>
-                            <textarea class="col" style="resize:none;" name="vision">{{ @$company->vision }}</textarea>
+                            <h5 class="card-title">Visi :</h5>
+                            <textarea class="col" style="resize:vertical; max-height: 230px;" name="vision">{{ @$company->vision }}</textarea>
                         </div>
                     </div>
                 </div>
                 <div class="col pl-1">
                     <div class="card mt-2" style="height: 95%">
                         <div class="card-body">
-                            <h5 class="card-title">Mission :</h5>
-                            <textarea class="col" style="resize:none" name="mission">{{ @$company->mission }}</textarea>
+                            <h5 class="card-title">Misi :</h5>
+                            <textarea class="col" style="resize:vertical; max-height: 230px;" name="mission">{{ @$company->mission }}</textarea>
                         </div>
                     </div>
                 </div>

@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="{{asset('/plugin/Font Awesome 4.7.0/css/font-awesome.min.css')}}">
     <script src="{{asset('/plugin/jquery-3.4.1.min.js')}}"></script>
     <script src="{{asset('/plugin/Bootstrap 4.4.1/js/bootstrap.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.13.0/sweetalert2.all.min.js" integrity="sha512-G7XfKG34JP/eVi0qf5fiqOoyIQhA1h+fsruFv89Uag3EUT+WKh5k8Y5OBcVkC/FxAYMh1tbyEU8F7NoytU0jVg==" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.13.0/sweetalert2.min.css" integrity="sha512-EeZYT52DgUwGU45iNoywycYyJW/C2irAZhp2RZAA0X4KtgE4XbqUl9zXydANcIlEuF+BXpsooxzkPW081bqoBQ==" crossorigin="anonymous" />
     <link rel="stylesheet" href="{{asset('/css/index.css')}}">
 
     {{-- Optional Plugin --}}
@@ -27,12 +29,6 @@
                 {{-- Search --}}
                 <form action="#" method="POST" class="col-7 m-0">
                     @csrf
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></div>
-                        </div>
-                        <input type="text" class="form-control" name="#" placeholder="Search">
-                    </div>
                 </form>
             </div>
 
@@ -49,7 +45,7 @@
 
                 {{-- Menu Menu --}}
                 {{-- Dashboard --}}
-                <a href="{{route('dashboard')}}" class="sidebar-link @yield('dashboard')">
+                <a href="{{route('admin-dashboard')}}" class="sidebar-link @yield('dashboard')">
                     <div class="row">
                         <div class="col-1 m-3"><i class="fa fa-home fa-2x" aria-hidden="true"></i></div>
                         <div class="col align-self-center side-text">Dashboard</div>
@@ -65,16 +61,23 @@
                 </a>  --}}
 
                 {{-- Menu Setting --}}
-                <a href="{{route('user')}}" class="sidebar-link @yield('setting')">
+                <a href="{{route('admin-user')}}" class="sidebar-link @yield('users')">
                     <div class="row">
-                        <div class="col-1 m-3"><i class="fa fa-clipboard fa-2x" aria-hidden="true"></i></div>
+                        <div class="col-1 m-3"><i class="fa fa-users fa-2x" aria-hidden="true"></i></div>
                         <div class="col align-self-center side-text">Data User</div>
                     </div>
                 </a>
 
+                <a href="{{ route('admin-permohonan') }}" class="sidebar-link @yield('request')">
+                    <div class="row">
+                        <div class="col-1 m-3"><i class="fa fa-clipboard fa-2x" aria-hidden="true"></i></div>
+                        <div class="col align-self-center side-text">Permohonan</div>
+                    </div>
+                </a>
+
                 {{-- Sign Out --}}
-                <form id="logout" method="POST" action="{{route('logout')}}" class="m-0">@csrf</form>
-                <a onclick="logout()" href="{{route('logout')}}" class="sidebar-link">
+                <form id="logout" method="POST" action="{{route('admin-logout')}}" class="m-0">@csrf</form>
+                <a onclick="logout()" href="{{route('admin-logout')}}" class="sidebar-link">
                     <div class="row">
                         <div class="col-1 m-3"><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i></div>
                         <div class="col align-self-center side-text">Sign Out</div>

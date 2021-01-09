@@ -1,60 +1,83 @@
-{{-- Add Menu --}}
-@extends('layouts.main')
+@extends('admin.layouts.main')
+@section('setting', 'active')
 
-@section('title', 'Setting')
+@section('title', 'Setting - NamaMenu')
 
 @section('header')
-<i class="fa fa-clipboard mr-2" aria-hidden="true"></i>&nbsp;Menu Setting
+<i class="fa fa-clipboard mr-2" aria-hidden="true"></i>&nbsp;Product
 @endsection
 
 @section('content')
+
+{{-- @if (session('success'))
+<div class="alert alert-success" role="alert">
+ {{ Session('success')}}
+</div>
+@endif --}}
+
+{{-- Add Menu --}}
 <div class="row mt-4">
-    <div class="col offset-1">{{-- Offset --}}</div>
-    <div class="col-2">
-        <div class="form-row justify-content-end">
-            <div class="col-auto align-self-center"><a href="#" class="m-0" data-toggle="modal"
-                data-target="#exampleModal"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Menu</a>
-            </div>
-        </div>
-    </div>
+
     <div class="col-1">{{-- Offset --}}</div>
 </div>
 
 <div class="row mt-1 p-3">
     <div class="col offset-1">
-        <div class="row row-cols-4">
-            
-            {{-- Konten Bertambah Seiringnya Banyak Page --}}
-            @foreach($products as $product)
-            <div class="col p-2">
-                <div class="card-body" style="background: white;">
-                    <h5 class="row card-title m-0">
-                        <div class="col-1 align-self-center">
-                            <a href="{{route('product_edit',$product->id)}}"><i class="fa fa-bars text-muted"
-                                aria-hidden="true">   {{$product->nama}}</i></a>
-                            </div>
-                            <img src="{{ Storage::url($product->image) }}" alt="" style="max-width: 100%;"></a>
-                            <div class="col offset-1">
-                            </div> 
-                        </h5>
-                    </div>
-                </div>
-                @endforeach 
-            </div>
+        @if (session('success'))
+        <div class="alert alert-success" role="alert">
+         {{ Session('success')}}
         </div>
-        <div class="col-1">{{-- Offset --}}</div>
+        @endif 
+        <form action="" method="GET">
+            <div class="input-group col-md-3 mb-2" style="margin-left: -14px;">
+                <span class="input-group-text" id="basic-addon1"><i class="fa fa-search" aria-hidden="true"></i></span>
+                <input type="text" class="form-control" placeholder="Search..." aria-label="Username" aria-describedby="basic-addon1" name="query" value="{{ @$_GET['query'] }}">
+            </div>
+        </form>
+            <table class="col centered table table-striped table-hover table-bordered">
+                <thead class="bg-dark text-light fw-bold">
+                    <tr>
+                        <td>No</td>
+                        <td>Foto</td>
+                        <td>Nama Produk</td>
+                        <td>Detail</td>
+                        <td>Keterangan</td>
+                        <td>Harga</td>
+                        <td>Action</td>
+                    </tr>
+                </thead>
+                @foreach ($products as $product)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td><img src="{{ Storage::url($product->gambar) }}" alt=""></td>
+                    <td>{{ $product->nama }}</td>
+                    <td>{{ $product->detail }}</td>
+                    <td>{{ $product->deskripsi }}</td>
+                    <td>{{ $product->harga }}</td>
+                    <form action="{{ url('product/destroy', $product->id) }}" method="POST">
+                    @csrf
+                    @method('delete')
+                    <td>
+                        <button class="btn btn-danger" type="submit"><i class="fa fa-trash"></i> Delete</button>
+                    </td>
+                </form>
+                </tr>
+                @endforeach
+            </table>
     </div>
-    
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
+    <div class="col-1">{{-- Offset --}}</div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Add Product</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-            <form action="{{ route('menu_store' ) }}" method="POST" enctype="multipart/form-data">   
+                <form action="{{ route('product_store' ) }}" method="POST" enctype="multipart/form-data">   
                     @csrf
                 <div class="modal-body">
                     <div class="form-row mb-4">
@@ -115,9 +138,6 @@
                     </div>
             </form>
         </div>
-        </div>
     </div>
-    @endsection
-    
-    @section('setting', 'active')
-    
+</div>
+@endsection

@@ -1,6 +1,6 @@
-@extends('layouts.main')
+@extends('admin.layouts.main')
 
-@section('setting', 'active')
+@section('users', 'active')
 @section('title', 'Digital Marketing Service')
 
 @section('header')
@@ -25,12 +25,12 @@
     <div class="col offset-1">
         <form action="#" method="POST">
             <table border="2" class=" centered table table-striped table-hover">
-                <thead>
+                <thead class="bg-dark text-light fw-bold">
                     <tr>
                         <td>No</td>
                         <td>Name</td>
                         <td>Role</td>
-                        <td>username</td>
+                        <td>Username</td>
                         <td colspan="3">Action</td>
                     </tr>
                 </thead>
@@ -43,7 +43,7 @@
                     <td>{{ $user->username}}</td>
                     <td>
                         
-                        <a href="{{ url('/product',$user->id) }}" class="btn btn-primary"> <i class="fa fa-shopping-bag" aria-hidden="true"></i> Show Product</a>
+                        <a href="{{ url('/product',$user->id) }}" class="btn btn-success"> <i class="fa fa-shopping-bag" aria-hidden="true"></i> Show Product</a>
                     </td>
                     <td>
                         
@@ -51,7 +51,7 @@
                     </td>
                     <td>
                         
-                        <a href="{{ url('/profile',$user->id) }}" class="btn btn-primary"> <i class="fa fa-building" aria-hidden="true"></i> Show Company Profile</a>
+                        <a href="{{ url('/profile',$user->id) }}" class="btn btn-danger"> <i class="fa fa-building" aria-hidden="true"></i> Show Company Profile</a>
                     </td>
                 </tr>
                 @endforeach

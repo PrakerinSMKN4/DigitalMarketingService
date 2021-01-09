@@ -40,7 +40,7 @@
                 </div>
 
                 <div class="mt-4">
-                    <form action="{{ route ('register')}}" method="POST">
+                    <form action="{{ route ('admin-register')}}" method="POST">
                         @csrf
                         {{-- Row 1 : Nama & Username --}}
                         <div class="form-row mb-4">
@@ -119,7 +119,7 @@
                         <button type="submit" class="btn btn-primary btn-block"
                             style="margin-top: 10px">Register</button>
                     </form>
-                    <a href="{{ route ('login')}}">Already have Account?</a>
+                    <a href="{{ route ('admin-login')}}">Already have Account?</a>
                 </div>
             </div>
         </div>

@@ -16,14 +16,20 @@ class ProdukController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index(Request $request, $id)
     {
 
-        $products = Product::where('id_user', $id)->get();
+        $products = Product::where('id_user', $id);
+        if( $request->input('query') ){
+            $products = $products->where('nama','LIKE', '%'. $request->input('query') .'%')
+                        ->orWhere('harga', 'LIKE', '%'. $request->input('query') .'%')
+                        ->orWhere('jenis', 'LIKE', '%'. $request->input('query') .'%');
+        }
 
+        $products = $products->get();
         $id_user = $id;
         
-        return view('product', compact('products', 'id_user'));
+        return view('admin.product', compact('products', 'id_user'));
         //
     }
 
@@ -107,8 +113,7 @@ class ProdukController extends Controller
      */
     public function edit(Product $product)
     {
-        //
-        return view('product_edit', compact('product'));
+        
 
     }
 
@@ -142,7 +147,7 @@ class ProdukController extends Controller
         $product->deskripsi = $request->description;
         $product->save();
     
-        return redirect()->route('user')
+        return redirect()->route('admin-user')
                         ->with('success','Post updated successfully');
     }
 

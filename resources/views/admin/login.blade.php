@@ -1,3 +1,6 @@
+@php
+    isLogin();
+@endphp
 <head>
     <title>Login</title>
 
@@ -47,7 +50,7 @@
 
                     <div class="mt-4">
                         {{-- <form action="/postlogin" method="POST"> --}}
-                        <form action="{{ route ('login')}}" method="POST">
+                        <form action="{{ route ('admin-login')}}" method="POST">
                             @csrf
 
                             {{-- Username --}}

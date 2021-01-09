@@ -28,7 +28,7 @@ class CompanyController extends Controller
         @$method = $company == null ? 'POST' : 'PATCH';
         @$btnText = $company == null ? 'SUBMIT' : 'EDIT';
 
-        return view('/profile', compact('company','action', 'method', 'btnText','user'));
+        return view('admin.profile', compact('company','action', 'method', 'btnText','user'));
     }
 
     /**
@@ -64,12 +64,12 @@ class CompanyController extends Controller
 
         $this->validate($request, $rule);
 
-        $status = Company::create($request->all());
+        $status = Company::updateOrCreate(['id_pemilik' => $request->id_pemilik],$request->all());
 
         if($status){
-            return redirect('/profile/'.$request->id_pemilik)->with('status','Tambah data berhasil');
+            return redirect('/profile/'.$request->id_pemilik)->with('success','Data berhasil disimpan');
         }else {
-            return redirect()->back()->with('status error', ' Tambah data gagal');
+            return redirect()->back()->with('error', 'Data gagal disimpan');
         }
     }
 

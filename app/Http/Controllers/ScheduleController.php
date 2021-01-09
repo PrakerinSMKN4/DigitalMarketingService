@@ -17,7 +17,7 @@ class ScheduleController extends Controller
     {
         $schedules = Schedule::where('id_pemilik', $id)->get();
 
-        return view('schedule', compact('schedules'));
+        return view('admin.schedule', compact('schedules'));
         
         //
     }
@@ -72,8 +72,9 @@ class ScheduleController extends Controller
     }
 
     public function getData($id){
+        $user = User::find($id);
         $data = Schedule::where('id_pemilik', $id)->get();
-        return response()->json($data);
+        return response()->json(['data' => $data, 'user' => $user]);
     }
 
     /**

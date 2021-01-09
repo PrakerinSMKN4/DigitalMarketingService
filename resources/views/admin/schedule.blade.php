@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.admin')
 
 @section('title', 'Schedule')
 
@@ -22,7 +22,12 @@
                 type:'get',
                 url:'/getCalendarData/' + idPemilik,
                 success:function(data){
-                console.log(data);
+                console.log(data.user);
+                if(data.user == null || data.user.length == 0){
+                    $("#calendar").text("User tidak ditemukan!");
+                    return false;
+                }
+                
             
                 var tanggalAwal, tanggalAkhir, id = 0, selId;
                 var calendarEl = document.getElementById('calendar');
@@ -196,7 +201,7 @@
                             }
                     },
                     
-                    events: data
+                    events: data.data
                 });
                 calendar.render();
                 calendarEl.getElementsByClassName('fc-add-button')[0].setAttribute('disabled', '');
@@ -217,16 +222,16 @@
     <div class="col">
         <div class="row">
             <div class="col m-3">
-                <a href="/user" >
-                    <h1>
+                <h1>
+                    <a href="{{ route('admin-user') }}" >
                         <i class="fas fa-arrow-left"></i>
-                    </h1>
-                </a>
+                    </a>
+                </h1>
             </div>
         </div>
         <div class="row">
             <div class="col-1"></div>
-            <div class="col p-5"><div id="calendar" class="bg-light p-4 rounded"></div></div>
+            <div class="col p-5"><div id="calendar" class="bg-light p-4 rounded text-center" style="font-weight: bold; font-size: 20px;"></div></div>
             <div class="col-1"></div>
         </div>
     </div>

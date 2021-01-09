@@ -7,6 +7,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ResetPassController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\UserController;
@@ -29,46 +30,34 @@ Route::post('/sendOTP',[ResetPassController::class,'sendOTP']);
 Route::post('/confirmOTP',[ResetPassController::class,'validateOTP']);
 Route::post('/changePass',[ResetPassController::class,'changePassword']);
 
-Route::get('/register', function(){ return view('register'); })->middleware('guest');
-Route::post('/register', [AuthController::class, 'postRegister'])->name('register')->middleware('guest');
+Route::get('/admin/register', function(){ return view('admin.register'); })->middleware('guest');
+Route::post('/admin/register', [AuthController::class, 'postRegisterAdmin'])->name('admin-register')->middleware('guest');
 
-Route::get('/login', function () { return view('login'); })->name('login')->middleware('guest');
-Route::post('/login', [AuthController::class, 'postLogin'])->name('login')->middleware('guest');
+Route::get('/admin/login', function () { return view('admin.login'); })->name('admin-login')->middleware('guest');
+Route::post('/admin/login', [AuthController::class, 'postLogin'])->name('admin-login')->middleware('guest');
 
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::get('redirect/{driver}',[AuthController::class,'redirectToProvider'])->name('login.provider');
-Route::get('{provider}/callback',[AuthController::class, 'handleProviderCallback']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('admin-logout');
+// Route::get('redirect/{driver}',[AuthController::class,'redirectToProvider'])->name('login.provider');
+// Route::get('{provider}/callback',[AuthController::class, 'handleProviderCallback']);
 
 
 //After login
 Route::group(['middleware' => 'auth'], function(){
 
-    Route::get('/', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/admin/dashboard', function () {
+        return view('admin.dashboard');
+    })->name('admin-dashboard');
     
-    Route::get('/monitoring', function () {
-        return view('monitoring');
-    })->name('monitoring');
+    // Route::get('/monitoring', function () {
+    //     return view('monitoring');
+    // })->name('monitoring');
     
-    Route::get('/connection', function () {
-        return view('connection');
-    })->name('connection');
-
-  /*  Route::get('/schedule', function () {
-        return view('schedule');
-    })->name('schedule');   */
-
-   //Route untuk Menu pages 
-//    Route::get('/setting', function() {
-//        return  view('setting_index'. )
-//    })
-//    Route::get('/setting', [MenuController::class, 'index'])->name('menu');
-    //Route::get('/setting/create',[MenuController::class, 'create'])->name('menu_store');
-    //Route::post('/setting/store', [MenuController::class, 'store']);
-
+    // Route::get('/connection', function () {
+    //     return view('connection');
+    // })->name('connection');
+    
     //Route untuk List User
-    Route::get('/user', [UserController::class, 'index'])->name('user');
+    Route::get('/admin/user', [UserController::class, 'index'])->name('admin-user');
 
     //Route untuk produk
     Route::get('/product/{user:id}', [ProdukController::class, 'index'])->name('product');
@@ -81,12 +70,12 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/schedule/{user:id}', [ScheduleController::class, 'index'])->name('schedule');
 
     //Route untuk Item pages
-    Route::get('/setting/id/{menupage:id}',[ItemController::class, 'index'])->name('item_pages');
+    // Route::get('/setting/id/{menupage:id}',[ItemController::class, 'index'])->name('item_pages');
     Route::get('/content', [ItemController::class, 'create'])->name('content');
     Route::post('/content/store', [ItemController::class, 'store'])->name('content_store');
-    Route::patch('/setting/edit/{itempage:id}',[ItemController::class, 'update'])->name('item_pages_edit');
-    Route::get('/setting/edit/{itempage:id}', [ItemController::class, 'edit']);
-    Route::delete('/setting/destroy/{id}', [ItemController::class, 'destroy']);
+    // Route::patch('/setting/edit/{itempage:id}',[ItemController::class, 'update'])->name('item_pages_edit');
+    // Route::get('/setting/edit/{itempage:id}', [ItemController::class, 'edit']);
+    // Route::delete('/setting/destroy/{id}', [ItemController::class, 'destroy']);
 
     //Route untuk company profile
     Route::get('/profile', [CompanyController::class, 'create'])->name('profile_index');
@@ -99,6 +88,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/schedule/edit/{id}', [ScheduleController::class, 'edit'])->name('/admin/schedule/edit');
     Route::patch('/schedule/edit', [ScheduleController::class, 'update']);
     Route::delete('/schedule/delete', [ScheduleController::class, 'destroy']);
+
+    Route::get('/admin/permohonan', [PembayaranController::class, 'index'])->name('admin-permohonan');
+    Route::post('/admin/verifikasi', [PembayaranController::class, 'verifikasi'])->name('verifikasi');
    
 });
 Route::get('/getCalendarData/{id}',[ScheduleController::class,'getData']);

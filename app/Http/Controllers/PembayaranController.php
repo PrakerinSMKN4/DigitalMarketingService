@@ -2,22 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Paket;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class PembayaranController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $users = User::where('role', User::CLIENT_ADMIN)->get();
+        $requests = Paket::join('users', 'users.id', '=', 'paket.id_user')
+                    ->orderBy('status_pembayaran')
+                    ->selectRaw('paket.*, users.name');
+        if($request->input('query')){
+            $requests = $requests->where('users.name', 'LIKE', '%'. $request->input('query') .'%')
+                        ->orWhere('status_pembayaran', 'LIKE', '%' . $request->input('query') . '%')
+                        ->orWhere('paket', 'LIKE', '%' . $request->input('query') . '%')
+                        ->orWhere('harga', 'LIKE', '%' . $request->input('query') . '%')
+                        ->orWhere('jenis_pembayaran', 'LIKE', '%' . $request->input('query') . '%');
+                        
+        }
 
-        return view('admin.user', compact('users'));
+        
+        $requests = $requests->get();
+        return view('admin.pembayaran', compact('requests'));
+    }
+
+
+    public function verifikasi(Request $request){
+        $status = Paket::where('id', $request->id)->update(['status_pembayaran'=>'selesai']);
+        return response(['message' => 'Berhasil Diverifikasi!', 'status' => $status]);
     }
 
     /**
