@@ -21,7 +21,7 @@
       <div class="card-body">
         <h5 class="card-title"><h1>Verifikasi Email</h1></h5>
         <p class="card-text">Verifikasikan email anda untuk melanjutkan ke DIMAS</p>
-        <a href="http://127.0.0.1:8000/verifikasi/{{ $id }}/{{ $token }}" style="margin-bottom: 20px;">
+        <a href="{{ env('APP_URL') }}/verifikasi/{{ $id }}/{{ $token }}" style="margin-bottom: 20px;">
           <button class="btn btn-success" style="width: 100px; height: 45px; color:#fff;background-color:#25e752;border-color:#28a745; border-radius: 5px;">
             Verifikasi
           </button>
