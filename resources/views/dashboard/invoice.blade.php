@@ -78,6 +78,7 @@ display:block;">
                 <tr>
                     <th>No</th>
                     <th>Paket</th>
+                    <th>Fitur</th>
                     <th>Quantity</th>
                     <th>Harga</th>
                     <th>Total</th>
@@ -86,7 +87,8 @@ display:block;">
             <tbody>
                 <tr>
                     <td>1</td>
-                    <td>Bundle Premium</td>
+                    <td>{{ $data->paket }}</td>
+                    <td>{{ $data->deskripsi }}</td>
                     <td>1</td>
                     <td>Rp. {{ number_format($data->harga,2,',','.') }}</td>
                     <td>Rp. {{ number_format($data->harga,2,',','.') }}</td>
@@ -94,7 +96,7 @@ display:block;">
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="4" style="text-align: center; font-weight: bold;">Total Bayar</td>
+                    <td colspan="5" style="text-align: center; font-weight: bold;">Total Bayar</td>
                     <td>Rp. {{ number_format($data->harga,2,',','.') }}</td>
                 </tr>
             </tfoot>

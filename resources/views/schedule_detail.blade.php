@@ -2,7 +2,11 @@
 
 @section('title', 'DIMAS - Schedule')
 
-@section('schedule', 'active');
+@section('schedule', 'active')
+
+@section('plugin')
+    
+@endsection
 
 @section('content')
     <div class="row">

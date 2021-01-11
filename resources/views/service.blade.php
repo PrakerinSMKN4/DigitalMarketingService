@@ -2,6 +2,10 @@
 
 @section('title','DIMAS - Service')
 
+@section('bg-layanan','bg-primary')
+
+@section('text-layanan','text-light')
+
 @section('mainContent')
 <!-- vector -->
 <div class="landing row">
@@ -215,14 +219,14 @@
         <h1 class="text-center">Harga Layanan</h1>
         <p class="text-center">Mari Buat Kesepakatan Dengan Perusahaan Anda</p>
         <div class="btn-group-toggle text-center" data-toggle="buttons">
-            <label for="bundle" class="btn btn-outline-info ml-2 mr-2 active">
-                <input type="radio" checked class="toggle_option" id="bundle" name="toggle_option">Paket Lengkap
+            <label for="bundle" class="btn btn-outline-info ml-2 mr-2 active" id="bundle">
+                <input type="radio" checked class="toggle_option" name="toggle_option">Paket Lengkap
             </label>
-            <label for="website" class="btn btn-outline-info ml-2 mr-2">
-                <input type="radio" class="toggle_option" id="website" name="toggle_option">Paket Website
+            <label for="website" class="btn btn-outline-info ml-2 mr-2" id="website">
+                <input type="radio" class="toggle_option" name="toggle_option">Paket Website
             </label>
-            <label for="medsos" class="btn btn-outline-info ml-2 mr-2">
-                <input type="radio" class="toggle_option" id="medsos" name="toggle_option">Paket Media Social
+            <label for="medsos" class="btn btn-outline-info ml-2 mr-2" id="medsos">
+                <input type="radio" class="toggle_option" name="toggle_option">Paket Media Social
             </label>
         </div>
     </div>
@@ -232,7 +236,7 @@
 <div class="container">
     <!-- Bundle -->
     <!-- Premium -->
-    <div class="row" id="bds">
+    <div class="row d-none" id="bds">
         <div class="col-md-4" style="margin-top: 20px;">
             <div class="card" style="width: 20rem;height: 40.5rem;">
                 <div class="card-body">
@@ -431,7 +435,7 @@
     <!-- End -->
     <!-- Website -->
     <!-- Premium -->
-    <div class="row" id="webs" style="display: none;">
+    <div class="row d-none" id="webs">
         <div class="col-md-4" style="margin-top: 20px;">
             <div class="card" style="width: 20rem; height: 34rem;">
                 <div class="card-body">
@@ -579,7 +583,7 @@
     <!-- End of Bundle -->
     <!-- Medsos -->
     <!-- Premium -->
-    <div class="row" id="webs" style="display: none;">
+    <div class="row d-none" id="mds">
         <div class="col-md-4" style="margin-top: 20px;">
             <div class="card" style="width: 20rem; height: 34rem;">
                 <div class="card-body">
@@ -731,51 +735,72 @@
 @section('script')
 <script type="text/javascript">
     // Service
-    $('#smmm').click(function () {
-        $('#smm').show();
-        $('#bw').hide();
-        $('#tp').hide();
-        $('#sp').hide();
-    });
+    $(document).ready(function(){
+        $('#smmm').click(function () {
+            $('#smm').show();
+            $('#bw').hide();
+            $('#tp').hide();
+            $('#sp').hide();
+        });
 
-    $('#bwm').click(function () {
-        $('#bw').show();
-        $('#smm').hide();
-        $('#tp').hide();
-        $('#sp').hide();
-    });
+        $('#bwm').click(function () {
+            $('#bw').show();
+            $('#smm').hide();
+            $('#tp').hide();
+            $('#sp').hide();
+        });
 
-    $('#tpm').click(function () {
-        $('#tp').show();
-        $('#bw').hide();
-        $('#smm').hide();
-        $('#sp').hide();
-    });
+        $('#tpm').click(function () {
+            $('#tp').show();
+            $('#bw').hide();
+            $('#smm').hide();
+            $('#sp').hide();
+        });
 
-    $('#spm').click(function () {
-        $('#sp').show();
-        $('#bw').hide();
-        $('#tp').hide();
-        $('#smm').hide();
-    });
+        $('#spm').click(function () {
+            $('#sp').show();
+            $('#bw').hide();
+            $('#tp').hide();
+            $('#smm').hide();
+        });
 
-    // Pricing
-    $('#bundle').click(function () {
-        $('#bds').show();
-        $('#webs').hide();
-        $('#mds').hide();
-    });
+        // Pricing
+        $('#bundle').click(function () {
+            console.log("bundle");
+            $('#bds').removeClass("d-none");
+            $('#webs').addClass("d-none");
+            $('#mds').addClass("d-none");
+        });
 
-    $('#website').click(function () {
-        $('#webs').show();
-        $('#bds').hide();
-        $('#mds').hide();
-    });
+        $('#website').click(function () {
+            console.log("website");
+            $('#webs').removeClass("d-none");
+            $('#bds').addClass("d-none");
+            $('#mds').addClass("d-none");
+        });
 
-    $('#medsos').click(function () {
-        $('#mds').show();
-        $('#webs').hide();
-        $('#bds').hide();
+        $('#medsos').click(function () {
+            console.log("medsos");
+            $('#mds').removeClass("d-none");
+            $('#webs').addClass("d-none");
+            $('#bds').addClass("d-none");
+        });
+
+        $("#mds").click(function(){
+            window.location.href = '/login';
+        });
+
+        $('#webs').click(function(){
+            window.location.href = '/login';
+        });
+
+        $('#bds').click(function(){
+            window.location.href = '/login';
+        });
+
+        
+        $('#bundle').trigger('click');
+        document.getElementById('first').scrollIntoView();
     });
 
 </script>

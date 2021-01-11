@@ -2,6 +2,10 @@
 
 @section('title','DIMAS - Contact')
 
+@section('bg-contact','bg-primary')
+
+@section('text-contact','text-light')
+
 @section('mainContent')
 <!-- vector -->
 <div class="landing row p-2">
@@ -28,7 +32,7 @@
     <!-- Grid row -->
     <div class="row mt-5">
 
-        <!-- Grid column -->
+        {{-- <!-- Grid column -->
         <div class="col-md-3 mx-auto">
 
             <!-- Links -->
@@ -128,7 +132,7 @@
             </ul>
 
         </div>
-        <!-- Grid column -->
+        <!-- Grid column --> --}}
 
     </div>
     <!-- Grid row -->
@@ -137,13 +141,16 @@
 <!-- Footer Links -->
 <!-- End Address -->
 <!-- start project -->
-<div class="row" style="background-color: #918ABD;">
-    <div class="col-md-12">
-        <h2 style="margin-left: 430px;margin-top: 30px;color: white;">Mulai Project anda bersama kami</h2>
+<div class="row my-3 text-center" style="background-color: #918ABD;">
+    <div class="col-md-12 mt-3">
+        <h2 style="color: white;">Mulai Project anda bersama kami</h2>
     </div>
-    <div class="col-md-12">
-        <button class="btn btn-success" href="" style="margin-left: 600px; margin-top: 10px;">Mulai
-            Project</button>
+    <div class="col-md-12 my-4">
+        <a href="{{ route('/login') }}">
+        <button class="btn btn-success">
+            Mulai Project
+        </button>
+        </a>
     </div>
 </div>
 <!-- end -->

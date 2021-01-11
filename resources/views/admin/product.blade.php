@@ -3,6 +3,8 @@
 
 @section('title', 'Setting - NamaMenu')
 
+@section('users', 'active')
+
 @section('header')
 <i class="fa fa-clipboard mr-2" aria-hidden="true"></i>&nbsp;Product
 @endsection
@@ -18,7 +20,6 @@
 {{-- Add Menu --}}
 <div class="row mt-4">
 
-    <div class="col-1">{{-- Offset --}}</div>
 </div>
 
 <div class="row mt-1 p-3">
@@ -46,6 +47,9 @@
                         <td>Action</td>
                     </tr>
                 </thead>
+                @if (count($products) > 0)
+                    
+                
                 @foreach ($products as $product)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
@@ -63,9 +67,18 @@
                 </form>
                 </tr>
                 @endforeach
+
+                @else
+                <tr>
+                    <td colspan="7">
+                        <h5>No Data</h5>
+                    </td>
+                </tr>
+
+                @endif
             </table>
     </div>
-    <div class="col-1">{{-- Offset --}}</div>
+
 </div>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -35,33 +35,37 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item pl-5 pr-5 p-2 text-center">
-                    <a class="nav-link text-info active" href="{{route('/')}}">Beranda</a>
+                <li class="nav-item pl-5 pr-5 p-2 text-center @yield('bg-home')">
+                    <a class="nav-link @yield('text-home')" href="{{route('/')}}">Beranda</a>
                 </li>
-                <li class="nav-item pl-5 pr-5 p-2 text-center">
-                    <a class="nav-link text-info" href="{{route('/about')}}">Tentang Kami</a>
+                <li class="nav-item pl-5 pr-5 p-2 text-center @yield('bg-about')">
+                    <a class="nav-link @yield('text-about')" href="{{route('/about')}}">Tentang Kami</a>
                 </li>
-                <li class="nav-item pl-5 pr-5 p-2 text-center">
-                    <a class="nav-link text-info" href="{{route('/service')}}">Layanan</a>
+                <li class="nav-item pl-5 pr-5 p-2 text-center @yield('bg-layanan')">
+                    <a class="nav-link @yield('text-layanan')" href="{{route('/service')."#first"}}">Layanan</a>
                 </li>
-                <li class="nav-item pl-5 pr-5 p-2 text-center">
-                    <a class="nav-link text-info" href="{{route('/contact')}}">Kontak</a>
+                <li class="nav-item pl-5 pr-5 p-2 text-center @yield('bg-contact')">
+                    <a class="nav-link @yield('text-contact')" href="{{route('/contact')}}">Kontak</a>
                 </li>
 
+                @if (Auth::user() == null)
                 {{-- Kalo belum Login --}}
-                <li class="nav-item pl-5 pr-5 p-2 text-center d-none">
-                    <a class="nav-link text-primary" href="{{route('/login')}}">Masuk</a>
+                <li class="nav-item pl-5 pr-5 p-2 text-center @yield('bg-login')">
+                    <a class="nav-link @yield('text-login')" href="{{route('/login')}}">Masuk</a>
                 </li>
-                
+                @else
                 {{-- Kalo sudah Login --}}
-                <li class="nav-item pl-5 pr-5 p-2 text-center">
-                    <a class="nav-link text-primary" href="{{route('/dashboard')}}">Dashboard</a>
+                <li class="nav-item pl-5 pr-5 p-2 text-center @yield('bg-dashboard')">
+                    <a class="nav-link @yield('text-dashboard')" href="{{route('/dashboard')}}">Dashboard</a>
                 </li>
+                @endif
+                
+                
             </ul>
         </div>
     </nav>
 
-    <nav class="navbar navbar-expand-lg navbar-danger p-0">
+    <nav class="navbar navbar-expand-lg navbar-danger p-0" id="first">
         <div class="ml-4">
             <a class="navbar-brand text-white" href="{{route('/')}}"><img class="image mb-2" src="assets/img/rimas.png" width="30" height="30"> IMAS</a>
         </div>

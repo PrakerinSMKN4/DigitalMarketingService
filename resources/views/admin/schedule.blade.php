@@ -66,7 +66,7 @@
                                             },
                                             dataType:'json',
                                             success:function(data){
-                                                console.log(data.message);
+                                                window.location.reload();
                                             }
                                         });
                                     }

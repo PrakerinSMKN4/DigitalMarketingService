@@ -6,6 +6,10 @@
 
 @section('title','DIMAS - Login')
 
+@section('bg-login','bg-primary')
+
+@section('text-login','text-light')
+
 @section('mainContent')
 <div class="landing row">
     <div class="col-md m-auto"><img src="assets/img/webw.png" class="img-fluid p-5"></div>

@@ -2,6 +2,8 @@
 
 @section('title', 'Profile')
 
+@section('users', 'active')
+
 @section('header')
 <i class="fa fa-id-card mr-2" aria-hidden="true"></i>&nbsp;Company Profile
 @endsection

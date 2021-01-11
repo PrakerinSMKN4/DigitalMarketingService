@@ -16,12 +16,11 @@
 @endif --}}
 
 {{-- Add Menu --}}
-<div class="row mt-4">
+<div class="row mt-3">
 
-    <div class="col-1">{{-- Offset --}}</div>
 </div>
 
-<div class="row mt-1 p-3">
+<div class="row mt-1 p-2">
     <div class="col offset-1">
         @if (session('success'))
         <div class="alert alert-success" role="alert">
@@ -34,20 +33,22 @@
                 <input type="text" class="form-control" placeholder="Search..." aria-label="Username" aria-describedby="basic-addon1" name="query" value="{{ @$_GET['query'] }}">
             </div>
         </form>
-            <table class="col centered table table-striped table-hover table-bordered">
+            <table class="col table table-striped table-hover table-bordered text-center">
                 <thead class="bg-dark text-light fw-bold">
                     <tr>
-                        <td>No</td>
-                        <td>Action</td>
-                        <td>Pemohon</td>
-                        <td>Jenis Paket</td>
-                        <td>Keterangan Paket</td>
-                        <td>Harga</td>
-                        <td>Status Pembayaran</td>
-                        <td>Jenis Pembayaran</td>
-                        <td>Tanggal Dibuat</td>
+                        <th>No</th>
+                        <th>Action</th>
+                        <th>Pemohon</th>
+                        <th>Jenis Paket</th>
+                        <th>Keterangan Paket</th>
+                        <th>Harga</th>
+                        <th>Status Pembayaran</th>
+                        <th>Jenis Pembayaran</th>
+                        <th>Tanggal Dibuat</th>
                     </tr>
                 </thead>
+                @if (count($requests) > 0)
+                    
                 @foreach ($requests as $request)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
@@ -74,9 +75,15 @@
                     <td>{{ $request->created_at->format('d F Y') }}</td>
                 </tr>
                 @endforeach
+                @else
+                <tr>
+                    <td colspan="9">
+                        <h5>No Data</h5>
+                    </td>
+                </tr>
+                @endif
             </table>
     </div>
-    <div class="col-1">{{-- Offset --}}</div>
 </div>
 <script>
 

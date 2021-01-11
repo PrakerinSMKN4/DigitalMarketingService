@@ -2,6 +2,10 @@
 
 @section('title','DIMAS - Digital Marketing Service')
 
+@section('bg-home','bg-primary')
+
+@section('text-home','text-light')
+
 @section('mainContent')
 {{-- JOIN NOW --}}
 <div class="landing row">
@@ -160,7 +164,7 @@
             </div>
             <div class="col m-auto">
                 <div class="col text-center">
-                    <h3>Unggajan Bertema</h3>
+                    <h3>Unggahan Bertema</h3>
                 </div>
                 <div class="col p-4">
                     <p>Digital marketing adalah suatu kegiatan pemasaran atau promosi sebuah brand atau

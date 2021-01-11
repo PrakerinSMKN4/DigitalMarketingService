@@ -53,7 +53,7 @@
                                     Edit
                                 </a>
                             </div>
-                            <div class="col" style="margin: 1px; padding: 0px;">
+                            <div class="col" style="margin: 1px; margin-right: 4px; padding: 0px;">
                                 <form action="{{ route('/list-product-delete', $product->id) }}" method="POST">
                                     @csrf    
                                     @method('delete')

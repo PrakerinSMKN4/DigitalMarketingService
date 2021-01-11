@@ -73,8 +73,15 @@
 
                 <a href="{{ route('admin-permohonan') }}" class="sidebar-link @yield('request')">
                     <div class="row">
-                        <div class="col-1 m-3"><i class="fa fa-clipboard fa-2x" aria-hidden="true"></i></div>
+                        <div class="col-1 m-3"><i class="fa fa-money fa-2x" aria-hidden="true"></i></div>
                         <div class="col align-self-center side-text">Permohonan</div>
+                    </div>
+                </a>
+
+                <a href="{{ route('admin-invoice') }}" class="sidebar-link @yield('invoice')">
+                    <div class="row">
+                        <div class="col-1 m-3"><i class="fa fa-clipboard fa-2x" aria-hidden="true"></i></div>
+                        <div class="col align-self-center side-text">Invoice</div>
                     </div>
                 </a>
 

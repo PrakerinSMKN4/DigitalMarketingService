@@ -95,6 +95,8 @@ Route::group(['middleware' => 'auth'], function(){
     
     //Route untuk List User
     Route::get('/admin/user', [UserController::class, 'index'])->name('admin-user');
+    Route::get('/admin/invoice/', [InvoiceController::class, 'indexAdmin'])->name('admin-invoice');
+    Route::get('/admin/invoice/{id}', [InvoiceController::class, 'showAdmin'])->name('admin-invoice-detail');
 
     //Route untuk produk
     Route::get('/product/{user:id}', [ProdukController::class, 'indexAdmin'])->name('product');

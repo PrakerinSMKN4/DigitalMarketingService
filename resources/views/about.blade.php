@@ -2,6 +2,10 @@
 
 @section('title','DIMAS - About')
 
+@section('bg-about','bg-primary')
+
+@section('text-about','text-light')
+
 @section('mainContent')
 <!-- vector -->
 <div class="landing row">
