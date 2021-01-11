@@ -12,10 +12,19 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $users = User::where('role', User::CLIENT_ADMIN)->get();
+        $users = User::where('role', User::CLIENT_ADMIN);
+        if( $request->input('query') ){
+            $users = $users->where(function($query) use ($request){
+                return $query->orWhere('status_akun', 'LIKE', '%'. $request->input('query') .'%')
+                ->orWhere('name', 'LIKE', '%'. $request->input('query') .'%')
+                ->orWhere('no_handphone', 'LIKE', '%'. $request->input('query') .'%')
+                ->orWhere('socmed', 'LIKE', '%'. $request->input('query') .'%');
+            });
+        }
+        $users = $users->get();
 
         return view('admin.user', compact('users'));
     }
@@ -28,6 +37,16 @@ class UserController extends Controller
     public function create()
     {
         //
+    }
+
+    public function updateSocmed(Request $request){
+        $result = User::find($request->id)->update(['socmed' => $request->socmed]);
+        if($result){
+            return response(['message' => 'Data berhasil diubah!','status' => 'success','title' => 'Success']);
+        }else{
+            return response(['message' => 'Data gagal diubah!','status' => 'error','title' => 'Error']);
+        }
+        
     }
 
     /**

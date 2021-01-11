@@ -1,3 +1,6 @@
+@php
+    checkIsSuperAdmin();
+@endphp
 <head>
     <title>@yield('title')</title>
     {{-- Plugin --}}

@@ -16,7 +16,7 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function indexAdmin($id)
     {
         $company = Company::where('id_pemilik', $id)->first();
         $user = User::find($id);
@@ -29,6 +29,26 @@ class CompanyController extends Controller
         @$btnText = $company == null ? 'SUBMIT' : 'EDIT';
 
         return view('admin.profile', compact('company','action', 'method', 'btnText','user'));
+    }
+
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $company = Company::where('id_pemilik', Auth::id())->first();
+        $user = User::find(Auth::id());
+        //@$company = Company::find($company->id);
+        //@$sosmedAccount['instagram'] = SocialMediaContacts::where([['id_company',$company->id],['social_media',"Instagram"]])->first();
+       // @$sosmedAccount['facebook']  = SocialMediaContacts::where([['id_company',$company->id],['social_media',"Facebook"]])->first();
+       // @$sosmedAccount['whatsapp']  = SocialMediaContacts::where([['id_company',$company->id],['social_media',"WhatsApp"]])->first();
+        @$action = $company == null ? '/profile/store' : '/profile/update';
+        @$method = $company == null ? 'POST' : 'PATCH';
+        @$btnText = $company == null ? 'SUBMIT' : 'EDIT';
+
+        return view('profile', compact('company','action', 'method', 'btnText','user'));
     }
 
     /**
@@ -60,6 +80,7 @@ class CompanyController extends Controller
             'vision'=> 'required',
             'mission'=> 'required'
         ];
+        unset($request->id);
         unset($request->_token);
 
         $this->validate($request, $rule);
@@ -67,7 +88,11 @@ class CompanyController extends Controller
         $status = Company::updateOrCreate(['id_pemilik' => $request->id_pemilik],$request->all());
 
         if($status){
-            return redirect('/profile/'.$request->id_pemilik)->with('success','Data berhasil disimpan');
+            if(Auth::user()->role == User::CLIENT_ADMIN){
+                return redirect('/company-profile')->with('status','Tambah data berhasil');
+            }else if(Auth::user()->role == User::SUPER_ADMIN){
+                return redirect('/profile/'.$request->id_pemilik)->with('success','Data berhasil disimpan');
+            }
         }else {
             return redirect()->back()->with('error', 'Data gagal disimpan');
         }

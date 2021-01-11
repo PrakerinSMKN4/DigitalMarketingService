@@ -2,40 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Paket;
+use App\Models\Invoice;
+use DateTime;
+use Faker\Provider\DateTime as ProviderDateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class PembayaranController extends Controller
+class InvoiceController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $requests = Paket::join('users', 'users.id', '=', 'paket.id_user')
-                    ->orderBy('status_pembayaran')
-                    ->selectRaw('paket.*, users.name');
-        if($request->input('query')){
-            $requests = $requests->where(function($query) use ($request){
-                return $query->orWhere('users.name', 'LIKE', '%'. $request->input('query') .'%')
-                        ->orWhere('status_pembayaran', 'LIKE', '%' . $request->input('query') . '%')
-                        ->orWhere('paket', 'LIKE', '%' . $request->input('query') . '%')
-                        ->orWhere('harga', 'LIKE', '%' . $request->input('query') . '%')
-                        ->orWhere('jenis_pembayaran', 'LIKE', '%' . $request->input('query') . '%');
-            });
+        $data = Invoice::join('users', 'users.id', '=', 'invoices.id_user')
+                        ->join('paket', 'paket.id', '=', 'invoices.id_paket')
+                        ->where('invoices.id_user', Auth::id())
+                        ->orderBy('invoices.id','desc')->first();
+        $idUser = "0";
+        $res = "0";
+        while(strlen($res)<=5){
+            $idUser .= "0";
+            $res = $idUser . Auth::id();
         }
-
-        
-        $requests = $requests->get();
-        return view('admin.pembayaran', compact('requests'));
-    }
-
-
-    public function verifikasi(Request $request){
-        $status = Paket::where('id', $request->id)->update(['status_pembayaran' => 'selesai', 'status' => 'active']);
-        return response(['message' => 'Berhasil Diverifikasi!', 'status' => $status]);
+        $data->id_user = $res;
+        $data->tanggal_berakhir = $data->created_at->addYear();
+        return view('dashboard.invoice', compact('data'));
     }
 
     /**

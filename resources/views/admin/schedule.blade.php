@@ -11,6 +11,12 @@
 <script src="{{asset('/assets/fullCalendar/main.js')}}"></script>
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function () {
+        Date.prototype.addDays = function(days) {
+            var date = new Date(this.valueOf());
+            date.setDate(date.getDate() + days);
+            return date;
+        }
+
         var idPemilik = window.location.pathname.split('/');
         idPemilik = idPemilik[idPemilik.length - 1];
         $.ajaxSetup({
@@ -22,12 +28,13 @@
                 type:'get',
                 url:'/getCalendarData/' + idPemilik,
                 success:function(data){
-                console.log(data.user);
                 if(data.user == null || data.user.length == 0){
                     $("#calendar").text("User tidak ditemukan!");
                     return false;
                 }
                 
+                console.log(data.data);
+                dataKalender = data.data;
             
                 var tanggalAwal, tanggalAkhir, id = 0, selId;
                 var calendarEl = document.getElementById('calendar');
@@ -153,12 +160,15 @@
                         if (!confirm('Konfirmasi perubahan?')) {
                                 info.revert();
                             } else {
-                                    var start = info.event.start.toISOString().split("T")[0];
-                                    console.log("Start : "+start);
-                                    var end = info.event.end.toISOString().split("T")[0];
-                                    start = end;
-                                    end = "".concat(end.split("-")[0],"-",end.split("-")[1],"-",(parseInt(end.split("-")[2])+1).toString());
-                                    console.log("End : "+end);
+                                console.log("Info : " + info.event.end);
+                                    var start = new Date(info.event.start.toISOString());
+                                    var end = start.addDays(1);
+                                    start = start.getFullYear() + "-" + (start.getMonth()+1) + "-" + start.getDate();
+                                    end = end.getFullYear() + "-" + (end.getMonth()+1) + "-" + end.getDate();
+                                    if(info.event.end){
+                                        end = new Date(info.event.end);
+                                        end = end.getFullYear() + "-" + (end.getMonth()+1) + "-" + end.getDate();
+                                    }
                                     $.ajax({
                                         url:"/schedule/edit",
                                         type:"PATCH",
@@ -180,10 +190,11 @@
                         if (!confirm('Konfirmasi perubahan?')) {
                                 info.revert();
                             } else {
-                                    var start = info.event.start.toISOString().split("T")[0];
-                                    start = "".concat(start.split("-")[0],"-",start.split("-")[1],"-",(parseInt(start.split("-")[2])+1).toString());
-                                    var end = info.event.end.toISOString().split("T")[0];
-                                    end = "".concat(end.split("-")[0],"-",end.split("-")[1],"-",(parseInt(end.split("-")[2])+1).toString());
+                                    var start = new Date(info.event.start.toISOString());
+                                    start = start.getFullYear() + "-" + (start.getMonth()+1) + "-" + start.getDate();
+                                    var end = new Date(info.event.end.toISOString());
+                                    end = end.getFullYear() + "-" + (end.getMonth()+1) + "-" + end.getDate();
+                                    console.log(end);
                                     $.ajax({
                                         url:"/schedule/edit",
                                         type:"PATCH",
@@ -201,7 +212,7 @@
                             }
                     },
                     
-                    events: data.data
+                    events: dataKalender
                 });
                 calendar.render();
                 calendarEl.getElementsByClassName('fc-add-button')[0].setAttribute('disabled', '');

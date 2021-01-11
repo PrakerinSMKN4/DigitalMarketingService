@@ -16,93 +16,84 @@
 @endif
 
 
-{{-- Add Menu --}}
-<div class="row mt-4">
-    <div class="col-1">{{-- Offset --}}</div>
-</div>
-
-<div class="row mt-1 p-3">
-    <div class="col offset-1">
-        <form action="#" method="POST">
-            <table border="2" class=" centered table table-striped table-hover">
+<div class="row mt-5">
+    
+    <div class="col offset-1 mr-5">
+        <form action="" method="GET">
+            <div class="input-group col-md-3 mb-2" style="margin-left: -14px;">
+                <span class="input-group-text" id="basic-addon1"><i class="fa fa-search" aria-hidden="true"></i></span>
+                <input type="text" class="form-control" placeholder="Search..." aria-label="Username" aria-describedby="basic-addon1" name="query" value="{{ @$_GET['query'] }}">
+            </div>
+        </form>
+            <table border="2" class="centered table table-striped table-hover table-responsive">
                 <thead class="bg-dark text-light fw-bold">
                     <tr>
                         <td>No</td>
                         <td>Name</td>
+                        <td>Username Medsos</td>
                         <td>Role</td>
-                        <td>Username</td>
-                        <td colspan="3">Action</td>
+                        <td>Email</td>
+                        <td>No Handphone</td>
+                        <td colspan="3" style="width: 50%">Action</td>
                     </tr>
                 </thead>
                 <tbody>
-                @foreach ($users as $user)
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->role }}</td>
-                    <td>{{ $user->username}}</td>
-                    <td>
-                        
-                        <a href="{{ url('/product',$user->id) }}" class="btn btn-success"> <i class="fa fa-shopping-bag" aria-hidden="true"></i> Show Product</a>
-                    </td>
-                    <td>
-                        
-                        <a href="{{ url('/schedule',$user->id) }}" class="btn btn-primary"> <i class="fa fa-calendar" aria-hidden="true"></i> Show Schedule</a>
-                    </td>
-                    <td>
-                        
-                        <a href="{{ url('/profile',$user->id) }}" class="btn btn-danger"> <i class="fa fa-building" aria-hidden="true"></i> Show Company Profile</a>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
+                    @foreach ($users as $user)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $user->name }}</td>
+                        <td>
+                            <input style="background: none; border: 0.5 solid; margin-top: 10px;" type="text" name="socmed" onfocus="setId({{ $user->id }})" value="{{ $user->socmed }}" id="socmed">
+                        </td>   
+                        <td>{{ $user->email }}</td>
+                        <td>{{ $user->no_handphone }}</td>
+                        <td>
+                            <a href="{{ url('/product',$user->id) }}" class="btn btn-success"> <i class="fa fa-shopping-bag" aria-hidden="true"></i> Show Product</a>
+                        </td>
+                        <td>
+                            
+                            <a href="{{ url('/schedule',$user->id) }}" class="btn btn-primary"> <i class="fa fa-calendar" aria-hidden="true"></i> Show Schedule</a>
+                        </td>
+                        <td>
+                            
+                            <a href="{{ url('/profile',$user->id) }}" class="btn btn-danger"> <i class="fa fa-building" aria-hidden="true"></i> Show Company Profile</a>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
             </table>
-        </form>
     </div>
     <div class="col-1">{{-- Offset --}}</div>
 </div>
+<script>
+    var idUser;
+    function setId(id){
+        idUser = id;
+    }
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Add Content</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            <form action="{{ route('content_store' ) }}" method="POST" enctype="multipart/form-data">   
-                    @csrf
-                <div class="modal-body">
-                    <div class="form-row mb-4">
-                        <div class="col-3 align-self-center">
-                            Content Name
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" name="judul" id="menuName" placeholder="Name">
-                        </div>
-                    </div>
-                    <div class="form-row mb-4">
-                        <div class="col-3 align-self-center">
-                            Content Filling
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" name="keterangan" id="menuName" placeholder="Name">
-                        </div>
-                    </div>
-                    <div class="form-row mb-4">
-                        <div class="col-3 align-self-center">
-                            Filling
-                        </div>
-                        <div class="col custom-file">
-                            <input type="file" class="form-control" id="customFile" name="multimedia">
-                            {{-- <input type="file" name="multimedia" class="form-control" > --}}
-                            {{-- <label class="custom-file-label" for="customFile"></label> --}}
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+    $("#socmed").on('keypress', function(e){
+        if(e.keyCode == 13){
+            var data = new FormData();
+            data.append('_token', "{{ csrf_token() }}");
+            data.append('id', idUser);
+            data.append('socmed', $(this).val());
+            console.log(data);
+            $.ajax({
+                url:"{{ route('update-socmed') }}",
+                type:"POST",
+                data:data,
+                processData: false,
+                contentType: false,
+                success: function(data){
+                    Swal.fire(
+                        data.title,
+                        data.message,
+                        data.status
+                    );
+                }
+            })
+        }
+    });
+
+</script>
 @endsection

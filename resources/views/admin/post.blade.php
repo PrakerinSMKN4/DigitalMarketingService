@@ -76,7 +76,7 @@
                     <td>
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">Name</span>
+                                <span class="input-group-text">Nama</span>
                             </div>
                             <input type="text" class="form-control text-muted" name="name" value="{{ $user->name }}" readonly>
                         </div>
@@ -86,7 +86,7 @@
                     <td>
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">Date</span>
+                                <span class="input-group-text">Tanggal</span>
                             </div>
                             <input type="text" class="form-control text-muted" name="date" value="{{ @$schedule->tanggal }}" readonly>
                             <input type="hidden" name="start" id="" value="{{ $schedule->start }}">
@@ -102,7 +102,7 @@
                     <td>
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">Username</span>
+                                <span class="input-group-text">Sosmed</span>
                             </div>
                             <input type="text" class="form-control text-muted" name="socmed" value="{{ @$user->socmed }}" readonly>
                         </div>
@@ -112,7 +112,7 @@
                     <td>
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">Title</span>
+                                <span class="input-group-text">Judul</span>
                             </div>
                             <input type="text" class="form-control" name="title" value="{{ $schedule->title }}" placeholder="Title">
                         </div>
@@ -123,7 +123,7 @@
                     <td colspan="2">
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">Description</span>
+                                <span class="input-group-text">Deskripsi</span>
                             </div>
                             <textarea class="form-control" name="description" placeholder="Description"> {{ $schedule->deskripsi }}</textarea>
                         </div>

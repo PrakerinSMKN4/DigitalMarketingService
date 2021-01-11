@@ -2,18 +2,61 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Paket;
 use Illuminate\Http\Request;
 use App\Models\Schedule;
 use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class ScheduleController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
+    {
+        $plan = Paket::where('id_user', Auth::id())->whereRaw('( status = "active" OR status_pembayaran = "pending" )')->orderBy('id', 'desc')->first();
+        $socialMedia = null;
+        $message = "Anda belum membeli plan untuk sosial media";
+        if($plan){
+            if($plan->status_pembayaran == 'pending'){
+                $message = "Anda belum menyelesaikan pembayaran";
+                return view('dashboard.schedule', compact('socialMedia', 'message'));
+            }
+            switch(strtolower($plan->paket)){
+                case 'bundle premium':
+                    $socialMedia = $plan;
+                    break;
+                case 'bundle gold':
+                    $socialMedia = $plan;
+                    break;
+                case 'bundle regular':
+                    $socialMedia = $plan;
+                    break;
+                case 'social media premium':
+                    $socialMedia = $plan;
+                    break;
+                case 'social media gold':
+                    $socialMedia = $plan;
+                    break;
+                case 'social media regular':
+                    $socialMedia = $plan;
+                    break;
+            }
+        }
+        return view('dashboard.schedule', compact('socialMedia', 'message'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexAdmin($id)
     {
         $schedules = Schedule::where('id_pemilik', $id)->get();
 
@@ -30,6 +73,36 @@ class ScheduleController extends Controller
     public function create()
     {
         //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $allData = Schedule::where('id_pemilik', Auth::id())->get();
+        $data = Schedule::findOrFail($id);
+        $diff = date_diff(date_create($data->start),date_create($data->end));
+        $i = $data->id;
+        if($diff->format("%a") == "1"){
+            $data->tanggal = Carbon::parse($data->start)->format("d-m-Y");
+        }else{
+            $data->tanggal = Carbon::parse($data->start)->format("d-m-Y") . " - " . Carbon::parse($data->end)->format("d-m-Y");
+        }
+        while($i !=0 ){
+            $i--;
+            @$data->prev_page = Schedule::where('id', $i)->where('id_pemilik', Auth::id())->first()->id;
+        }
+        $i = $data->id;
+        $lastId = Schedule::orderBy('id','desc')->first()->id;
+        while($i <= $lastId){
+            $i++;
+            @$data->next_page = Schedule::where('id', $i)->where('id_pemilik', Auth::id())->first()->id;
+        }
+        return view('schedule_detail', compact('data','allData'));
     }
 
     /**
@@ -64,16 +137,16 @@ class ScheduleController extends Controller
         $diff = date_diff(date_create($schedule->start),date_create($schedule->end));
         $i = $schedule->id;
         if($diff->format("%a") == "1"){
-            $schedule->tanggal = $schedule->start;
+            $schedule->tanggal = Carbon::parse($schedule->start)->format("d-m-Y");
         }else{
-            $schedule->tanggal = $schedule->start . " - " . $schedule->end;
+            $schedule->tanggal = Carbon::parse($schedule->start)->format("d-m-Y") . " s.d " . Carbon::parse($schedule->end)->format("d-m-Y");
         }
-        return view('post', compact('schedule','user'));
+        return view('admin.post', compact('schedule','user'));
     }
 
     public function getData($id){
         $user = User::find($id);
-        $data = Schedule::where('id_pemilik', $id)->get();
+        $data = Schedule::where('id_pemilik', $id)->get('*');
         return response()->json(['data' => $data, 'user' => $user]);
     }
 
@@ -92,7 +165,7 @@ class ScheduleController extends Controller
             ]);
             $path = $request->file('gambar')->store('public/images');
             $request->gambar = $path;
-            $status = Schedule::find($request->id)->update(['gambar' => $request->gambar]);
+            $status = Schedule::findOrFail($request->id)->update(['gambar' => $request->gambar]);
         }
         $status = Schedule::find($request->id)->update(['title'=>$request->title,'start'=>$request->start,'end'=>$request->end]);
         if($request->page == 'edit page'){
