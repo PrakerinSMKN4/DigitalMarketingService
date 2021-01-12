@@ -85,14 +85,6 @@ Route::group(['middleware' => 'auth'], function(){
         return view('admin.dashboard');
     })->name('admin-dashboard');
     
-    // Route::get('/monitoring', function () {
-    //     return view('monitoring');
-    // })->name('monitoring');
-    
-    // Route::get('/connection', function () {
-    //     return view('connection');
-    // })->name('connection');
-    
     //Route untuk List User
     Route::get('/admin/user', [UserController::class, 'index'])->name('admin-user');
     Route::get('/admin/invoice/', [InvoiceController::class, 'indexAdmin'])->name('admin-invoice');
@@ -107,14 +99,6 @@ Route::group(['middleware' => 'auth'], function(){
 
     //Route untuk Schedule
     Route::get('/schedule/{user:id}', [ScheduleController::class, 'indexAdmin'])->name('schedule');
-
-    //Route untuk Item pages
-    // Route::get('/setting/id/{menupage:id}',[ItemController::class, 'index'])->name('item_pages');
-    Route::get('/content', [ItemController::class, 'create'])->name('content');
-    Route::post('/content/store', [ItemController::class, 'store'])->name('content_store');
-    // Route::patch('/setting/edit/{itempage:id}',[ItemController::class, 'update'])->name('item_pages_edit');
-    // Route::get('/setting/edit/{itempage:id}', [ItemController::class, 'edit']);
-    // Route::delete('/setting/destroy/{id}', [ItemController::class, 'destroy']);
 
     //Route untuk company profile
     Route::get('/profile', [CompanyController::class, 'create'])->name('profile_index');

@@ -18,12 +18,13 @@ class CreateCompaniesTable extends Migration
             $table->bigInteger('id_pemilik')->unsigned()->index();
             $table->string('nama_company');
             $table->text('alamat');
-            $table->string('operational_time');
-            $table->string('operational_time_close');
             $table->string('description');
             $table->string('vision');
             $table->string('mission');
             $table->string('email')->unique();
+            $table->string('instagram');
+            $table->string('whatsapp');
+            $table->string('facebook');
             $table->string('contact_center')->nullable();
             $table->string('nomor_rekening')->nullable();
             $table->timestamps();

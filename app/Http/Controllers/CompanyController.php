@@ -74,8 +74,6 @@ class CompanyController extends Controller
         $rule = [
             'nama_company'=> 'required|string|',
             'alamat'=> 'required',
-            'operational_time'=> 'required',
-            'operational_time_close'=> 'required',
             'description'=> 'required',
             'vision'=> 'required',
             'mission'=> 'required'
@@ -86,6 +84,12 @@ class CompanyController extends Controller
         $this->validate($request, $rule);
 
         $status = Company::updateOrCreate(['id_pemilik' => $request->id_pemilik],$request->all());
+
+        //Update Field socmed di table user 
+        $socmed = User::where('id', $request->id_pemilik)->update(['socmed'=>$request->instagram,]);
+
+        //    $socmed = User::find($request->id_pemilik);
+        //    $socmed->update(['socmed'=> $request->instagram,]);
 
         if($status){
             if(Auth::user()->role == User::CLIENT_ADMIN){
