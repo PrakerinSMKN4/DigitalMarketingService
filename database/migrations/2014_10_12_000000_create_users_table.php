@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('socmed')->nullable();
             $table->string('no_handphone');
             $table->string('password');
-            $table->string('email_token');
+            $table->string('email_token')->nullable();
             $table->enum('status_akun', ['terverifikasi','belum diverifikasi']);
             $table->string('website')->nullable();
             $table->string('role')->nullable();

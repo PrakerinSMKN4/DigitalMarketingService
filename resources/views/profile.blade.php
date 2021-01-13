@@ -42,23 +42,7 @@
                     <input type="hidden" class="form-control" style="width:300px" name="email"
                         value="{{ $user->email }}">
                 </div>
-            </div>
-            {{-- Operational Time (OPEN) --}}
-            <div class="row m-3">
-                <div class="form-group">
-                    <label>Operational Time (OPEN) :</label>
-                    <input type="time" class="form-control" style="width:300px;text-align:center"
-                        name="operational_time" value="{{ @$company->operational_time }}">
-                </div>
-            </div>
-            {{-- Operational Time (Closed)--}}
-            <div class="row m-3">
-                <div class="form-group">
-                    <label>Operational Time (CLOSED) :</label>
-                    <input type="time" class="form-control" style="width:300px;text-align:center"
-                        name="operational_time_close" value="{{ @$company->operational_time_close }}">
-                </div>
-            </div>
+            </div>         
             {{-- Social Media --}}
             <div class="row m-3">
                 <div class="form-group">
@@ -69,17 +53,15 @@
                                 <h5><i class="fa fa-facebook-square mr-2" aria-hidden="true"></i>Facebook :</h5>
                             </div>
                             <div class="input">
-                                <input type="text" class="form-control"
-                                    value="{{ @$sosmedAccount['facebook']->username }}">
+                                <input type="text" class="form-control" name="facebook" value="{{ @$company->facebook }}">
                             </div>
                         </div>
                         <div class="row-md-2 mt-2">
                             <div class="name-ig">
-                                <h5><i class="fa fa-instagram mr-2" aria-hidden="true"></i>Instagram :</h5>
+                                <h5><i class="fa fa-instagram mr-2" aria-hidden="true" ></i>Instagram :</h5>
                             </div>
                             <div class="input">
-                                <input type="text" class="form-control"
-                                    value="{{ @$sosmedAccount['instagram']->username}}">
+                                <input type="text" class="form-control" name="instagram" value="{{ @$company->instagram }}">
                             </div>
                         </div>
                         <div class="row-md-2 mt-2">
@@ -87,8 +69,7 @@
                                 <h5><i class="fa fa-whatsapp mr-2" aria-hidden="true"></i></i>Whatsapp :</h5>
                             </div>
                             <div class="input">
-                                <input type="text" class="form-control"
-                                    value="{{ @$sosmedAccount['whatsapp']->username}}">
+                                <input type="text" class="form-control" name="whatsapp" value="{{ @$company->whatsapp }}">
                             </div>
                         </div>
                     </div>
