@@ -14,6 +14,7 @@
         <span class="list-group-item active" aria-current="true"><b>List Crud Website</b></span>
         <a class="list-group-item list-group-item-action" href="{{ url('/company-profile') }}"><i class="fas fa-building"></i> Profile perusahaan</a>
         <a class="list-group-item list-group-item-action" href="{{ route('/list-product') }}"><i class="fas fa-shopping-bag"></i> Produk perusahaan</a>
+        <a class="list-group-item list-group-item-action" href="{{ route('/list-service') }}"><i class="fa fa-user-md" aria-hidden="true"></i> Layanan Perusahaan</a>
       </div>
  </div>
 </div>

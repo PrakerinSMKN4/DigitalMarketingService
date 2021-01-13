@@ -117,7 +117,7 @@
             <div class="col card mb-3">
                 <h5 class="card-title mt-3 pl-2 pb-2 border-bottom">Informasi Paket</h5>
                 <div class="card-text">
-                    <h4>{{ $paket->nama }}</h4>
+                    <h4>{{ $paket->nama }} </h4>( {{ $paket->created_at->format('d-M-Y') }} - {{ $paket->created_at->addYear()->format('d-M-Y')  }} )
                     <p>{{ $paket->deskripsi }}</p>
                 </div>
             </div>

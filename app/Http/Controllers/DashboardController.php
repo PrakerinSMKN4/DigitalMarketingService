@@ -47,7 +47,7 @@ class DashboardController extends Controller
         $res_arr = array();
 
         foreach($bulan_arr as $key => $value){
-            $data = Paket::selectRaw('sum(harga) AS total_pemasukan')->whereMonth('created_at', $value['kode']);
+            $data = Paket::selectRaw('sum(harga) AS total_pemasukan')->whereMonth('created_at', $value['kode'])->where('status_pembayaran', 'selesai');
             if($request->input('tahun')){
                 $data = $data->whereYear('created_at', $request->input('tahun'));
             }else{

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Paket;
 use App\Models\Product;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -71,6 +72,22 @@ class WebsiteController extends Controller
 
     }
 
+    public function showListService(Request $request){
+        $services = Service::where('id_user', Auth::id());
+        if($request->input('query')){
+            $services = $services
+                        ->where(function($query) use ($request){
+                            return $query->orWhere('nama_servis', 'LIKE', '%'. $request->input('query') .'%')
+                            ->orWhere('deskripsi_servis', 'LIKE', '%'. $request->input('query') .'%');
+                        });
+        }
+        $services = $services->get();
+        $id_user = Auth::id();
+       // $url = Storage::url('$path');
+
+        return view('dashboard.website.list-service', compact('services','id_user'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -91,7 +108,7 @@ class WebsiteController extends Controller
     {
         //
         $rule = [
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:10048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10048',
             'name'=> 'required|string|',
             'price'=> 'required',
             'type'=> 'required'
@@ -132,6 +149,58 @@ class WebsiteController extends Controller
 
         return redirect()->back()->with('success', 'Produk berhasil ditambah');
     
+    }
+
+    public function storeService(Request $request){
+        $rule = [
+            'gambar_servis' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10048',
+            'nama_servis'=> 'required|string|',
+            'deskripsi_servis'=> 'required'
+            ];
+            
+        $this->validate($request, $rule);
+        $path = $request->file('gambar_servis')->store('public/images');
+        $service = new Service;
+        $service->id_user = Auth::id();
+        $service->nama_servis = $request->nama_servis;
+        $service->deskripsi_servis = $request->deskripsi_servis;
+        $service->gambar_servis = $path;
+        $service->save();
+
+        return redirect()->back()->with('success', 'Data Berhasil Ditambahkan');
+    }
+
+    public function editService($id){
+        $data = Service::findOrFail($id);
+        return view('dashboard.website.service_edit', compact('data'));
+    }
+
+    public function updateService(Request $request){
+
+        $service = Service::findOrFail($request->id);
+        if($request->hasFile('gambar_servis')){
+            $path = $request->file('image')->store('public/images');
+            $service->gambar_servis = $path;
+        }
+
+        $service->nama_servis = $request->nama_servis;
+        $service->deskripsi_servis = $request->deskripsi_servis;
+        $service->save();
+
+        return redirect()->back()->with('success', 'Layanan Berhasil Diubah');
+    }
+
+    public function destroyService($id){
+        $hapus = Service::findorfail($id);
+
+        $file = public_path('/storage/images').$hapus->gambar_servis;
+        //cek Jika ada gambar
+        if (Storage::exists($file)){
+            //Maka Hapus file di folder public/iamges
+            Storage::delete($file);
+        }
+        $hapus->delete();
+        return redirect()->back()->with("success", 'Layanan Berhasil Dihapus');
     }
 
     /**
@@ -204,7 +273,7 @@ class WebsiteController extends Controller
         $request->image->move(public_path().'/images');
         $ubah->update($product);*/
         return redirect()->route('/list-product')
-                        ->with('success','Post updated successfully');
+                        ->with('success','Produk Berhasil Diubah');
     
     }
 
@@ -230,6 +299,6 @@ class WebsiteController extends Controller
             Storage::delete($file);
         }
         $hapus->delete();
-       return redirect()->back()->with("success", 'Product Deleted Successfully');
+        return redirect()->back()->with("success", 'Product Deleted Successfully');
     }
 }

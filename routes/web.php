@@ -155,6 +155,13 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/website/list-product-edit/{id}', [WebsiteController::class, 'edit'])->name('/list-product-edit');
     Route::patch('/website/list-product-edit/{id}', [WebsiteController::class, 'update'])->name('/list-product-update');
 
+
+    Route::get('/website/list-service', [WebsiteController::class, 'showListService'])->name('/list-service');
+    Route::post('/website/list-service', [WebsiteController::class, 'storeService'])->name('/list-service-store');
+    Route::delete('/website/list-service-delete/{id}', [WebsiteController::class, 'destroyService'])->name('/list-service-delete');
+    Route::get('/website/list-service-edit/{id}', [WebsiteController::class, 'editService'])->name('/list-service-edit');
+    Route::patch('/website/list-service-edit/{id}', [WebsiteController::class, 'updateService'])->name('/list-service-update');
+
     Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice');
 });
 Route::get('/getCalendarData/{id}',[ScheduleController::class,'getData']);
