@@ -7,8 +7,10 @@
 @section('mainContent')
 <div class="row jumbotron jumbotron-fluid">
     <div class="container">
-        <h1 class="display-3">Let's Go</h1>
-        <p class="lead">Let's create a new World!</p>
+        <h1 class="display-3">{{ $profile->nama_company }}</h1>
+        <p class="lead">
+            {{ $profile->slogan ? $profile->slogan : "Let's create a new World!" }}
+        </p>
         <hr class="my-2">
         <p class="lead pt-2">
             <a class="btn btn-info btn-lg" href="{{ route('/client/about') }}" role="button">Learn More</a>

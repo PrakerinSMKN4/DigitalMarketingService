@@ -23,7 +23,12 @@
 <body>
     {{-- Navbar --}}
     <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">{{ $profile->nama_company }}</a>
+        <a class="navbar-brand" href="#">
+        @if ($profile->logo)
+            <img src="{{ Storage::url($profile->logo) }}" alt="">
+        @endif 
+        {{ $profile->nama_company }}
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
             aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
