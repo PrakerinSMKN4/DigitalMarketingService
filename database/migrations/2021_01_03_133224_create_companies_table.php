@@ -25,6 +25,7 @@ class CreateCompaniesTable extends Migration
             $table->string('instagram');
             $table->string('whatsapp');
             $table->string('facebook');
+            $table->string('twitter');
             $table->string('contact_center')->nullable();
             $table->string('nomor_rekening')->nullable();
             $table->timestamps();
