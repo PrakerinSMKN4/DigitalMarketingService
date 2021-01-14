@@ -11,7 +11,7 @@
         <p class="lead">Let's create a new World!</p>
         <hr class="my-2">
         <p class="lead pt-2">
-            <a class="btn btn-info btn-lg" href="" role="button">Learn More</a>
+            <a class="btn btn-info btn-lg" href="{{ route('/client/about') }}" role="button">Learn More</a>
         </p>
     </div>
 </div>
@@ -37,7 +37,7 @@
         {{-- Header : Service --}}
         <div class="row mb-3 mt-3 text-white">
             <div class="col text-center">
-                <h1>Layanan Kami</h1>
+                <h1>Layanan Terbaru</h1>
             </div>
         </div>
 
@@ -71,7 +71,7 @@
         {{-- Header : Product --}}
         <div class="row mb-3 mt-3">
             <div class="col text-center">
-                <h1>Produk Kami</h1>
+                <h1>Produk Terbaru</h1>
             </div>
         </div>
         
@@ -88,6 +88,7 @@
                             <div class="card-body">
                                 <h4 class="card-title">{{ $product->nama }}</h4>
                                 <p class="card-text">{{ $product->deskripsi }}</p>
+                                <h5 class="card-text">Rp. {{ number_format($product->harga,2,',','.') }}</h5>
                             </div>
                         </div>
                     </div>

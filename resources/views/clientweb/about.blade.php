@@ -8,18 +8,50 @@
 <div class="row">
     <div class="col">
         {{-- Header : About --}}
-        <div class="row mb-3 mt-5">
+        <div class="row mt-5">
             <div class="col text-center">
                 <h1>Siapakah Kami?</h1>
             </div>
         </div>
-        
+
         <div class="row mb-3 row-cols-1 row-cols-sm-2">
-            <div class="col m-auto text-center"><img src="{{asset('assets/img/3365131.jpg')}}" class="img-fluid p-5" alt=""
-                    height="500px" width="500px"></div>
+            <div class="col m-auto text-center"><img src="{{asset('assets/img/3365131.jpg')}}" class="img-fluid p-5"
+                    alt="" height="500px" width="500px"></div>
             <div class="col m-auto pr-5 pl-5 pb-3">
                 <h5 class="text-justify">{{ $profile->description }}!</h5>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-sm-2">
+    {{-- Visi --}}
+    <div class="col mb-5">
+        {{-- Header --}}
+        <div class="row">
+            <div class="col text-center">
+                <h1>Visi Kami</h1>
+            </div>
+        </div>
+
+        {{-- Content --}}
+        <div class="row ml-1 px-5 text-center">
+            <h5 >{{ $profile->vision }}.</h5>
+        </div>
+    </div>
+
+    {{-- Misi --}}
+    <div class="col mb-5">
+        {{-- Header --}}
+        <div class="row">
+            <div class="col text-center">
+                <h1>Misi Kami</h1>
+            </div>
+        </div>
+
+        {{-- Content --}}
+        <div class="row px-5 text-center">
+            <h5 >{{ $profile->mission }}.</h5>
         </div>
     </div>
 </div>

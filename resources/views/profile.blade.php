@@ -9,6 +9,27 @@
 @endsection
 
 @section('content')
+
+@if ($errors->all())
+<div class="alert alert-danger my-2 text-center fw-bold">
+    <h5>
+        <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+        </ul>
+    </h5>
+</div>
+@endif
+
+@if (session('success'))
+    <div class="alert alert-success my-2 text-center">
+        <h5>
+            {{ session('success') }} <i class="fa fa-check"></i>
+        </h5>
+    </div>
+@endif
+
 <form action="{{ url('/profile/store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="row mt-3 p-3">
@@ -28,6 +49,14 @@
                         value="{{ @$company->nama_company }}">
                 </div>
             </div>
+            {{-- Company Email --}}
+            <div class="row m-3">
+                <div class="form-group">
+                    <label>Company Email</label>
+                    <input type="text" class="form-control" style="width:300px" name="email"
+                        value="{{ @$company->email }}">
+                </div>
+            </div>
             {{-- Company Adress --}}
             <div class="row m-3">
                 <div class="form-group">
@@ -39,8 +68,6 @@
                 <div class="form-group">
                     <input type="hidden" class="form-control" style="width:300px" name="id_pemilik"
                         value="{{ $user->id }}">
-                    <input type="hidden" class="form-control" style="width:300px" name="email"
-                        value="{{ $user->email }}">
                 </div>
             </div>         
             {{-- Social Media --}}
@@ -70,6 +97,14 @@
                             </div>
                             <div class="input">
                                 <input type="text" class="form-control" name="whatsapp" value="{{ @$company->whatsapp }}">
+                            </div>
+                        </div>
+                        <div class="row-md-2 mt-2">
+                            <div class="name-wa">
+                                <h5><i class="fa fa-whatsapp mr-2" aria-hidden="true"></i></i>Twitter :</h5>
+                            </div>
+                            <div class="input">
+                                <input type="text" class="form-control" name="twitter" value="{{ @$company->twitter }}">
                             </div>
                         </div>
                     </div>

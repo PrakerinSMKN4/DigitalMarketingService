@@ -59,7 +59,7 @@
             </div>
             <div class="col-md p-3">
                 <h6 class="mb-3">KONTAK</h6>
-                <a href="tel:+62 123-1231-123"><p class="text-info font-weight-bold">{{ $profile->whatsapp }}</p></a>
+                <a href="tel:+{{ $profile->whatsapp }}"><p class="text-info font-weight-bold">{{ $profile->whatsapp }}</p></a>
             </div>
             <div class="col-md p-3">
                 <h6 class="mb-3">SOSIAL MEDIA</h6>

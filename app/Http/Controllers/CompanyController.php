@@ -80,16 +80,7 @@ class CompanyController extends Controller
         ];
         unset($request->_token);
         $this->validate($request, $rule);
-        $status = Company::updateOrCreate(['id_pemilik' => $request->id_pemilik],[
-            'nama_company' => $request->nama_company,
-            'alamat' => $request->alamat,
-            'description' => $request->description,
-            'vision' => $request->vision,
-            'mission' => $request->mission,
-            'facebook' => $request->facebook,
-            'whatsapp' => $request->whatsapp,
-            'instagram' => $request->instagram
-        ]);
+        $status = Company::updateOrCreate(['id_pemilik' => $request->id_pemilik],$request->all());
         
         //Update Field socmed di table user 
         $socmed = User::where('id', $request->id_pemilik)->update(['socmed'=>$request->instagram,]);
@@ -99,7 +90,7 @@ class CompanyController extends Controller
 
         if($status){
             if(Auth::user()->role == User::CLIENT_ADMIN){
-                return redirect('/company-profile')->with('status','Tambah data berhasil');
+                return redirect('/company-profile')->with('success','Data berhasil disimpan');
             }else if(Auth::user()->role == User::SUPER_ADMIN){
                 return redirect('/profile/'.$request->id_pemilik)->with('success','Data berhasil disimpan');
             }

@@ -63,6 +63,7 @@
                             <div class="card-body">
                                 <h4 class="card-title">{{ $product->nama }}</h4>
                                 <p class="card-text">{{ $product->deskripsi }}</p>
+                                <h5 class="card-text">Rp. {{ number_format($product->harga,2,',','.') }}</h5>
                             </div>
                         </div>
                     </div>
