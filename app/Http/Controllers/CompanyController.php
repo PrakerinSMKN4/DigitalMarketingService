@@ -72,19 +72,25 @@ class CompanyController extends Controller
     {
 
         $rule = [
-            'nama_company'=> 'required|string|',
+            'nama_company'=> 'required|string',
             'alamat'=> 'required',
             'description'=> 'required',
             'vision'=> 'required',
-            'mission'=> 'required'
+            'mission'=> 'required',
         ];
-        unset($request->id);
         unset($request->_token);
-
         $this->validate($request, $rule);
-
-        $status = Company::updateOrCreate(['id_pemilik' => $request->id_pemilik],$request->all());
-
+        $status = Company::updateOrCreate(['id_pemilik' => $request->id_pemilik],[
+            'nama_company' => $request->nama_company,
+            'alamat' => $request->alamat,
+            'description' => $request->description,
+            'vision' => $request->vision,
+            'mission' => $request->mission,
+            'facebook' => $request->facebook,
+            'whatsapp' => $request->whatsapp,
+            'instagram' => $request->instagram
+        ]);
+        
         //Update Field socmed di table user 
         $socmed = User::where('id', $request->id_pemilik)->update(['socmed'=>$request->instagram,]);
 

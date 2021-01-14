@@ -1,3 +1,12 @@
+@php
+    if($profile->whatsapp != ""){
+        $data = str_split($profile->whatsapp);
+        $data[0] = "62";
+        $data = array_merge($data);
+        $data = implode('', $data);
+        $profile->whatsapp = $data;
+    }
+@endphp
 <head>
     <title></title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
@@ -14,7 +23,7 @@
 <body>
     {{-- Navbar --}}
     <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Website</a>
+        <a class="navbar-brand" href="#">{{ $profile->nama_company }}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
             aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -42,20 +51,31 @@
             <div class="col-md p-3">
                 <h6 class="mb-3">ALAMAT</h6>
                 <p class="m-0">Office :</p>
-                <p class="text-info font-weight-bold">Jl. Raya Jiwa no.222 Bandung, Jawa Barat</p>
+                <p class="text-info font-weight-bold">{{ $profile->alamat }}</p>
             </div>
             <div class="col-md p-3">
                 <h6 class="mb-3">EMAIL</h6>
-                <a href="mailto:Loremipsum@gmail.com"><p class="text-info font-weight-bold">Loremipsum@gmail.com</p></a>
+                <a href="mailto:Loremipsum@gmail.com"><p class="text-info font-weight-bold">{{ $user->email }}</p></a>
             </div>
             <div class="col-md p-3">
                 <h6 class="mb-3">KONTAK</h6>
-                <a href="tel:+62 123-1231-123"><p class="text-info font-weight-bold">+62 123-1231-123</p></a>
+                <a href="tel:+62 123-1231-123"><p class="text-info font-weight-bold">{{ $profile->whatsapp }}</p></a>
             </div>
             <div class="col-md p-3">
                 <h6 class="mb-3">SOSIAL MEDIA</h6>
-                <a href=""><p class="text-info font-weight-normal"><i class="fa fa-facebook mr-3" aria-hidden="true"></i>Facebook</p></a>
-                <a href=""><p class="text-info font-weight-normal"><i class="fa fa-twitter mr-2" aria-hidden="true"></i>Twitter</p></a>
+                @if($profile->facebook != "") 
+                <a href="http://facebook.com/{{ $profile->facebook }}"><p class="text-info font-weight-normal"><i class="fa fa-facebook mr-3" aria-hidden="true"></i>Facebook</p></a>
+                @endif
+                @if ($profile->twitter != "")
+                <a href="http://twitter.com/{{ $profile->twitter }}"><p class="text-info font-weight-normal"><i class="fa fa-twitter mr-2" aria-hidden="true"></i>Twitter</p></a>
+                @endif
+                @if ($profile->instagram != "")
+                <a href="http://instagram.com/{{ $profile->instagram }}"><p class="text-info font-weight-normal"><i class="fa fa-instagram mr-2" aria-hidden="true"></i>Instagram</p></a>    
+                @endif
+                @if ($profile->whatsapp != "")
+                <a href="https://api.whatsapp.com/send?phone={{ $profile->whatsapp }}"><p class="text-info font-weight-normal"><i class="fa fa-whatsapp mr-2" aria-hidden="true"></i>Instagram</p></a>    
+                @endif
+                
             </div>
         </div>
     </div>

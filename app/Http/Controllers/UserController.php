@@ -49,6 +49,18 @@ class UserController extends Controller
         
     }
 
+    public function updateWebsite(Request $request){
+        $result = User::find($request->id)->update(['website' => $request->website]);
+        if($result){
+            return response(['message' => 'Data berhasil diubah!','status' => 'success','title' => 'Success']);
+        }else{
+            return response(['message' => 'Data gagal diubah!','status' => 'error','title' => 'Error']);
+        }
+        
+    }
+
+
+
     /**
      * Store a newly created resource in storage.
      *

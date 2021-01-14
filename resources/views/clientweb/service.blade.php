@@ -19,34 +19,21 @@
         {{-- Content : Service --}}
         <div class="row mb-3 mt-3">
             <div class="col">
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+
+                    @foreach ($services as $service)
                     {{-- Item Example --}}
                     <div class="col mb-3">
                         <div class="card text-center">
+                            <img class="card-img-top" width="150" height="300" src="{{ Storage::url($service->gambar_servis) }}" alt="">
                             <div class="card-body">
-                                <h4 class="card-title">Title 1</h4>
-                                <p class="card-text">Desc 1</p>
+                                <h4 class="card-title">{{ $service->nama_servis }}</h4>
+                                <p class="card-text">{{ $service->deskripsi_servis }}</p>
                             </div>
                         </div>
                     </div>
-        
-                    <div class="col mb-3">
-                        <div class="card text-center">
-                            <div class="card-body">
-                                <h4 class="card-title">Title 2</h4>
-                                <p class="card-text">Desc 2</p>
-                            </div>
-                        </div>
-                    </div>
-        
-                    <div class="col mb-3">
-                        <div class="card text-center">
-                            <div class="card-body">
-                                <h4 class="card-title">Title 3</h4>
-                                <p class="card-text">Desc 3</p>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
+
                 </div>
             </div>
         </div>
@@ -66,34 +53,21 @@
         {{-- Content : Product --}}
         <div class="row mb-3 mt-3">
             <div class="col">
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 mb-3">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 mb-4">
+
+                    @foreach ($products as $product)
                     {{-- Item Example --}}
                     <div class="col mb-3">
                         <div class="card text-center">
+                            <img class="card-img-top" width="150" height="300" src="{{ Storage::url($product->image) }}" alt="">
                             <div class="card-body">
-                                <h4 class="card-title">Title 1</h4>
-                                <p class="card-text">Desc 1</p>
+                                <h4 class="card-title">{{ $product->nama }}</h4>
+                                <p class="card-text">{{ $product->deskripsi }}</p>
                             </div>
                         </div>
                     </div>
-        
-                    <div class="col mb-3">
-                        <div class="card text-center">
-                            <div class="card-body">
-                                <h4 class="card-title">Title 2</h4>
-                                <p class="card-text">Desc 2</p>
-                            </div>
-                        </div>
-                    </div>
-        
-                    <div class="col mb-3">
-                        <div class="card text-center">
-                            <div class="card-body">
-                                <h4 class="card-title">Title 3</h4>
-                                <p class="card-text">Desc 3</p>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
+                    
                 </div>
             </div>
         </div>

@@ -32,6 +32,7 @@
                         <th>No</th>
                         <th>Name</th>
                         <th>Username Medsos</th>
+                        <th>Website</th>
                         <th>Email</th>
                         <th>No Handphone</th>
                         <th colspan="4">Action</th>
@@ -44,7 +45,10 @@
                         <td>{{ $user->name }}</td>
                         <td>
                             <input style="background: none; border: 0.5 solid; margin-top: 10px;" type="text" name="socmed" onfocus="setId({{ $user->id }})" value="{{ $user->socmed }}" id="socmed">
-                        </td>   
+                        </td>
+                        <td>
+                            <input style="background: none; border: 0.5 solid; margin-top: 10px;" type="text" name="website" onfocus="setId({{ $user->id }})" value="{{ $user->website }}" id="website">
+                        </td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->no_handphone }}</td>
                         <td>
@@ -104,6 +108,30 @@
             console.log(data);
             $.ajax({
                 url:"{{ route('update-socmed') }}",
+                type:"POST",
+                data:data,
+                processData: false,
+                contentType: false,
+                success: function(data){
+                    Swal.fire(
+                        data.title,
+                        data.message,
+                        data.status
+                    );
+                }
+            })
+        }
+    });
+
+    $("#website").on('keypress', function(e){
+        if(e.keyCode == 13){
+            var data = new FormData();
+            data.append('_token', "{{ csrf_token() }}");
+            data.append('id', idUser);
+            data.append('website', $(this).val());
+            console.log(data);
+            $.ajax({
+                url:"{{ route('update-website') }}",
                 type:"POST",
                 data:data,
                 processData: false,

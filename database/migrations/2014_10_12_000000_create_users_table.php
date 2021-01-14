@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('email_token')->nullable();
             $table->enum('status_akun', ['terverifikasi','belum diverifikasi']);
-            $table->string('website')->nullable();
+            $table->string('website')->nullable()->unique();
             $table->string('role')->nullable();
             $table->rememberToken();
             $table->timestamps();

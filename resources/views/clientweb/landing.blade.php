@@ -27,9 +27,7 @@
     <div class="col m-auto text-center"><img src="{{asset('assets/img/3365131.jpg')}}" class="img-fluid p-5" alt=""
             height="500px" width="500px"></div>
     <div class="col m-auto pr-5 pl-5 pb-3">
-        <h5>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vitae, provident! Unde illo, officiis
-            necessitatibus corporis nostrum esse ad laborum nulla modi, mollitia itaque eaque voluptas nobis veniam eos,
-            praesentium harum!</h5>
+        <h5>{{ $profile->description }}</h5>
     </div>
 </div>
 
@@ -46,34 +44,21 @@
         {{-- Content : Service --}}
         <div class="row mb-3 mt-3">
             <div class="col">
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+                    
+                    @foreach ($services as $service)
                     {{-- Item Example --}}
                     <div class="col mb-3">
                         <div class="card text-center">
+                            <img class="card-img-top" width="150" height="300" src="{{ Storage::url($service->gambar_servis) }}" alt="">
                             <div class="card-body">
-                                <h4 class="card-title">Title 1</h4>
-                                <p class="card-text">Desc 1</p>
+                                <h4 class="card-title">{{ $service->nama_servis }}</h4>
+                                <p class="card-text">{{ $service->deskripsi_servis }}</p>
                             </div>
                         </div>
                     </div>
-        
-                    <div class="col mb-3">
-                        <div class="card text-center">
-                            <div class="card-body">
-                                <h4 class="card-title">Title 2</h4>
-                                <p class="card-text">Desc 2</p>
-                            </div>
-                        </div>
-                    </div>
-        
-                    <div class="col mb-3">
-                        <div class="card text-center">
-                            <div class="card-body">
-                                <h4 class="card-title">Title 3</h4>
-                                <p class="card-text">Desc 3</p>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
+                    
                 </div>
             </div>
         </div>
@@ -93,37 +78,21 @@
         {{-- Content : Product --}}
         <div class="row mb-3 mt-3">
             <div class="col">
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+
+                    @foreach ($products as $product)
                     {{-- Item Example --}}
                     <div class="col mb-3">
                         <div class="card text-center">
-                            <img class="card-img-top" src="{{asset('assets/img/produktif.png')}}" alt="">
+                            <img class="card-img-top" width="150" height="300" src="{{ Storage::url($product->image) }}" alt="">
                             <div class="card-body">
-                                <h4 class="card-title">Title 1</h4>
-                                <p class="card-text">Desc 1</p>
+                                <h4 class="card-title">{{ $product->nama }}</h4>
+                                <p class="card-text">{{ $product->deskripsi }}</p>
                             </div>
                         </div>
                     </div>
-        
-                    <div class="col mb-3">
-                        <div class="card text-center">
-                            <img class="card-img-top" src="{{asset('assets/img/produktif.png')}}" alt="">
-                            <div class="card-body">
-                                <h4 class="card-title">Title 2</h4>
-                                <p class="card-text">Desc 2</p>
-                            </div>
-                        </div>
-                    </div>
-        
-                    <div class="col mb-3">
-                        <div class="card text-center">
-                            <img class="card-img-top" src="{{asset('assets/img/produktif.png')}}" alt="">
-                            <div class="card-body">
-                                <h4 class="card-title">Title 3</h4>
-                                <p class="card-text">Desc 3</p>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
+
                 </div>
             </div>
         </div>

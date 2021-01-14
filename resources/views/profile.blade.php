@@ -32,7 +32,7 @@
             <div class="row m-3">
                 <div class="form-group">
                     <label>Company Address</label><br>
-                    <textarea cols="40" rows="3" style="resize:none" name="alamat">{{ @$company->alamat }}</textarea>
+                    <textarea cols="40" rows="5" style="resize:vertical" name="alamat">{{ @$company->alamat }}</textarea>
                 </div>
             </div>
             <div class="row m-3">
@@ -82,7 +82,7 @@
             <div class="card" style="height: 40%">
                 <div class="card-body" style="height: 40%">
                     <h5 class="card-title">Description :</h5>
-                    <textarea class="col" style="resize:none" name="description">{{ @$company->description }}</textarea>
+                    <textarea class="col" col="6" rows="8" style="resize:vertical; max-height: 190px;" name="description">{{ @$company->description }}</textarea>
                 </div>
             </div>
             <div class="row" style="height: 40%">
@@ -90,7 +90,7 @@
                     <div class="card mt-2" style="height: 95%">
                         <div class="card-body">
                             <h5 class="card-title">Vision :</h5>
-                            <textarea class="col" style="resize:none;" name="vision">{{ @$company->vision }}</textarea>
+                            <textarea class="col" style="resize:vertical; max-height: 190px;" rows="8" name="vision">{{ @$company->vision }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -98,7 +98,7 @@
                     <div class="card mt-2" style="height: 95%">
                         <div class="card-body">
                             <h5 class="card-title">Mission :</h5>
-                            <textarea class="col" style="resize:none" name="mission">{{ @$company->mission }}</textarea>
+                            <textarea class="col" style="resize:vertical; max-height: 190px;" rows="8" name="mission">{{ @$company->mission }}</textarea>
                         </div>
                     </div>
                 </div>

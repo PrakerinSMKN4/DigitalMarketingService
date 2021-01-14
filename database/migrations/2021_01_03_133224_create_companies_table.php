@@ -22,9 +22,9 @@ class CreateCompaniesTable extends Migration
             $table->string('vision');
             $table->string('mission');
             $table->string('email')->unique();
-            $table->string('instagram');
-            $table->string('whatsapp');
-            $table->string('facebook');
+            $table->string('instagram')->nullable();
+            $table->string('whatsapp')->nullable();
+            $table->string('facebook')->nullable();
             $table->string('contact_center')->nullable();
             $table->string('nomor_rekening')->nullable();
             $table->timestamps();

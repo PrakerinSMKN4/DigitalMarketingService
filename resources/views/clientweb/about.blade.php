@@ -18,11 +18,7 @@
             <div class="col m-auto text-center"><img src="{{asset('assets/img/3365131.jpg')}}" class="img-fluid p-5" alt=""
                     height="500px" width="500px"></div>
             <div class="col m-auto pr-5 pl-5 pb-3">
-                <h5 class="text-justify">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vitae, provident! Unde illo, officiis
-                    necessitatibus corporis nostrum esse ad laborum nulla modi, mollitia itaque eaque voluptas nobis veniam eos,
-                    praesentium harum! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vitae, provident! Unde illo, officiis
-                    necessitatibus corporis nostrum esse ad laborum nulla modi, mollitia itaque eaque voluptas nobis veniam eos,
-                    praesentium harum!</h5>
+                <h5 class="text-justify">{{ $profile->description }}!</h5>
             </div>
         </div>
     </div>

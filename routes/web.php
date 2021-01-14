@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ClientWebController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InvoiceController;
@@ -123,6 +124,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/detail-schedule/{id}', [ScheduleController::class, 'show']);
     
     Route::post('/update/socmed', [UserController::class, 'updateSocmed'])->name('update-socmed');
+    Route::post('/update/website', [UserController::class, 'updateWebsite'])->name('update-website');
 
     Route::get('/plan', function () {
         return view('dashboard.buy_plan');
@@ -155,12 +157,6 @@ Route::post('/getDashboardData',[DashboardController::class, 'getDashboardData']
 Route::get('/verifikasi/{id}/{token}', [VerifikasiController::class, 'verifikasiEmail']);
 
 // Client Web
-Route::get('/client/home', function () {
-    return view('clientweb.landing');
-})->name('/client/home');
-Route::get('/client/service', function () {
-    return view('clientweb.service');
-})->name('/client/service');
-Route::get('/client/about', function () {
-    return view('clientweb.about');
-})->name('/client/about');
+Route::get('/client/home', [ClientWebController::class, 'home'])->name('/client/home');
+Route::get('/client/service', [ClientWebController::class, 'service'])->name('/client/service');
+Route::get('/client/about', [ClientWebController::class, 'about'])->name('/client/about');
