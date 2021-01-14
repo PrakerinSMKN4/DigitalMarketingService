@@ -25,7 +25,7 @@
     <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">
         @if ($profile->logo)
-            <img src="{{ Storage::url($profile->logo) }}" alt="">
+            <img src="{{ Storage::url($profile->logo) }}" width="50" height="50" alt="">
         @endif 
         {{ $profile->nama_company }}
         </a>
