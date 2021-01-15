@@ -21,6 +21,8 @@ class CreateCompaniesTable extends Migration
             $table->string('description');
             $table->string('vision');
             $table->string('mission');
+            $table->string('slogan');
+            $table->string('logo');
             $table->string('email')->unique();
             $table->string('instagram')->nullable();
             $table->string('whatsapp')->nullable();

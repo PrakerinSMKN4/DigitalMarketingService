@@ -80,8 +80,25 @@ class CompanyController extends Controller
         ];
         unset($request->_token);
         $this->validate($request, $rule);
+        if($request->hasFile('logo')){
+            //get Filename with the extension
+            $filenameWithExt = $request->file('logo')->getClientOriginalName();
+            //Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            //get just extwnaion
+            $extension = $request->file('logo')->getClientOriginalExtension();
+            //Filename to store
+            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            //upload image
+            $path = $request->file('logo')->storeAs('public/images', $fileNameToStore);
+        }
+        else{
+            $fileNameToStore = 'noimage.jpg';
+        }  
         $status = Company::updateOrCreate(['id_pemilik' => $request->id_pemilik],$request->all());
         
+        $status->logo = $fileNameToStore;
+        $status->save();
         //Update Field socmed di table user 
         $socmed = User::where('id', $request->id_pemilik)->update(['socmed'=>$request->instagram,]);
 

@@ -57,11 +57,36 @@
                         value="{{ @$company->email }}">
                 </div>
             </div>
+             {{-- Company Motto --}}
+             <div class="row m-3">
+                <div class="form-group">
+                    <label>Company Slogan</label>
+                    <input type="text" class="form-control" style="width:300px" name="slogan"
+                        value="{{ @$company->slogan }}">
+                </div>
+            </div>
             {{-- Company Adress --}}
             <div class="row m-3">
                 <div class="form-group">
                     <label>Company Address</label><br>
                     <textarea cols="40" rows="5" style="resize:vertical" name="alamat">{{ @$company->alamat }}</textarea>
+                </div>
+            </div>
+            <div class="col-md m-auto">
+                <div class="row row-cols-1">
+                    <!-- Image Preview -->
+                    <div class="col mb-3 text-center"><img src="{{  Storage::url('images/'.$company->logo) }}" id="output" src="" class="img-fluid" height="300" width="300" /></div>
+                    <!-- File Chooser -->
+                    <div class="col input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-image"></i></span>
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" accept="image/*" onchange="loadFile(event)" name="logo"
+                                class="custom-file-input">
+                            <label class="custom-file-label">Choose file</label>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row m-3">
